@@ -1,0 +1,20 @@
+@import "compass/css3/box-sizing";
+
+* {
+    @include box-sizing(border-box);
+}
+
+body, html {
+    background: black;
+    color: white;
+}
+
+#ph-views {
+
+    .ph-view {
+        display: none;
+    }
+    .ph-current {
+        display: block;
+    }
+}

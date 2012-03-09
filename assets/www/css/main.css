@@ -16,15 +16,16 @@ body, html {
 #ph-views .ph-current {
   display: block;
 }
-#ph-views #ph-view-chains {
+
+#ph-view-chains {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  border: 5px solid red;
 }
-#ph-views #ph-view-location {
+
+#ph-view-location {
   position: fixed;
   top: 0;
   left: 0;

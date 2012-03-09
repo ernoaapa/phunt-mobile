@@ -1,36 +1,5 @@
-@import "compass/css3/box-sizing";
+// This is the SCSS "main entry point" for PHunt.
 
-* {
-    @include box-sizing(border-box);
-}
-
-body, html {
-    background: black;
-    color: white;
-}
-
-#ph-views {
-
-    .ph-view {
-        display: none;
-    }
-    .ph-current {
-        display: block;
-    }
-    #ph-view-chains {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: 5px solid red;
-    }
-    #ph-view-location {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: 5px solid green;
-    }
-}
+@import 'partials/common.scss';
+@import 'views/chains.scss';
+@import 'views/location.scss';
