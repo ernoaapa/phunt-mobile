@@ -6,6 +6,17 @@ phunt = window.phunt || {};
 
     var currentView;
 
+    document.addEventListener('deviceready', function() {
+        document.addEventListener('backbutton', exports.back, false);
+    }, false);
+
+    exports.back = function() {
+
+        if (currentView)
+            currentView.$el.trigger('back');
+
+    };
+
     exports.go = function(viewID) {
 
         if (currentView)
