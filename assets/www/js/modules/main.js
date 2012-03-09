@@ -4,6 +4,10 @@ phunt = window.phunt || {};
 
     "use strict";
 
-    exports.start = function() {}
+    exports.start = function() {
+
+        phunt.navigation.go('chains');
+
+    }
 
 })(phunt.main = {});

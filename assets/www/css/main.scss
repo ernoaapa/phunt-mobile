@@ -11,12 +11,26 @@ body, html {
 
 #ph-views {
 
+    .ph-view {
+        display: none;
+    }
+    .ph-current {
+        display: block;
+    }
     #ph-view-chains {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        border: 1px solid red;
+        border: 5px solid red;
+    }
+    #ph-view-location {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 5px solid green;
     }
 }
