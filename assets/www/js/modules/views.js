@@ -4,7 +4,9 @@ phunt = window.phunt || {};
 
     "use strict";
 
+    var _ = window._;
     var Backbone = window.Backbone;
+    var MBP = window.MBP;
     var registry = {};
 
     exports.register = function(viewInstance) {
@@ -24,7 +26,33 @@ phunt = window.phunt || {};
 
     exports.base = Backbone.View.extend({
 
-        // TODO
+        addFastButtons: function() {
+
+            var EVENT_NAME = 'fastclick';
+            var events = _.isFunction(this.events) ? this.events() : this.events;
+            var that = this;
+
+            function byEventName(key) {
+                return key.substr(0, EVENT_NAME.length + 1) === EVENT_NAME + ' ' || key === EVENT_NAME;
+            }
+
+            function toJustSelectors(key) {
+                return key.substr(EVENT_NAME.length + 1);
+            }
+
+            function toMatchingElements(selector) {
+                return selector === "" ? [that.el] : that.$(selector).toArray();
+            }
+
+            function registerTrigger(element) {
+                new MBP.fastButton(element, function() {
+                    $(element).trigger(EVENT_NAME);
+                });
+            }
+
+            _.chain(events).keys().filter(byEventName).map(toJustSelectors).map(toMatchingElements).flatten().each(registerTrigger);
+
+        }
 
     });
 

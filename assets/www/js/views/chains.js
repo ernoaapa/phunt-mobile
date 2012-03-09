@@ -7,7 +7,7 @@
         viewID: 'chains',
 
         events: {
-            'click': function() {
+            'fastclick': function() {
                 phunt.navigation.go('location');
             }
         }

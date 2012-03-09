@@ -12,6 +12,14 @@ phunt = window.phunt || {};
             currentView.$el.removeClass('ph-current');
 
         currentView = phunt.views.get(viewID);
+
+        if (!currentView.hasBeenPrepared) {
+
+            currentView.hasBeenPrepared = true;
+            currentView.addFastButtons();
+
+        }
+
         currentView.$el.addClass('ph-current');
 
     };
