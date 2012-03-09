@@ -6,10 +6,6 @@ phunt = window.phunt || {};
 
     var currentView;
 
-    document.addEventListener('deviceready', function() {
-        document.addEventListener('backbutton', exports.back, false);
-    }, false);
-
     exports.back = function() {
 
         if (currentView)
@@ -17,10 +13,22 @@ phunt = window.phunt || {};
 
     };
 
+    if (window.PhoneGap) {
+        document.addEventListener('deviceready', function() {
+            document.addEventListener('backbutton', exports.back, false);
+        }, false);
+    } else {
+        $(document).on('backbutton', exports.back);
+    }
+
     exports.go = function(viewID) {
 
-        if (currentView)
+        if (currentView) {
+
             currentView.$el.removeClass('ph-current');
+            currentView.$el.trigger('leave');
+
+        }
 
         currentView = phunt.views.get(viewID);
 
@@ -32,6 +40,7 @@ phunt = window.phunt || {};
         }
 
         currentView.$el.addClass('ph-current');
+        currentView.$el.trigger('enter');
 
     };
 
