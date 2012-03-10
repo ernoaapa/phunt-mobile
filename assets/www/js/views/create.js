@@ -40,6 +40,7 @@
 
             var that = this;
             var fileToUpload;
+            var alreadyCompleting;
 
             navigator.camera.getPicture(cameraSuccess, cameraError, {
                 destinationType: Camera.DestinationType.FILE_URI,
@@ -89,11 +90,13 @@
 
             function uploadSuccess(result) {
 
-                if (result.status == "PROGRESS") {
+                if (!alreadyCompleting && result.status == "PROGRESS") {
 
                     $button.text('Uploading (' + Math.round(result.progress * 100 / result.total) + '%)...');
 
                 } else if (result.status == "COMPLETING") {
+
+                    alreadyCompleting = true;
 
                     $button.text('Finishing up...');
 
@@ -101,7 +104,7 @@
 
                     $button.text('Done!');
 
-                    _.delay(phunt.navigation.go, 1000, 'chains');
+                    _.delay(phunt.navigation.go, 1000, 'location', result.result);
 
                 }
 

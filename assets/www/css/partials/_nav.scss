@@ -16,7 +16,15 @@ $navButtonWidth: 90px;
 		position: absolute;
 		bottom: 0px;
 		left: 0px;
+		height: 90px;
 	}
+	
+  	.ph-button span {
+  		font-size: 11px;
+  		position: absolute;
+  		left: 40px;
+  		bottom: 20px;
+  	}	
 		
 	.ph-nav-button {
 		width: $navButtonWidth;
@@ -29,8 +37,7 @@ $navButtonWidth: 90px;
 	
 	#button-create, #button-refresh, #button-settings {
 		left: 0px;
-	}	
-
+	}
 }
 
 #ph-nav.open {
