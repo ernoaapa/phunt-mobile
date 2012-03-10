@@ -40,7 +40,8 @@
 
         bindWithLocation: function(location) {
         	
-        	// loading show
+        	this.$el.append('<div class="ph-loading">Loading...</div>');
+        	this.$el.children().not('.ph-loading').hide();
 
             this.waitingForLocation = false;
 
@@ -75,8 +76,8 @@
                 that.addCommentToList(comment.message, comment.user.name);
             });
             
-            // hide loading
-
+            this.$el.find('.ph-loading').hide();
+            this.$el.children().not('.ph-loading').show();            
         },
 
         addCommentToList: function(message, userName) {
