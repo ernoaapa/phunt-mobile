@@ -37,3 +37,14 @@ body, html {
 .ph-button-cancel {
     background: red;
 }
+
+.ph-input {
+    display: block;
+    border: none;
+    width: 100%;
+    height: 100px;
+    color: white;
+    background: $gray;
+    font-size: 20px;
+    padding: 10px;
+}

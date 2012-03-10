@@ -37,6 +37,17 @@ body, html {
   background: red;
 }
 
+.ph-input {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 100px;
+  color: white;
+  background: #323232;
+  font-size: 20px;
+  padding: 10px;
+}
+
 #ph-view-welcome {
   position: fixed;
   top: 0;
@@ -128,16 +139,6 @@ body, html {
 #ph-view-location .ph-comments li .ph-user {
   font-style: italic;
   margin-top: 5px;
-}
-#ph-view-location .ph-postNewComment textarea {
-  display: block;
-  border: none;
-  width: 100%;
-  height: 100px;
-  color: white;
-  background: #323232;
-  font-size: 20px;
-  padding: 10px;
 }
 
 #ph-view-countdown {

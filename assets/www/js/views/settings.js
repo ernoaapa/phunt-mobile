@@ -46,7 +46,7 @@
                 dataType: 'text',
                 data: {
                     uuid: phunt.main.getUUID(),
-                    name: that.$('#ph-name-input').val()
+                    username: that.$('#ph-name-input').val()
                 },
                 success: saveSuccess,
                 error: saveError
@@ -56,8 +56,7 @@
             	that.$('#ph-save-settings').text('Save');
             }
             
-            function saveError() {
-            	
+            function saveError() {            	
             }
         },
             
