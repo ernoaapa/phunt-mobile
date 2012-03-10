@@ -20,7 +20,6 @@
             enter: function(event, previousChainHead) {
 
             	var category = previousChainHead.get('category');
-            	console.log(category)
             	
             	if (category === 'FAST') {
             		this.entryDeadline = this.deadline(MINUTES_FAST);
