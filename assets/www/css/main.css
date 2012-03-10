@@ -28,14 +28,17 @@ body, html {
   bottom: 0;
   overflow: hidden;
 }
-#ph-view-chains .ph-container {
+#ph-view-chains > .ph-container {
   position: absolute;
 }
-#ph-view-chains .ph-container .ph-category {
+#ph-view-chains > .ph-container .ph-category {
   position: absolute;
   border: 1px solid red;
 }
-#ph-view-chains .ph-container .ph-category .ph-chain {
+#ph-view-chains > .ph-container .ph-category > .ph-container {
+  position: absolute;
+}
+#ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead {
   position: absolute;
   border: 1px solid blue;
 }

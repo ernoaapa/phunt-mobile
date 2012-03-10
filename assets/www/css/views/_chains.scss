@@ -7,7 +7,7 @@
     bottom: 0;
     overflow: hidden;
 
-    .ph-container {
+    > .ph-container {
 
         position: absolute;
 
@@ -16,10 +16,15 @@
             position: absolute;
             border: 1px solid red;
 
-            .ph-chain {
+            > .ph-container {
 
                 position: absolute;
-                border: 1px solid blue;
+
+                .ph-chainHead {
+
+                    position: absolute;
+                    border: 1px solid blue;
+                }
             }
         }
     }

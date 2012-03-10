@@ -7,6 +7,18 @@
                 "chainId":1,
                 "roughDistance":"5 km",
                 "pictureUrl":"http://thekeyresult.com/wp-content/uploads/2011/02/4548.jpg"
+            },
+            {
+                "locationId":1,
+                "chainId":1,
+                "roughDistance":"5 km",
+                "pictureUrl":"http://trollface.com/derp.jpg"
+            },
+            {
+                "locationId":1,
+                "chainId":1,
+                "roughDistance":"5 km",
+                "pictureUrl":"http://fail.com/"
             }
         ]
     },

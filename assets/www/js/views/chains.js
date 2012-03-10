@@ -3,23 +3,59 @@
     var Backbone = window.Backbone;
     var HOR_DOMINANCE = 0.8;
     var VER_DOMINANCE = 0.6;
-    var catCollView;
+    var CHAIN_HEAD_PLACEHOLDERS = 3;
 
-    var Location = Backbone.Model.extend({
+    var ChainHead = Backbone.Model.extend({
 
     });
 
-    var LocationCollection = Backbone.Collection.extend({
+    var ChainHeadView = phunt.views.base.extend({
 
-        model: Location
+        className: 'ph-chainHead',
+
+        events: {
+            'fastclick': function() {
+                this.parentCategoryView.focusChainHead(this.model);
+            }
+        },
+
+        initialize: function(options) {
+
+            this.index = options.index;
+            this.parentCategoryView = options.parentCategoryView;
+            this.$el.css({
+                top: 0,
+                bottom: 0,
+                width: (window.innerWidth * HOR_DOMINANCE) + 'px',
+                left: ((window.innerWidth * (1 - HOR_DOMINANCE)) / 2 + window.innerWidth * HOR_DOMINANCE * (this.index - 1)) + 'px'
+            });
+
+            this.addFastButtons();
+
+        },
+
+        render: function() {
+
+            if (this.model)
+                this.$el.text(this.model.get('pictureUrl'));
+            else
+                this.$el.text('');
+
+        }
+
+    });
+
+    var ChainHeadCollection = Backbone.Collection.extend({
+
+        model: ChainHead
 
     });
 
     var Category = Backbone.Model.extend({
 
         initialize: function() {
-            this.set({
-                chainHeads: new LocationCollection(this.get('chainHeads'))
+            this.set({ // turn the attribute into a Collection
+                chainHeads: new ChainHeadCollection(this.get('chainHeads'))
             });
         }
 
@@ -37,42 +73,77 @@
     var CategoryView = phunt.views.base.extend({
 
         events: {
-            'fastclick': 'focusThisCategory'
+            'fastclick': function() {
+                this.parentCategoryCollectionView.focusCategory(this.model);
+            }
         },
 
         initialize: function(options) {
 
             this.index = options.index;
+            this.parentCategoryCollectionView = options.parentCategoryCollectionView;
 
             this.addFastButtons();
 
             this.$el.addClass('ph-category');
-            this.$el.text('categoryName: ' + this.model.get('categoryName'));
             this.$el.css({ // align this category to its proper place with its index
                 width: window.innerWidth + 'px',
                 height: (window.innerHeight * VER_DOMINANCE) + 'px',
                 top: ((window.innerHeight * (1 - VER_DOMINANCE)) / 2 + (window.innerHeight * VER_DOMINANCE) * this.index) + 'px'
             });
 
-            var embeddedCollection = this.model.get('chainHeads');
+            this.chainHeads = this.model.get('chainHeads');
+            this.chainHeadViews = [];
 
             this.initializeChainHeads();
+            this.focusChainHead(this.chainHeads.at(0));
 
         },
 
         initializeChainHeads: function() {
 
-            // TODO
+            var $container = $('<div class="ph-container"></div>');
 
-//            _.each(_.range(3), function(item) {
-//                console.log(item);
-//            });
+            $container.css({
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0
+            });
+
+            var that = this;
+
+            _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
+
+                var chainHeadView = new ChainHeadView({
+                    model: that.chainHeads.at(index),
+                    index: index,
+                    parentCategoryView: that
+                });
+
+                that.chainHeadViews.push(chainHeadView);
+
+                $container.append(chainHeadView.$el);
+
+            });
+
+            this.$el.append($container);
 
         },
 
-        focusThisCategory: function() {
+        focusChainHead: function(chainHead) {
 
-            catCollView.focusCategory(this);
+            var that = this;
+            var indexOf = this.chainHeads.indexOf(chainHead);
+
+            if (indexOf === -1)
+                return; // can't focus nonexistant chainHead instance
+
+            _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
+                var view = that.chainHeadViews[index];
+                view.model = that.chainHeads.at(indexOf + index - 1); // Note: -1 is related to CHAIN_HEAD_PLACEHOLDERS
+                view.render();
+            });
 
         }
 
@@ -98,7 +169,7 @@
             },
             enter: function() {
                 var that = this;
-                _.delay(function() {
+                _.delay(function() { // TODO: Remove this, if we figure out when to safely use window.inner(Width|Height)
                     that.collection.fetch();
                 }, 1000);
             }
@@ -106,6 +177,7 @@
 
         addAll: function(collection) {
 
+            var that = this;
             var $container = $('<div class="ph-container"></div>');
 
             this.$el.html('');
@@ -113,7 +185,8 @@
             collection.each(function(model, index) {
                 $container.append(new CategoryView({
                     model: model,
-                    index: index
+                    index: index,
+                    parentCategoryCollectionView: that
                 }).el);
             });
 
@@ -123,7 +196,7 @@
 
         focusCategory: function(categoryView) {
 
-            var $container = this.$('.ph-container');
+            var $container = this.$('> .ph-container');
 
             $container.css({
                 top: -1 * (window.innerHeight * VER_DOMINANCE * categoryView.index) + 'px'
@@ -133,10 +206,8 @@
 
     });
 
-    catCollView = new CategoryCollectionView({
+    phunt.views.register(new CategoryCollectionView({
         collection: new CategoryCollection()
-    });
-
-    phunt.views.register(catCollView);
+    }));
 
 })();
