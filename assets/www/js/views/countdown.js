@@ -11,7 +11,8 @@
 
         events: {
             back: function() {
-                phunt.navigation.go('location', this.previousChainHead.url);
+                if (!this.imageBeingSubmitted)
+                    phunt.navigation.go('location', this.previousChainHead.url);
             },
             enter: function(event, previousChainHead) {
                 this.entryDeadline = new Date(new Date().getTime() + Math.round(1000 * 60 * MINUTES_TIME));
@@ -101,15 +102,17 @@
 
             function locationSuccess(position) {
 
-                phunt.picUploader.upload(
-                    fileToUpload,
-                    API_POST_ENDPOINT,
-                    phunt.main.getUUID(),
-                    that.previousChainHead.get('chainId'),
-                    position.coords.latitude,
-                    position.coords.longitude,
-                    uploadSuccess,
-                    uploadError);
+                var options = {
+                    fileUri: fileToUpload,
+                    uploadUrl: API_POST_ENDPOINT,
+                    uuid: phunt.main.getUUID(),
+                    chainId: that.previousChainHead.get('chainId'),
+                    category: null,
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude
+                };
+
+                phunt.picUploader.upload(options, uploadSuccess, uploadError);
 
             }
 
@@ -147,6 +150,7 @@
 
                 alert("Upload failed: " + error)
                 that.imageBeingSubmitted = false;
+                $button.text('Try again');
                 that.startClock();
 
             }

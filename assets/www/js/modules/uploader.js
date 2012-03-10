@@ -27,7 +27,7 @@ phunt = window.phunt || {};
 	 * @param callback Success callback. Also receives progress messages during upload.
 	 * @param fail Error callback
 	 */
-	PicUploader.prototype.upload = function(fileUri, uploadUrl, uuid, chainid, lat, lon, callback, fail) {
+	PicUploader.prototype.upload = function(options, callback, fail) {
 
 	    return PhoneGap.exec(function(args) {
 	        callback(args);
@@ -35,7 +35,7 @@ phunt = window.phunt || {};
 			if(typeof fail == 'function') {
 		        fail(args);
 			}
-	    }, 'PicUploader', 'upload', [fileUri, uploadUrl, uuid, chainid, lat, lon]);
+	    }, 'PicUploader', 'upload', [ options ]);
 	};
 
 	PicUploader.Status = {
