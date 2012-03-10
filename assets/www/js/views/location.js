@@ -100,10 +100,12 @@
                 $.ajax({
                     url: API_ENDPOINT,
                     type: 'GET',
+                    dataType: 'text',
                     data: {
                         uuid: phunt.main.getUUID(),
                         lat: position.coords.latitude,
-                        lon: position.coords.longitude
+                        lon: position.coords.longitude,
+                        locationId: that.model.id
                     },
                     success: verifySuccess,
                     error: verifyError
