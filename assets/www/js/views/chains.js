@@ -36,7 +36,11 @@
                 width: (window.innerWidth * HOR_DOMINANCE) + 'px',
                 left: ((window.innerWidth * (1 - HOR_DOMINANCE)) / 2 + window.innerWidth * HOR_DOMINANCE * (this.index - 1)) + 'px'
             });
-
+            
+            console.log(options)
+            
+            this.$el.append($('<div class="ph-roughDistance"><h1></h1></div>'));
+                        
             this.addFastButtons();
 
         },
@@ -46,6 +50,10 @@
             this.$el.css({
                 'backgroundImage': this.model ? 'url("' + this.model.get('gridPictureUrl') + '")' : ''
             });
+            
+            if (this.model) {
+            	this.$el.find('.ph-roughDistance h1').text(this.model.get('roughDistance')); 
+            }
 
         }
 

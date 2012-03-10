@@ -26,6 +26,14 @@
                     /*border: 1px solid blue;*/
                     background-position: center center;
                     background-repeat: no-repeat;
+                    
+                    .ph-roughDistance {
+                    	position: absolute;
+                    	bottom: 0px;
+                    	left: 0px;
+                    	right: 0px;
+                    	text-align: center;
+                    }
                 }
             }
         }
