@@ -75,6 +75,7 @@
             var that = this;
             var fileToUpload;
             var $button = this.$('.ph-button');
+            var alreadyCompleting;
 
             this.stopClock();
 
@@ -126,14 +127,15 @@
 
             function uploadSuccess(result) {
 
-                if (result.status == "PROGRESS") {
+                if (!alreadyCompleting && result.status == "PROGRESS") {
 
                     $button.text('Uploading (' + Math.round(result.progress * 100 / result.total) + '%)...');
 
                 } else if (result.status == "COMPLETING") {
 
-                    $button.text('Finishing up...');
+                    alreadyCompleting = true;
 
+                    $button.text('Finishing up...');
 
                 } else if (result.status == "COMPLETE") {
 
