@@ -31,8 +31,6 @@
 
             _.bindAll(this, 'render');
 
-            this.addFastButtons();
-
         },
 
         bindWithLocation: function(location) {
