@@ -1,5 +1,7 @@
 // This is the SCSS "main entry point" for PHunt.
 
+$gray: #323232;
+
 @import 'partials/common.scss';
 @import 'views/welcome.scss';
 @import 'views/chains.scss';

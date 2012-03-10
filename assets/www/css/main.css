@@ -8,6 +8,10 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+input, textarea {
+  -webkit-user-select: initial !important;
+}
+
 body, html {
   background: black;
   color: white;
@@ -95,6 +99,16 @@ body, html {
 #ph-view-location .ph-comments li .ph-user {
   font-style: italic;
   margin-top: 5px;
+}
+#ph-view-location .ph-postNewComment textarea {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 100px;
+  color: white;
+  background: #323232;
+  font-size: 20px;
+  padding: 10px;
 }
 
 #ph-view-countdown {

@@ -1,6 +1,7 @@
 (function() {
 
-    var API_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/locations/verify';
+    var API_VERIFY_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/locations/verify';
+    var API_COMMENT_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/comments/create';
 
     var Location = Backbone.Model.extend({
 
@@ -27,7 +28,8 @@
             leave: function() {
                 this.unbindWithLocation();
             },
-            'fastclick .ph-foundItButton': 'verifyLocation'
+            'fastclick .ph-foundItButton': 'verifyLocation',
+            'fastclick .ph-postCommentButton': 'postComment'
         },
 
         initialize: function() {
@@ -62,20 +64,25 @@
 
             this.$('.ph-foundItButton').text('Found it!');
 
+            var that = this;
             var $comments = this.$('.ph-comments ul');
 
             $comments.html('');
 
             _.each(this.model.get('comments'), function(comment) {
-
-                var $li = $('<li><div class="ph-message"></div><div class="ph-user"></div></li>');
-
-                $li.find('.ph-message').text(comment.message);
-                $li.find('.ph-user').text(comment.user.name);
-
-                $comments.append($li);
-
+                that.addCommentToList(comment.message, comment.user.name);
             });
+
+        },
+
+        addCommentToList: function(message, userName) {
+
+            var $li = $('<li><div class="ph-message"></div><div class="ph-user"></div></li>');
+
+            $li.find('.ph-message').text(message);
+            $li.find('.ph-user').text(userName);
+
+            this.$('.ph-comments ul').append($li);
 
         },
 
@@ -98,7 +105,7 @@
 //                _.delay(verifySuccess, 1000); return;
 
                 $.ajax({
-                    url: API_ENDPOINT,
+                    url: API_VERIFY_ENDPOINT,
                     type: 'GET',
                     dataType: 'text',
                     data: {
@@ -137,6 +144,50 @@
 
                 that.waitingForLocation = false;
                 that.$('.ph-foundItButton').text('Try again!');
+
+            }
+
+        },
+
+        postComment: function() {
+
+            if (this.commentBeingSubmitted)
+                return;
+
+            var that = this;
+            var $textarea = this.$('textarea');
+            var $button = this.$('.ph-postCommentButton');
+
+            this.commentButtonOriginal = $button.text();
+            this.commentBeingSubmitted = true;
+
+            $button.text('Posting...');
+            $textarea.attr('disabled', true);
+
+            $.ajax({
+                type: 'POST',
+                url: API_COMMENT_ENDPOINT,
+                data: {
+                    uuid: phunt.main.getUUID(),
+                    locationId: that.model.id,
+                    comment: $textarea.val()
+                },
+                success: function() {
+                    that.addCommentToList($textarea.val(), 'You');
+                    $textarea.val('');
+                    done();
+                },
+                error: function() {
+                    alert('Could not post your comment; please try again!');
+                    done();
+                }
+            });
+
+            function done() {
+
+                $textarea.attr('disabled', false);
+                that.commentBeingSubmitted  = false;
+                $button.text(that.commentButtonOriginal);
 
             }
 

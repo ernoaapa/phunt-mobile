@@ -6,6 +6,9 @@
     -webkit-user-select: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+input, textarea {
+    -webkit-user-select: initial !important;
+}
 
 body, html {
     background: black;
