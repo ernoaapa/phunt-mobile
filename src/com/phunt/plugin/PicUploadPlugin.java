@@ -21,20 +21,23 @@ import com.phonegap.api.Plugin;
 
 public class PicUploadPlugin extends Plugin {
 
+	private static String lineEnd = "\r\n"; 
+	private static String td = "--"; 
+	private static String boundary = "*****com.phunt.boundary";
+	
 	@Override
 	public PluginResult execute(String action, JSONArray args, String callbackId) {
-		if (!(action.equals("uploadPic"))) {
-			return new PluginResult(PluginResult.Status.INVALID_ACTION, "You need to use the 'uploadPic' action");
+		if (!(action.equals("upload"))) {
+			return new PluginResult(PluginResult.Status.INVALID_ACTION, "You need to use the 'upload' action");
 		}
 		
 		try {
 			UploadParams params = new UploadParams();
 			
 			Uri fileUri = Uri.parse(args.getString(0));
-			
-			params.chainId = args.getString(1);
-			params.uploadUrl = args.getString(2);
-			params.uuid = args.getString(3);
+			params.uploadUrl = args.getString(1);
+			params.uuid = args.getString(2);
+			params.chainId = args.getString(3);
 			params.lat = args.getString(4);
 			params.lon = args.getString(5);
 			
@@ -96,9 +99,7 @@ public class PicUploadPlugin extends Plugin {
 	
 	public void upload(InputStream fileInputStream, UploadParams params, final String callbackId) throws IOException, JSONException, InterruptedException {
 
-		String lineEnd = "\r\n"; 
-		String td = "--"; 
-		String boundary = "*****com.phunt.boundary"; 
+		 
 
 		URL url = new URL(params.uploadUrl);
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -121,14 +122,14 @@ public class PicUploadPlugin extends Plugin {
 		conn.setRequestProperty("Cookie", cookie);
 		// open data output stream 
 		DataOutputStream dos = new DataOutputStream(conn.getOutputStream()); 
-
-		dos.writeBytes(td + boundary + lineEnd); 
-		dos.writeBytes("Content-Disposition: form-data; name=\"chainId\"; ");
-		dos.writeBytes(lineEnd + lineEnd); 
-		dos.writeBytes(params.chainId);
-		dos.writeBytes(lineEnd); 
-
-		dos.writeBytes(td + boundary + lineEnd); 
+		dos.writeBytes(td + boundary + lineEnd);
+		
+		writeData(dos, "uuid", params.uuid);
+		writeData(dos, "chainId", params.chainId);
+		writeData(dos, "lat", params.lat);
+		writeData(dos, "lon", params.lon);
+		
+		
 		dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\"picFileName.jpg\"" + lineEnd); 
 		dos.writeBytes("Content-Type: image/jpg" + lineEnd); 
 
@@ -207,6 +208,15 @@ public class PicUploadPlugin extends Plugin {
 		success(progressResult, callbackId);
 	}
 
+	private void writeData(DataOutputStream dos, String paramName, String value) throws IOException {
+		dos.writeBytes(td + boundary + lineEnd); 
+		dos.writeBytes("Content-Disposition: form-data; name=\""+paramName+"\"; ");
+		dos.writeBytes(lineEnd + lineEnd); 
+		dos.writeBytes(value);
+		dos.writeBytes(lineEnd); 
+		dos.writeBytes(td + boundary + lineEnd);
+	}
+	
 	public static class UploadParams {
 		String chainId;
 		String uploadUrl;
