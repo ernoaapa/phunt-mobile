@@ -5,7 +5,12 @@ phunt = window.phunt || {};
 
     "use strict";
 
-    var PicUploader = function() { 
+    if (!window.PhoneGap)
+        return; // we're likely running within a desktop browser
+
+    var PhoneGap = window.PhoneGap;
+    var PluginManager = window.PluginManager;
+    var PicUploader = function() {
 
     }
 

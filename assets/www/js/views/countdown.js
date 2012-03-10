@@ -1,12 +1,7 @@
 (function() {
 
-    var MINUTES_TIME = 0.25;
-
-    var Location = Backbone.Model.extend({
-
-        // TODO
-
-    });
+    var MINUTES_TIME = 5;
+    var API_POST_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/update';
 
     var CountdownView = phunt.views.base.extend({
 
@@ -21,6 +16,7 @@
             enter: function(event, previousChainHead) {
                 this.entryDeadline = new Date(new Date().getTime() + Math.round(1000 * 60 * MINUTES_TIME));
                 this.deadlineExpired = false;
+                this.imageBeingSubmitted = false;
                 this.previousChainHead = previousChainHead;
                 this.$('.ph-button').text('Take next image');
                 this.startClock();
@@ -29,12 +25,6 @@
                 this.stopClock();
             },
             'fastclick .ph-button': 'takePicture'
-        },
-
-        initialize: function() {
-
-            _.bindAll(this, 'render');
-
         },
 
         startClock: function() {
@@ -75,59 +65,86 @@
 
         takePicture: function() {
 
+            if (this.imageBeingSubmitted)
+                return;
+
             if (this.deadlineExpired)
                 return this.$el.trigger('back');
 
             var that = this;
+            var fileToUpload;
+            var $button = this.$('.ph-button');
 
-            navigator.camera.getPicture(success, error, {
+            this.stopClock();
+
+            navigator.camera.getPicture(cameraSuccess, cameraError, {
                 destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.CAMERA
             });
 
-            function success(location) {
+            function cameraSuccess(imageFileLocation) {
 
-                if (that.deadlineExpired)
-                    return alert('Sorry, the deadline expired while you were pointing and shooting!');
+                that.imageBeingSubmitted = true;
+                fileToUpload = imageFileLocation;
 
-                alert('Camera success! location = ' + location);
-                
-                var uploadSuccess = function(result) {
-                	console.log("status: "+result.status+" progress: "+ result.progress + " result: "+result.result);
-                	if (result.status == "PROGRESS") {
-                		// do progress stuff here
-                		return;
-                	}
-                	
-                	if (result.status == "COMPLETE") {
-                		alert("Result is ninja fucking awesome");
-                	}
-                }
-                
-                var uploadFail = function(e) {
-                	alert("Upload failed: "+e)
-                }
-                
-                //phunt.picUploader.upload(location, 'http://86.50.128.250:9001/api/v1/chains/update', "oogabooga", "1", "65.232", "23.232", uploadSuccess, uploadFail);
-                phunt.picUploader.upload(location, 'http://phuntter.herokuapp.com/api/v1/chains/update', "oogabooga", "1", "65.232", "23.232", uploadSuccess, uploadFail);
-                
-                that.$('.ph-image').css({
-                    'background-image': 'url("' + location + '")'
-                });
+                $button.text('Uploading...');
+
+                phunt.location.get(locationSuccess, locationError);
 
             }
 
-            function error() {
+            function cameraError() {
 
-                alert('Camera gave an error!');
+                that.startClock(); // This can also just mean the user just pressed the Cancel-button
 
             }
 
-        },
+            function locationSuccess(position) {
 
-        render: function() {
+                phunt.picUploader.upload(
+                    fileToUpload,
+                    API_POST_ENDPOINT,
+                    phunt.main.getUUID(),
+                    that.previousChainHead.get('chainId'),
+                    position.coords.latitude,
+                    position.coords.longitude,
+                    uploadSuccess,
+                    uploadError);
 
-            // TODO
+            }
+
+            function locationError() {
+
+                alert('Could not locate you :(((');
+
+                that.imageBeingSubmitted = false;
+                that.startClock();
+
+            }
+
+            function uploadSuccess(result) {
+
+                if (result.status == "PROGRESS") {
+
+                    $button.text('Uploading (' + Math.round(result.progress * 100 / result.total) + '%)...');
+
+                } else if (result.status == "COMPLETE") {
+
+                    $button.text('Done!');
+
+                    _.delay(phunt.navigation.go, 1000, 'chains');
+
+                }
+
+            }
+
+            function uploadError(error) {
+
+                alert("Upload failed: " + error)
+                that.imageBeingSubmitted = false;
+                that.startClock();
+
+            }
 
         }
 
