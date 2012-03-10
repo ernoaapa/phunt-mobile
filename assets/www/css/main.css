@@ -112,7 +112,7 @@ body, html {
 }
 #ph-view-chains .ph-loading {
   text-align: center;
-  margin-top: 50%;
+  margin-top: 70%;
   font-size: 40px;
 }
 
@@ -144,6 +144,11 @@ body, html {
 #ph-view-location .ph-comments li .ph-user {
   font-style: italic;
   margin-top: 5px;
+}
+#ph-view-location .ph-loading {
+  text-align: center;
+  margin-top: 70%;
+  font-size: 40px;
 }
 
 #ph-view-countdown {
