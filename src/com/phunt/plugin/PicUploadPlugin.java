@@ -163,6 +163,8 @@ public class PicUploadPlugin extends Plugin {
 		int bytesRead = fileInputStream.read(buffer, 0, bufferSize); 
 		int progress = bytesRead;
 		int send = 0;
+		boolean sentCompleting = false;
+		
 		while (bytesRead > 0) 
 		{ 
 			dos.write(buffer, 0, bufferSize); 
@@ -193,29 +195,29 @@ public class PicUploadPlugin extends Plugin {
 						}
 					}
 				});
-				
-				if (progress >= total) {
-					ctx.runOnUiThread(new Runnable () {
-						public void run() {
-							try {
-								JSONObject result = new JSONObject();
-								result.put("status", Status.COMPLETING); 
-								result.put("progress", prog);
-								result.put("total", total);
-								PluginResult progressResult = new PluginResult(PluginResult.Status.OK, result);
-								progressResult.setKeepCallback(true);
-								success(progressResult, callbackId);
-							} catch (JSONException e) {
-								Log.e("PhoneGapLog", "error: " + e.getMessage(), e); 
-							}
-						}
-					});
-				}
-				
+		
 //					Give a chance for the progress to be sent to javascript
 				Thread.sleep(100);
-				
 			} 
+			
+			if (!sentCompleting && (double)prog/(double)total > 0.94) {
+				sentCompleting = true;
+				ctx.runOnUiThread(new Runnable () {
+					public void run() {
+						try {
+							JSONObject result = new JSONObject();
+							result.put("status", Status.COMPLETING); 
+							result.put("progress", prog);
+							result.put("total", total);
+							PluginResult progressResult = new PluginResult(PluginResult.Status.OK, result);
+							progressResult.setKeepCallback(true);
+							success(progressResult, callbackId);
+						} catch (JSONException e) {
+							Log.e("PhoneGapLog", "error: " + e.getMessage(), e); 
+						}
+					}
+				});
+			}
 		} 
 		
 		// send multipart form data necessary after file data... 
