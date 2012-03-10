@@ -145,11 +145,15 @@
 
             function verifyError() {
 
-                alert("Sorry, you're NOT at the right place!");
+            	var button = that.$('.ph-foundItButton');
+            	button.text("You're NOT there!");
+            	button.addClass('ph-button-negative');
 
-                that.waitingForLocation = false;
-                that.$('.ph-foundItButton').text('Try again!');
-
+            	_.delay(function() {
+            		button.removeClass('ph-button-negative');
+                    that.waitingForLocation = false;
+                    button.text('Try again!');
+            	}, 2000);
             }
 
         },
