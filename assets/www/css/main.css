@@ -73,6 +73,13 @@ body, html {
   position: absolute;
   bottom: 0px;
   left: 0px;
+  height: 90px;
+}
+#ph-nav .ph-button span {
+  font-size: 11px;
+  position: absolute;
+  left: 40px;
+  bottom: 20px;
 }
 #ph-nav .ph-nav-button {
   width: 90px;
