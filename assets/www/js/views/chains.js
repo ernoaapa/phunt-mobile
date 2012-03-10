@@ -1,8 +1,8 @@
 (function() {
 
     var Backbone = window.Backbone;
-    var HOR_DOMINANCE = 0.8;
-    var VER_DOMINANCE = 0.6;
+    var HOR_DOMINANCE = 0.7;
+    var VER_DOMINANCE = 0.8;
     var CHAIN_HEAD_PLACEHOLDERS = 3;
 
     var ChainHead = Backbone.Model.extend({
@@ -15,7 +15,9 @@
 
         events: {
             'fastclick': function() {
-                if (this.parentCategoryView.isCurrentlyFocused)
+                if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
+                    phunt.navigation.go('location')
+                else if (this.parentCategoryView.isCurrentlyFocused)
                     this.parentCategoryView.focusChainHead(this.model);
                 else
                     this.parentCategoryView.parentCategoryCollectionView.focusCategory(this.parentCategoryView);
@@ -99,9 +101,9 @@
             var $container = $('<div class="ph-container"></div>');
 
             $container.css({
-                top: 0,
+                top: '20px',
                 left: 0,
-                bottom: 0,
+                bottom: '20px',
                 right: 0
             });
 
@@ -136,6 +138,7 @@
             _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
                 var view = that.chainHeadViews[index];
                 view.model = that.chainHeads.at(indexOf + index - 1); // Note: -1 is related to CHAIN_HEAD_PLACEHOLDERS
+                view.isCurrentlyFocused = index === 1;
                 view.render();
             });
 
@@ -165,9 +168,10 @@
             },
             enter: function() {
                 var that = this;
-                _.delay(function() { // TODO: Remove this, if we figure out when to safely use window.inner(Width|Height)
-                    that.collection.fetch();
-                }, 1000);
+                if (!this.collection.length)
+                    _.delay(function() { // TODO: Remove this, if we figure out when to safely use window.inner(Width|Height)
+                        that.collection.fetch();
+                    }, 1000);
             }
         },
 
