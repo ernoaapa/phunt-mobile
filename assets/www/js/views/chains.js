@@ -1,8 +1,8 @@
 (function() {
 
     var Backbone = window.Backbone;
-    var WIN_WIDTH = Math.round(window.innerWidth * 1.5);
-    var WIN_HEIGHT = Math.round(window.innerHeight * 1.5);
+    var WIN_WIDTH = 480; // Math.round(window.innerWidth * 1.5);
+    var WIN_HEIGHT = 762; // Math.round(window.innerHeight * 1.5);
     var HOR_DOMINANCE = 0.7;
     var VER_DOMINANCE = 0.6;
     var CHAIN_HEAD_PLACEHOLDERS = 3;
