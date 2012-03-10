@@ -24,7 +24,7 @@
             leave: function() {
                 this.unbindWithLocation();
             },
-            'fastclick .ph-foundItButton': 'takePicture'
+            'fastclick .ph-foundItButton': 'verifyLocation'
         },
 
         initialize: function() {
@@ -55,6 +55,8 @@
                 'background-image': 'url("' + this.model.get('pictureUrl') + '")'
             });
 
+            this.$('.ph-foundItButton').text('Found it!');
+
             var $comments = this.$('.ph-comments ul');
 
             $comments.html('');
@@ -68,28 +70,80 @@
 
         },
 
-        takePicture: function() {
+        verifyLocation: function() {
 
             var that = this;
 
-            navigator.camera.getPicture(success, error, {
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.CAMERA
-            });
+//            navigator.camera.getPicture(success, error, {
+//                destinationType: Camera.DestinationType.FILE_URI,
+//                sourceType: Camera.PictureSourceType.CAMERA
+//            });
+//
+//            function success(location) {
+//
+//                alert('Camera success! location = ' + location);
+//
+//                that.$('.ph-image').css({
+//                    'background-image': 'url("' + location + '")'
+//                });
+//
+//            }
+//
+//            function error() {
+//
+//                alert('Camera gave an error!');
+//
+//            }
 
-            function success(location) {
+            if (this.waitingForLocation)
+                return;
 
-                alert('Camera success! location = ' + location);
+            this.$('.ph-foundItButton').text('Locating...');
+            this.waitingForLocation = true;
 
-                that.$('.ph-image').css({
-                    'background-image': 'url("' + location + '")'
+            if (true) { // the Real Deal (tm)
+
+                navigator.geolocation.getCurrentPosition(success, error, {
+                    enableHighAccuracy: true,
+                    timeout: 30000
+                });
+
+            } else {
+
+                _.delay(success, 3000, {
+                    coords: {
+                        latitude: '60.18067853',
+                        longitude: '24.83274779',
+                        altitude: '28.799999',
+                        accuracy: 46
+                    },
+                    timeStamp: 0
                 });
 
             }
 
-            function error() {
+            function success(position) {
 
-                alert('Camera gave an error!');
+                alert('Latitude: '          + position.coords.latitude          + '\n' +
+                      'Longitude: '         + position.coords.longitude         + '\n' +
+                      'Altitude: '          + position.coords.altitude          + '\n' +
+                      'Accuracy: '          + position.coords.accuracy          + '\n' +
+                      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+                      'Heading: '           + position.coords.heading           + '\n' +
+                      'Speed: '             + position.coords.speed             + '\n' +
+                      'Timestamp: '         + new Date(position.timestamp)      + '\n');
+
+                that.$('.ph-foundItButton').text('Correct!');
+
+            }
+
+            function error(error) {
+
+                console.log('Geolocation error, code ' + error.code + ': ' + error.message);
+                alert('Could not locate you; ' + error.message);
+
+                that.waitingForLocation = false;
+                that.$('.ph-foundItButton').text('Try again!');
 
             }
 
