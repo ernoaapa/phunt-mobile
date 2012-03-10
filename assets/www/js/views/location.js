@@ -1,5 +1,7 @@
 (function() {
 
+    var API_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/locations/verify';
+
     var Location = Backbone.Model.extend({
 
         // TODO
@@ -14,7 +16,8 @@
 
         events: {
             back: function() {
-                phunt.navigation.go('chains');
+                if (!this.waitingForLocation)
+                    phunt.navigation.go('chains');
             },
             enter: function(event, locationURL) {
                 var location = new Location();
@@ -92,8 +95,21 @@
 
                 that.$('.ph-foundItButton').text('Verifying...');
 
-                _.delay(verifySuccess, 1000);
-//                _.delay(verifyError, 1000);
+//                _.delay(verifySuccess, 1000); return;
+
+                $.ajax({
+                    url: API_ENDPOINT,
+                    type: 'GET',
+                    dataType: 'text',
+                    data: {
+                        uuid: phunt.main.getUUID(),
+                        lat: position.coords.latitude,
+                        lon: position.coords.longitude,
+                        locationId: that.model.id
+                    },
+                    success: verifySuccess,
+                    error: verifyError
+                });
 
             }
 
