@@ -6,19 +6,22 @@
                 "locationId":1,
                 "chainId":1,
                 "roughDistance":"5 km",
-                "pictureUrl":"http://i.imgur.com/zsxAD.jpg"
+                "pictureUrl":"http://i.imgur.com/zsxAD.jpg",
+                "url": "dummy-location.json"
             },
             {
                 "locationId":1,
                 "chainId":1,
                 "roughDistance":"5 km",
-                "pictureUrl":"http://i.imgur.com/mwXXq.jpg"
+                "pictureUrl":"http://i.imgur.com/mwXXq.jpg",
+                "url": "dummy-location.json"
             },
             {
                 "locationId":1,
                 "chainId":1,
                 "roughDistance":"5 km",
-                "pictureUrl":"http://i.imgur.com/RABau.jpg"
+                "pictureUrl":"http://i.imgur.com/RABau.jpg",
+                "url": "dummy-location.json"
             }
         ]
     },
@@ -29,13 +32,15 @@
                 "locationId":1,
                 "chainId":1,
                 "roughDistance":"5 km",
-                "pictureUrl":"http://i.imgur.com/fZyF7.jpg"
+                "pictureUrl":"http://i.imgur.com/fZyF7.jpg",
+                "url": "dummy-location.json"
             },
             {
                 "locationId":1,
                 "chainId":1,
                 "roughDistance":"5 km",
-                "pictureUrl":"http://i.imgur.com/KJM9j.jpg"
+                "pictureUrl":"http://i.imgur.com/KJM9j.jpg",
+                "url": "dummy-location.json"
             }
         ]
     },
@@ -46,7 +51,8 @@
                 "locationId":1,
                 "chainId":1,
                 "roughDistance":"5 km",
-                "pictureUrl":"http://i.imgur.com/FduPH.jpg"
+                "pictureUrl":"http://i.imgur.com/FduPH.jpg",
+                "url": "dummy-location.json"
             }
         ]
     }

@@ -21,7 +21,7 @@ phunt = window.phunt || {};
         $(document).on('backbutton', exports.back);
     }
 
-    exports.go = function(viewID) {
+    exports.go = function(viewID, extraParameters) {
 
         if (currentView) {
 
@@ -39,8 +39,10 @@ phunt = window.phunt || {};
 
         }
 
+        window.scrollTop = 0;
+
         currentView.$el.addClass('ph-current');
-        currentView.$el.trigger('enter');
+        currentView.$el.trigger('enter', extraParameters);
 
     };
 

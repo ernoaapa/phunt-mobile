@@ -2,7 +2,7 @@
 
     var Backbone = window.Backbone;
     var HOR_DOMINANCE = 0.7;
-    var VER_DOMINANCE = 0.8;
+    var VER_DOMINANCE = 0.6;
     var CHAIN_HEAD_PLACEHOLDERS = 3;
 
     var ChainHead = Backbone.Model.extend({
@@ -15,8 +15,9 @@
 
         events: {
             'fastclick': function() {
+//                console.log(this.$el.width() + ' x ' + this.$el.height());
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
-                    phunt.navigation.go('location')
+                    phunt.navigation.go('location', this.model);
                 else if (this.parentCategoryView.isCurrentlyFocused)
                     this.parentCategoryView.focusChainHead(this.model);
                 else
@@ -158,8 +159,6 @@
 
             this.collection.on('reset', this.addAll);
 
-            this.categoryViews = [];
-
         },
 
         events: {
@@ -179,6 +178,8 @@
 
             var that = this;
             var $container = $('<div class="ph-container"></div>');
+
+            this.categoryViews = [];
 
             this.$el.html('');
 

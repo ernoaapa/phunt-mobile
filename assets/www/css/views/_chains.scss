@@ -14,7 +14,7 @@
         .ph-category {
 
             position: absolute;
-            border: 1px solid red;
+            /*border: 1px solid red;*/
 
             > .ph-container {
 
@@ -23,7 +23,9 @@
                 .ph-chainHead {
 
                     position: absolute;
-                    border: 1px solid blue;
+                    /*border: 1px solid blue;*/
+                    background-position: center center;
+                    background-repeat: no-repeat;
                 }
             }
         }

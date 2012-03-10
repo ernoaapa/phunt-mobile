@@ -1,0 +1,81 @@
+{"chainId":1, "lat":23.12, "lon":61.12, "pictureUrl":"http://i.imgur.com/fZyF7.jpg", "category":"MOTOR", "comments":[
+    {
+        "message":"Nice location!",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Mr. User",
+            "id":1
+        },
+        "id":1
+    },
+    {
+        "locationId":1,
+        "message":"Where motorcycle?",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Jarppi",
+            "id":1
+        },
+        "id":2
+    },
+    {
+        "locationId":1,
+        "message":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Kalle",
+            "id":1
+        },
+        "id":2
+    },
+    {
+        "locationId":1,
+        "message":"LOL U IS TEHH SOKKK =D",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Erno",
+            "id":1
+        },
+        "id":2
+    },
+    {
+        "locationId":1,
+        "message":"Huh how i write commentz???",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Anssi",
+            "id":1
+        },
+        "id":2
+    },
+    {
+        "locationId":1,
+        "message":"Waaant",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Mr. User",
+            "id":1
+        },
+        "id":2
+    },
+    {
+        "locationId":1,
+        "message":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Mr. Derp",
+            "id":1
+        },
+        "id":2
+    },
+    {
+        "locationId":1,
+        "message":"Where motorcycle?",
+        "user":{
+            "phoneId":"109200s9gosd99d9d90ds98sd89",
+            "name":"Mr. User",
+            "id":1
+        },
+        "id":2
+    }
+], "id":1}

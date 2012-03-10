@@ -33,21 +33,52 @@ body, html {
 }
 #ph-view-chains > .ph-container .ph-category {
   position: absolute;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container {
   position: absolute;
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead {
   position: absolute;
-  border: 1px solid blue;
+  /*border: 1px solid blue;*/
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 #ph-view-location {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 5px solid green;
+  width: 100%;
+  /*border: 5px solid green;*/
+  padding: 20px;
+}
+#ph-view-location .ph-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 457px;
+}
+#ph-view-location .ph-foundItButton {
+  background: green;
+  padding: 20px;
+  text-align: center;
+  font-size: 30px;
+  margin: 20px 0;
+}
+#ph-view-location .ph-comments ul {
+  margin: 0;
+  padding: 0;
+}
+#ph-view-location .ph-comments li {
+  margin: 0 0 10px 0;
+  padding: 0 0 10px 0;
+  list-style: none;
+  border-style: dashed;
+  border-color: green;
+  border-width: 0 0 1px 0;
+  font-size: 20px;
+}
+#ph-view-location .ph-comments li:last-child {
+  border-style: none;
+}
+#ph-view-location .ph-comments li .ph-user {
+  font-style: italic;
+  margin-top: 5px;
 }
