@@ -6,8 +6,14 @@ phunt = window.phunt || {};
 
     exports.start = function() {
 
-        phunt.navigation.go('chains');
+        phunt.navigation.go('welcome');
 
-    }
+    };
+
+    exports.getUUID = function() {
+
+        return window.device && window.device.uuid ? window.device.uuid : 'dummy-uuid';
+
+    };
 
 })(phunt.main = {});

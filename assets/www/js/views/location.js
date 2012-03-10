@@ -18,7 +18,7 @@
             },
             enter: function(event, locationURL) {
                 var location = new Location();
-                location.url = locationURL;
+                location.url = locationURL + '?uuid=' + phunt.main.getUUID();
                 this.bindWithLocation(location);
             },
             leave: function() {

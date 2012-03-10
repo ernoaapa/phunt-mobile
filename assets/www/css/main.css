@@ -29,6 +29,19 @@ body, html {
   color: white;
 }
 
+#ph-view-welcome {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border: 5px solid red;
+  padding-top: 50%;
+  font-size: 30px;
+  text-align: center;
+}
+
 #ph-view-chains {
   position: fixed;
   top: 0;

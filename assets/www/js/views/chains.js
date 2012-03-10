@@ -4,6 +4,7 @@
     var HOR_DOMINANCE = 0.7;
     var VER_DOMINANCE = 0.6;
     var CHAIN_HEAD_PLACEHOLDERS = 3;
+    var API_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/heads'; // 'dummy-chains.json'
 
     var ChainHead = Backbone.Model.extend({
 
@@ -17,7 +18,7 @@
             'fastclick': function() {
 //                console.log(this.$el.width() + ' x ' + this.$el.height());
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
-                    phunt.navigation.go('location', this.model.get('url'));
+                    phunt.navigation.go('location', this.model.get('resourceUrl'));
                 else if (this.parentCategoryView.isCurrentlyFocused)
                     this.parentCategoryView.focusChainHead(this.model);
                 else
@@ -68,8 +69,7 @@
 
     var CategoryCollection = Backbone.Collection.extend({
 
-//        url: 'http://phuntter.herokuapp.com/api/v1/chains/heads?uuid=1&lat=1&lon=1',
-        url: 'dummy-chains.json',
+        url: API_ENDPOINT,
 
         model: Category
 
@@ -165,13 +165,25 @@
             back: function() {
                 window.navigator.app.exitApp();
             },
-            enter: function() {
-                var that = this;
-                if (!this.collection.length)
-                    _.delay(function() { // TODO: Remove this, if we figure out when to safely use window.inner(Width|Height)
-                        that.collection.fetch();
-                    }, 1000);
+            enter: function(event, location) {
+
+                if (location) // if we were provided with a new location
+                    this.location = location;
+
+                if (!this.collection.length) // if not yet fetched...
+                    this.refreshData();
+
             }
+        },
+
+        refreshData: function() {
+
+            if (!this.location || !this.location.coords)
+                return alert('Error: No location given to Chains view!');
+
+            this.collection.url = API_ENDPOINT + '?uuid=' + phunt.main.getUUID() + '&lat=' + this.location.coords.latitude + '&lon=' + this.location.coords.longitude;
+            this.collection.fetch();
+
         },
 
         addAll: function(collection) {
