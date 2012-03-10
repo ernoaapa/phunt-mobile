@@ -23,12 +23,15 @@
             },
             leave: function() {
                 this.unbindWithLocation();
-            }
+            },
+            'fastclick .ph-foundItButton': 'takePicture'
         },
 
         initialize: function() {
 
             _.bindAll(this, 'render');
+
+            this.addFastButtons();
 
         },
 
@@ -64,6 +67,33 @@
                 $li.find('.ph-user').text(comment.user.name);
                 $comments.append($li);
             });
+
+        },
+
+        takePicture: function() {
+
+            var that = this;
+
+            navigator.camera.getPicture(success, error, {
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA
+            });
+
+            function success(location) {
+
+                alert('Camera success! location = ' + location);
+
+                that.$('.ph-image').css({
+                    'background-image': 'url("' + location + '")'
+                });
+
+            }
+
+            function error() {
+
+                alert('Camera gave an error!');
+
+            }
 
         }
 
