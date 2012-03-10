@@ -35,13 +35,15 @@ public class PicUploadPlugin extends Plugin {
 		
 		try {
 			UploadParams params = new UploadParams();
+			JSONObject jsonOb = args.getJSONObject(0);
 			
-			Uri fileUri = Uri.parse(args.getString(0));
-			params.uploadUrl = args.getString(1);
-			params.uuid = args.getString(2);
-			params.chainId = args.getString(3);
-			params.lat = args.getString(4);
-			params.lon = args.getString(5);
+			Uri fileUri = Uri.parse(jsonOb.getString("fileUri"));
+			params.uploadUrl = jsonOb.getString("uploadUrl");
+			params.uuid = jsonOb.getString("uuid");
+			params.chainId = jsonOb.getString("chainId");
+			params.lat = jsonOb.getString("lat");
+			params.lon = jsonOb.getString("lon");
+			params.category = jsonOb.getString("category");
 			
 			InputStream fileInputStream = this.ctx.getContentResolver().openInputStream(fileUri);
 			
@@ -124,7 +126,13 @@ public class PicUploadPlugin extends Plugin {
 		dos.writeBytes(td + boundary + lineEnd);
 		
 		writeData(dos, "uuid", params.uuid);
-		writeData(dos, "chainId", params.chainId);
+		
+		if (params.shouldCreate()) {
+			writeData(dos, "category", params.category);
+		} else {
+			writeData(dos, "chainId", params.chainId);
+		}
+		
 		writeData(dos, "lat", params.lat);
 		writeData(dos, "lon", params.lon);
 		
@@ -176,6 +184,24 @@ public class PicUploadPlugin extends Plugin {
 					}
 				});
 				
+				if (progress >= total) {
+					ctx.runOnUiThread(new Runnable () {
+						public void run() {
+							try {
+								JSONObject result = new JSONObject();
+								result.put("status", Status.COMPLETING); 
+								result.put("progress", prog);
+								result.put("total", total);
+								PluginResult progressResult = new PluginResult(PluginResult.Status.OK, result);
+								progressResult.setKeepCallback(true);
+								success(progressResult, callbackId);
+							} catch (JSONException e) {
+								Log.e("PhoneGapLog", "error: " + e.getMessage(), e); 
+							}
+						}
+					});
+				}
+				
 //					Give a chance for the progress to be sent to javascript
 				Thread.sleep(100);
 				
@@ -226,15 +252,21 @@ public class PicUploadPlugin extends Plugin {
 	}
 	
 	public static class UploadParams {
+		String category;
 		String chainId;
 		String uploadUrl;
 		String uuid;
 		String lat;
 		String lon;
+		
+		public boolean shouldCreate() {
+			return category != null;
+		}
 	}
 	
 	public enum Status {
 		PROGRESS,
+		COMPLETING,
 		COMPLETE
 	}
 }
