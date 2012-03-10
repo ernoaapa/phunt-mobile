@@ -27,6 +27,8 @@ public class PicUploadPlugin extends Plugin {
 	
 	@Override
 	public PluginResult execute(String action, JSONArray args, String callbackId) {
+		Log.i("PicUploadPlugin", "WE ARE PLUGGING IN");
+		
 		if (!(action.equals("upload"))) {
 			return new PluginResult(PluginResult.Status.INVALID_ACTION, "You need to use the 'upload' action");
 		}
@@ -98,9 +100,6 @@ public class PicUploadPlugin extends Plugin {
 	
 	
 	public void upload(InputStream fileInputStream, UploadParams params, final String callbackId) throws IOException, JSONException, InterruptedException {
-
-		 
-
 		URL url = new URL(params.uploadUrl);
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
