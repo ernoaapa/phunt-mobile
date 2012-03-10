@@ -41,8 +41,8 @@ phunt = window.phunt || {};
 
         window.scrollTop = 0;
 
-        currentView.$el.addClass('ph-current');
         currentView.$el.trigger('enter', extraParameters);
+        currentView.$el.addClass('ph-current');
 
     };
 
