@@ -1,6 +1,7 @@
 (function() {
 
-    var MINUTES_TIME = 0.25;
+    var MINUTES_TIME = 5;
+    var API_POST_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/update';
 
     var Location = Backbone.Model.extend({
 
@@ -21,6 +22,7 @@
             enter: function(event, previousChainHead) {
                 this.entryDeadline = new Date(new Date().getTime() + Math.round(1000 * 60 * MINUTES_TIME));
                 this.deadlineExpired = false;
+                this.imageBeingSubmitted = false;
                 this.previousChainHead = previousChainHead;
                 this.$('.ph-button').text('Take next image');
                 this.startClock();
@@ -29,12 +31,6 @@
                 this.stopClock();
             },
             'fastclick .ph-button': 'takePicture'
-        },
-
-        initialize: function() {
-
-            _.bindAll(this, 'render');
-
         },
 
         startClock: function() {
@@ -75,59 +71,84 @@
 
         takePicture: function() {
 
+            if (this.imageBeingSubmitted)
+                return;
+
             if (this.deadlineExpired)
                 return this.$el.trigger('back');
 
             var that = this;
+            var $button = this.$('.ph-button');
+
+            this.stopClock();
 
             navigator.camera.getPicture(success, error, {
                 destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.CAMERA
             });
 
-            function success(location) {
+            function success(imageFileLocation) {
 
-                if (that.deadlineExpired)
-                    return alert('Sorry, the deadline expired while you were pointing and shooting!');
+                that.imageBeingSubmitted = true;
 
-                alert('Camera success! location = ' + location);
+                $button.text('Uploading...');
+
+//                alert('Camera success! imageFileLocation = ' + imageFileLocation);
                 
                 var uploadSuccess = function(result) {
-                	console.log("status: "+result.status+" progress: "+ result.progress + " result: "+result.result);
+//                	console.log("status: "+result.status+" progress: "+ result.progress + " result: "+result.result);
                 	if (result.status == "PROGRESS") {
                 		// do progress stuff here
+                        $button.text('Uploading (' + Math.round(result.progress * 100 / result.total) + '%)...');
+
                 		return;
                 	}
                 	
                 	if (result.status == "COMPLETE") {
-                		alert("Result is ninja fucking awesome");
+                        $button.text('Done!');
+                        _.delay(phunt.navigation.go, 1000, 'chains');
                 	}
-                }
+
+                };
                 
                 var uploadFail = function(e) {
                 	alert("Upload failed: "+e)
-                }
-                
-                //phunt.picUploader.upload(location, 'http://86.50.128.250:9001/api/v1/chains/update', "oogabooga", "1", "65.232", "23.232", uploadSuccess, uploadFail);
-                phunt.picUploader.upload(location, 'http://phuntter.herokuapp.com/api/v1/chains/update', "oogabooga", "1", "65.232", "23.232", uploadSuccess, uploadFail);
-                
-                that.$('.ph-image').css({
-                    'background-image': 'url("' + location + '")'
+                    that.imageBeingSubmitted = false;
+                    that.startClock();
+                };
+
+                phunt.location.get(function(position) {
+
+                    phunt.picUploader.upload(
+                        imageFileLocation,
+                        API_POST_ENDPOINT,
+                        phunt.main.getUUID(),
+                        that.previousChainHead.get('chainId'),
+                        position.coords.latitude,
+                        position.coords.longitude,
+                        uploadSuccess,
+                        uploadFail);
+
+                }, function() {
+
+                    // TODO: Handle the error condition
+
+                    alert('Could not locate you :(((');
+
+                    that.imageBeingSubmitted = false;
+                    that.startClock();
+
                 });
 
             }
 
             function error() {
 
-                alert('Camera gave an error!');
+                // This can also mean the user just pressed the Cancel-button
+
+                that.startClock();
 
             }
-
-        },
-
-        render: function() {
-
-            // TODO
 
         }
 
