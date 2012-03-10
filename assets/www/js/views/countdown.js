@@ -107,7 +107,6 @@
                     uploadUrl: API_POST_ENDPOINT,
                     uuid: phunt.main.getUUID(),
                     chainId: that.previousChainHead.get('chainId'),
-                    category: null,
                     lat: position.coords.latitude,
                     lon: position.coords.longitude
                 };
