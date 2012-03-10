@@ -146,6 +146,38 @@
         }
 
     });
+    
+    var NavView = phunt.views.base.extend({
+    	
+    	el: $('#ph-nav')[0],
+    	
+    	initialize: function() {
+    		this.addFastButtons();
+    	},
+
+    	events : {
+    		"fastclick #button-nav" : "toggleNav",
+			"fastclick #button-create" : "createGame",
+			"fastclick #button-refresh" : "refreshGames",
+			"fastclick #button-settings" : "editSettings"
+		},
+		
+		toggleNav: function() {
+			$('.ph-nav-button').toggle();
+		},
+		
+		createGame: function() {
+			alert('c');
+		},
+		
+		refreshGames: function() {
+			categoryCollectionView.refreshData();
+		},
+		
+		editSettings: function() {
+			alert('e');
+		}    	
+    });
 
     var CategoryCollectionView = phunt.views.base.extend({
 
@@ -172,7 +204,13 @@
 
                 if (!this.collection.length) // if not yet fetched...
                     this.refreshData();
+                
+                nav.$el.show();
 
+            },
+            
+            leave: function() {
+            	nav.$el.hide();
             }
         },
 
@@ -204,7 +242,7 @@
                 that.categoryViews.push(view);
                 $container.append(view.el);
             });
-
+            
             this.$el.append($container);
 
             this.focusCategory(this.categoryViews[0]);
@@ -226,9 +264,11 @@
         }
 
     });
-
-    phunt.views.register(new CategoryCollectionView({
-        collection: new CategoryCollection()
-    }));
+    
+    var categoryCollectionView = new CategoryCollectionView({ collection: new CategoryCollection() });
+    
+    phunt.views.register(categoryCollectionView);
+    
+    var nav = new NavView();
 
 })();

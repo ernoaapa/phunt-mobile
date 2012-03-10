@@ -91,7 +91,26 @@
                     return alert('Sorry, the deadline expired while you were pointing and shooting!');
 
                 alert('Camera success! location = ' + location);
-
+                
+                var uploadSuccess = function(result) {
+                	console.log("status: "+result.status+" progress: "+ result.progress + " result: "+result.result);
+                	if (result.status == "PROGRESS") {
+                		// do progress stuff here
+                		return;
+                	}
+                	
+                	if (result.status == "COMPLETE") {
+                		alert("Result is ninja fucking awesome");
+                	}
+                }
+                
+                var uploadFail = function(e) {
+                	alert("Upload failed: "+e)
+                }
+                
+                //phunt.picUploader.upload(location, 'http://86.50.128.250:9001/api/v1/chains/update', "oogabooga", "1", "65.232", "23.232", uploadSuccess, uploadFail);
+                phunt.picUploader.upload(location, 'http://phuntter.herokuapp.com/api/v1/chains/update', "oogabooga", "1", "65.232", "23.232", uploadSuccess, uploadFail);
+                
                 that.$('.ph-image').css({
                     'background-image': 'url("' + location + '")'
                 });

@@ -46,6 +46,31 @@ body, html {
   text-align: center;
 }
 
+#ph-nav {
+  z-index: 1;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  display: none;
+}
+#ph-nav #button-create {
+  position: absolute;
+  top: -100px;
+}
+#ph-nav #button-refresh {
+  position: absolute;
+  top: -85px;
+  left: 85px;
+}
+#ph-nav #button-settings {
+  position: absolute;
+  left: 100px;
+}
+#ph-nav .ph-nav-button {
+  position: absolute;
+  display: none;
+}
+
 #ph-view-chains {
   position: fixed;
   top: 0;
