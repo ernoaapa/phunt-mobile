@@ -39,6 +39,8 @@
         },
 
         bindWithLocation: function(location) {
+        	
+        	// loading show
 
             this.waitingForLocation = false;
 
@@ -62,7 +64,7 @@
                 'background-image': 'url("' + this.model.get('pictureUrl') + '")'
             });
 
-            this.$('.ph-foundItButton').text('Found it!');
+            this.$('.ph-foundItButton').text('I Know Where');
 
             var that = this;
             var $comments = this.$('.ph-comments ul');
@@ -72,6 +74,8 @@
             _.each(this.model.get('comments'), function(comment) {
                 that.addCommentToList(comment.message, comment.user.name);
             });
+            
+            // hide loading
 
         },
 

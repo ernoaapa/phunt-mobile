@@ -55,10 +55,9 @@ body, html {
   right: 0;
   bottom: 0;
   overflow: hidden;
-  border: 5px solid red;
-  padding-top: 50%;
-  font-size: 30px;
-  text-align: center;
+  padding-top: 3%;
+  padding-left: 8%;
+  font-size: 40px;
 }
 
 #ph-nav {
@@ -109,6 +108,12 @@ body, html {
   left: 0px;
   right: 0px;
   text-align: center;
+  font-size: 40px;
+}
+#ph-view-chains .ph-loading {
+  text-align: center;
+  margin-top: 50%;
+  font-size: 40px;
 }
 
 #ph-view-location {
