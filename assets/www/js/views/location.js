@@ -16,9 +16,9 @@
             back: function() {
                 phunt.navigation.go('chains');
             },
-            enter: function(event, extraParameters) {
+            enter: function(event, locationURL) {
                 var location = new Location();
-                location.url = extraParameters.get('url');
+                location.url = locationURL;
                 this.bindWithLocation(location);
             },
             leave: function() {
@@ -34,6 +34,8 @@
         },
 
         bindWithLocation: function(location) {
+
+            this.waitingForLocation = false;
 
             this.model = location;
             this.model.on('change', this.render);
@@ -62,10 +64,14 @@
             $comments.html('');
 
             _.each(this.model.get('comments'), function(comment) {
+
                 var $li = $('<li><div class="ph-message"></div><div class="ph-user"></div></li>');
+
                 $li.find('.ph-message').text(comment.message);
                 $li.find('.ph-user').text(comment.user.name);
+
                 $comments.append($li);
+
             });
 
         },
@@ -74,73 +80,44 @@
 
             var that = this;
 
-//            navigator.camera.getPicture(success, error, {
-//                destinationType: Camera.DestinationType.FILE_URI,
-//                sourceType: Camera.PictureSourceType.CAMERA
-//            });
-//
-//            function success(location) {
-//
-//                alert('Camera success! location = ' + location);
-//
-//                that.$('.ph-image').css({
-//                    'background-image': 'url("' + location + '")'
-//                });
-//
-//            }
-//
-//            function error() {
-//
-//                alert('Camera gave an error!');
-//
-//            }
-
             if (this.waitingForLocation)
                 return;
 
-            this.$('.ph-foundItButton').text('Locating...');
             this.waitingForLocation = true;
+            this.$('.ph-foundItButton').text('Locating...');
 
-            if (true) { // the Real Deal (tm)
+            phunt.location.get(locationSuccess, locationError);
 
-                navigator.geolocation.getCurrentPosition(success, error, {
-                    enableHighAccuracy: true,
-                    timeout: 30000
-                });
+            function locationSuccess(position) {
 
-            } else {
+                that.$('.ph-foundItButton').text('Verifying...');
 
-                _.delay(success, 3000, {
-                    coords: {
-                        latitude: '60.18067853',
-                        longitude: '24.83274779',
-                        altitude: '28.799999',
-                        accuracy: 46
-                    },
-                    timeStamp: 0
-                });
+                _.delay(verifySuccess, 1000);
+//                _.delay(verifyError, 1000);
 
             }
 
-            function success(position) {
-
-                alert('Latitude: '          + position.coords.latitude          + '\n' +
-                      'Longitude: '         + position.coords.longitude         + '\n' +
-                      'Altitude: '          + position.coords.altitude          + '\n' +
-                      'Accuracy: '          + position.coords.accuracy          + '\n' +
-                      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-                      'Heading: '           + position.coords.heading           + '\n' +
-                      'Speed: '             + position.coords.speed             + '\n' +
-                      'Timestamp: '         + new Date(position.timestamp)      + '\n');
-
-                that.$('.ph-foundItButton').text('Correct!');
-
-            }
-
-            function error(error) {
+            function locationError(error) {
 
                 console.log('Geolocation error, code ' + error.code + ': ' + error.message);
                 alert('Could not locate you; ' + error.message);
+
+                that.waitingForLocation = false;
+                that.$('.ph-foundItButton').text('Try again!');
+
+            }
+
+            function verifySuccess() {
+
+                that.$('.ph-foundItButton').text('Correct!');
+
+                _.delay(phunt.navigation.go, 1000, 'countdown', that.model);
+
+            }
+
+            function verifyError() {
+
+                alert("Sorry, you're NOT at the right place!");
 
                 that.waitingForLocation = false;
                 that.$('.ph-foundItButton').text('Try again!');

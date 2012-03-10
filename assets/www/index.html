@@ -17,12 +17,17 @@
 
         <div id="ph-view-location" class="ph-view">
             <div class="ph-image"></div>
-            <div class="ph-foundItButton"></div>
+            <div class="ph-foundItButton ph-button"></div>
             <div class="ph-comments">
                 <ul>
                     <!-- This is dynamically generated -->
                 </ul>
             </div>
+        </div>
+
+        <div id="ph-view-countdown" class="ph-view">
+            <div class="ph-remaining"></div>
+            <div class="ph-button"></div>
         </div>
         
     </div>
@@ -36,10 +41,12 @@
 
     <script src="js/modules/views.js"></script>
     <script src="js/modules/navigation.js"></script>
+    <script src="js/modules/location.js"></script>
     <script src="js/modules/main.js"></script>
 
     <script src="js/views/chains.js"></script>
     <script src="js/views/location.js"></script>
+    <script src="js/views/countdown.js"></script>
 
     <script>
         $(phunt.main.start);

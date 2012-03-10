@@ -17,7 +17,7 @@
             'fastclick': function() {
 //                console.log(this.$el.width() + ' x ' + this.$el.height());
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
-                    phunt.navigation.go('location', this.model);
+                    phunt.navigation.go('location', this.model.get('url'));
                 else if (this.parentCategoryView.isCurrentlyFocused)
                     this.parentCategoryView.focusChainHead(this.model);
                 else

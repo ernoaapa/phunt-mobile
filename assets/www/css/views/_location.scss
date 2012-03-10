@@ -1,7 +1,6 @@
 #ph-view-location {
 
     width: 100%;
-    /*border: 5px solid green;*/
     padding: 20px;
 
     .ph-image {
@@ -10,11 +9,7 @@
         height: 457px;
     }
     .ph-foundItButton {
-        background: green;
-        padding: 20px;
-        text-align: center;
-        font-size: 30px;
-        margin: 20px 0;
+        // TODO: Any different styling here..?
     }
     .ph-comments {
         ul {
