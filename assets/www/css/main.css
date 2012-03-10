@@ -24,13 +24,17 @@ body, html {
   display: block;
 }
 
-.ph-button {
+.ph-button, .ph-button-cancel {
   background: green;
   padding: 20px;
   text-align: center;
   font-size: 30px;
   margin: 20px 0;
   color: white;
+}
+
+.ph-button-cancel {
+  background: red;
 }
 
 #ph-view-welcome {
@@ -152,4 +156,9 @@ body, html {
   padding: 40px;
   font-size: 120px;
   text-align: center;
+}
+
+#ph-view-settings {
+  width: 100%;
+  padding: 20px;
 }
