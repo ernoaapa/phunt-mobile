@@ -63,7 +63,7 @@
 
         },
 
-        takePicture: function() {
+        takePicture: function() { // TODO: Shared functionality with create.js
 
             if (this.imageBeingSubmitted)
                 return;
@@ -128,11 +128,16 @@
 
                     $button.text('Uploading (' + Math.round(result.progress * 100 / result.total) + '%)...');
 
+                } else if (result.status == "COMPLETING") {
+
+                    $button.text('Finishing up...');
+
+
                 } else if (result.status == "COMPLETE") {
 
                     $button.text('Done!');
 
-                    _.delay(phunt.navigation.go, 1000, 'chains');
+                    _.delay(phunt.navigation.go, 1000, 'location', result.result);
 
                 }
 
