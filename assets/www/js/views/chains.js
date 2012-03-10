@@ -171,7 +171,7 @@
 		},
 		
 		toggleNav: function() {
-			$('.ph-nav-button').toggle();
+			this.$el.toggleClass('open');
 		},
 		
 		createGame: function() {

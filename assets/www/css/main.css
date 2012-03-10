@@ -61,21 +61,42 @@ body, html {
 }
 
 #ph-nav {
-  z-index: 1;
+  z-index: 5;
   position: fixed;
   bottom: -20px;
   left: 0px;
   display: none;
 }
 #ph-nav #button-nav {
-  float: left;
-  width: 76px;
+  width: 90px;
+  padding: 27px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
 }
 #ph-nav .ph-nav-button {
-  float: left;
-  display: none;
-  width: 76px;
+  width: 90px;
+  padding: 27px;
   background: #323232;
+  position: absolute;
+  bottom: 0px;
+  -moz-transition: left 0.5s ease-out;
+  -webkit-transition: left 0.5s ease-out;
+  -o-transition: left 0.5s ease-out;
+  transition: left 0.5s ease-out;
+}
+#ph-nav #button-create, #ph-nav #button-refresh, #ph-nav #button-settings {
+  left: 0px;
+}
+
+#ph-nav.open #button-create {
+  left: 76px;
+}
+#ph-nav.open #button-refresh {
+  left: 152px;
+}
+#ph-nav.open #button-settings {
+  left: 228px;
 }
 
 #ph-view-chains {
