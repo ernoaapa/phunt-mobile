@@ -39,20 +39,20 @@
             
             console.log(options)
             
-            this.$el.append($('<div class="ph-roughDistance"><h1></h1></div>'));
+            this.$el.append($('<div class="ph-roughDistance"></div>'));
                         
             this.addFastButtons();
 
         },
 
         render: function() {
-
+        	
             this.$el.css({
                 'backgroundImage': this.model ? 'url("' + this.model.get('gridPictureUrl') + '")' : ''
             });
             
             if (this.model) {
-            	this.$el.find('.ph-roughDistance h1').text(this.model.get('roughDistance')); 
+            	this.$el.find('.ph-roughDistance').text(this.model.get('roughDistance')); 
             }
 
         }
@@ -229,6 +229,8 @@
 
             this.collection.url = API_ENDPOINT + '?uuid=' + phunt.main.getUUID() + '&lat=' + this.location.coords.latitude + '&lon=' + this.location.coords.longitude;
             this.collection.fetch();
+            
+            this.$el.html('<div class="ph-loading">Loading...</div>');
 
         },
 
@@ -238,7 +240,7 @@
             var $container = $('<div class="ph-container"></div>');
 
             this.categoryViews = [];
-
+           
             this.$el.html('');
 
             collection.each(function(model, index) {

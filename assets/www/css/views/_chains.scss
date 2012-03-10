@@ -33,9 +33,16 @@
                     	left: 0px;
                     	right: 0px;
                     	text-align: center;
+                    	font-size: $titleFontSize;
                     }
                 }
-            }
+            }                 
         }
     }
+    
+    .ph-loading {
+    	text-align: center;
+    	margin-top: 50%;
+    	font-size: $titleFontSize;
+    }       
 }
