@@ -112,7 +112,8 @@ MBP.fastButton.prototype.onTouchStart = function(event) {
   document.body.addEventListener('touchmove', this, false);
   this.startX = event.touches[0].clientX;
   this.startY = event.touches[0].clientY;
-  this.element.style.backgroundColor = "rgba(0,0,0,.7)";
+//  this.element.style.backgroundColor = "rgba(0,0,0,.7)";
+    this.element.className += ' mbp-touching';
 };
 
 MBP.fastButton.prototype.onTouchMove = function(event) {
@@ -130,13 +131,15 @@ MBP.fastButton.prototype.onClick = function(event) {
   if(event.type == 'touchend') {
     MBP.preventGhostClick(this.startX, this.startY);
   }
-  this.element.style.backgroundColor = "";
+//  this.element.style.backgroundColor = "";
+    this.element.className = this.element.className.replace(' mbp-touching', '');
 };
 
 MBP.fastButton.prototype.reset = function() {
 	rmEvt(this.element, "touchend", this, false);
 	rmEvt(document.body, "touchmove", this, false);
-  this.element.style.backgroundColor = "";
+//  this.element.style.backgroundColor = "";
+    this.element.className = this.element.className.replace(' mbp-touching', '');
 };
 
 MBP.preventGhostClick = function (x, y) {

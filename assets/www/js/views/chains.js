@@ -1,14 +1,14 @@
 (function() {
 
     var Backbone = window.Backbone;
+    var WIN_WIDTH = Math.round(window.innerWidth * 1.5);
+    var WIN_HEIGHT = Math.round(window.innerHeight * 1.5);
     var HOR_DOMINANCE = 0.7;
     var VER_DOMINANCE = 0.6;
     var CHAIN_HEAD_PLACEHOLDERS = 3;
     var API_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/heads'; // 'dummy-chains.json'
 
-    var ChainHead = Backbone.Model.extend({
-
-    });
+    var ChainHead = Backbone.Model.extend();
 
     var ChainHeadView = phunt.views.base.extend({
 
@@ -16,7 +16,6 @@
 
         events: {
             'fastclick': function() {
-//                console.log(this.$el.width() + ' x ' + this.$el.height());
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
                     phunt.navigation.go('location', this.model.get('resourceUrl'));
                 else if (this.parentCategoryView.isCurrentlyFocused)
@@ -33,11 +32,9 @@
             this.$el.css({
                 top: 0,
                 bottom: 0,
-                width: (window.innerWidth * HOR_DOMINANCE) + 'px',
-                left: ((window.innerWidth * (1 - HOR_DOMINANCE)) / 2 + window.innerWidth * HOR_DOMINANCE * (this.index - 1)) + 'px'
+                width: (WIN_WIDTH * HOR_DOMINANCE) + 'px',
+                left: ((WIN_WIDTH * (1 - HOR_DOMINANCE)) / 2 + WIN_WIDTH * HOR_DOMINANCE * (this.index - 1)) + 'px'
             });
-            
-            console.log(options)
             
             this.$el.append($('<div class="ph-roughDistance"></div>'));
                         
@@ -92,9 +89,9 @@
 
             this.$el.addClass('ph-category');
             this.$el.css({ // align this category to its proper place with its index
-                width: window.innerWidth + 'px',
-                height: (window.innerHeight * VER_DOMINANCE) + 'px',
-                top: ((window.innerHeight * (1 - VER_DOMINANCE)) / 2 + (window.innerHeight * VER_DOMINANCE) * this.index) + 'px'
+                width: WIN_WIDTH + 'px',
+                height: (WIN_HEIGHT * VER_DOMINANCE) + 'px',
+                top: ((WIN_HEIGHT * (1 - VER_DOMINANCE)) / 2 + (WIN_HEIGHT * VER_DOMINANCE) * this.index) + 'px'
             });
 
             this.chainHeads = this.model.get('chainHeads');
@@ -264,7 +261,7 @@
             var $container = this.$('> .ph-container');
 
             $container.css({
-                top: -1 * (window.innerHeight * VER_DOMINANCE * categoryView.index) + 'px'
+                top: -1 * (WIN_HEIGHT * VER_DOMINANCE * categoryView.index) + 'px'
             });
 
             _.each(this.categoryViews, function(view, index) {

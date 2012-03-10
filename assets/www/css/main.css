@@ -24,7 +24,7 @@ body, html {
   display: block;
 }
 
-.ph-button, .ph-button-cancel {
+.ph-button {
   background: green;
   padding: 20px;
   text-align: center;
@@ -32,9 +32,8 @@ body, html {
   margin: 20px 0;
   color: white;
 }
-
-.ph-button-cancel {
-  background: red;
+.ph-button.mbp-touching {
+  /*background: red;*/
 }
 
 .ph-input {
