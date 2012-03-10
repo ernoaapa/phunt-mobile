@@ -153,10 +153,13 @@ public class PicUploadPlugin extends Plugin {
 			bytesRead = fileInputStream.read(buffer, 0, bufferSize); 
 			progress += bytesRead;
 			final int prog = progress;
-			Log.e("PhoneGapLog", "read " + progress + " of " + total); 
-
+			
+			
 //				Sending every progress event is overkill
 			if (send++ % 20 == 0) { 
+				Log.e("PhoneGapLog", "read " + progress + " of " + total); 
+
+				
 				ctx.runOnUiThread(new Runnable () {
 					public void run() {
 						try {
@@ -186,6 +189,8 @@ public class PicUploadPlugin extends Plugin {
 		// close streams 
 		fileInputStream.close(); 
 		dos.flush(); 
+		
+		Log.i("PicUploadPlugin", "Reading response");
 		InputStream is = conn.getInputStream(); 
 		int ch; 
 		StringBuffer b =new StringBuffer(); 
@@ -194,6 +199,8 @@ public class PicUploadPlugin extends Plugin {
 		} 
 		String s=b.toString(); 
 		dos.close(); 
+		
+		Log.i("PicUploadPlugin", "Response consumed.");
 		
 		JSONObject result = new JSONObject();
 		
@@ -204,6 +211,8 @@ public class PicUploadPlugin extends Plugin {
 		
 		PluginResult progressResult = new PluginResult(PluginResult.Status.OK, result);
 		progressResult.setKeepCallback(true);
+		
+		Log.i("PicUploadPlugin", "Upload success! Sending COMPLETE event including result: "+s);
 		success(progressResult, callbackId);
 	}
 
