@@ -34,15 +34,17 @@
 
     });
 
-    var CategoryView = Backbone.View.extend({
+    var CategoryView = phunt.views.base.extend({
 
         events: {
-            'click': 'focusThisCategory'
+            'fastclick': 'focusThisCategory'
         },
 
         initialize: function(options) {
 
             this.index = options.index;
+
+            this.addFastButtons();
 
             this.$el.addClass('ph-category');
             this.$el.text('categoryName: ' + this.model.get('categoryName'));
