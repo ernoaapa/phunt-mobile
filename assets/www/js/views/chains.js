@@ -44,7 +44,7 @@
         render: function() {
 
             this.$el.css({
-                'backgroundImage': this.model ? 'url("' + this.model.get('pictureUrl') + '")' : ''
+                'backgroundImage': this.model ? 'url("' + this.model.get('gridPictureUrl') + '")' : ''
             });
 
         }
