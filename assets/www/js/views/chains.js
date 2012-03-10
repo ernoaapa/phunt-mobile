@@ -176,8 +176,7 @@
 		
 		editSettings: function() {
 			alert('e');
-		}		
-    	
+		}    	
     });
 
     var CategoryCollectionView = phunt.views.base.extend({
