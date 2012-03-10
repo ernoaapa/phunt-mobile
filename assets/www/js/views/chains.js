@@ -39,10 +39,9 @@
 
         render: function() {
 
-            if (this.model)
-                this.$el.text(this.model.get('pictureUrl'));
-            else
-                this.$el.text('');
+            this.$el.css({
+                'backgroundImage': this.model ? 'url("' + this.model.get('pictureUrl') + '")' : ''
+            });
 
         }
 
