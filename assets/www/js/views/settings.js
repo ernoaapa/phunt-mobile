@@ -16,7 +16,10 @@
 
         events: {
         	'fastclick #ph-save-settings': 'save',
-        	'fastclick #ph-cancel-settings': 'cancel'
+        	back: function() {
+        		if (!this.waitingForLocation)
+        			phunt.navigation.go('chains');
+            }        		
         },
 
         initialize: function() {
@@ -35,8 +38,13 @@
         },
         
         save: function() {
-        	
+
         	var that = this;
+
+            if (this.waitingForLocation)
+                return;
+
+            this.waitingForLocation = true;        	
         	
         	this.$('#ph-save-settings').text('Saving...');
         	
@@ -54,17 +62,12 @@
             
             function saveSuccess()  {
             	that.$('#ph-save-settings').text('Save');
+            	that.waitingForLocation = false;
             }
             
             function saveError() {            	
             }
-        },
-            
-        
-        cancel: function() {
-        	phunt.navigation.go('chains');
         }
-
     });
 
     phunt.views.register(new SettingsView());
