@@ -171,7 +171,7 @@
 		},
 		
 		refreshGames: function() {
-			alert('r');
+			categoryCollectionView.refreshData();
 		},
 		
 		editSettings: function() {
@@ -264,10 +264,10 @@
         }
 
     });
-
-    phunt.views.register(new CategoryCollectionView({
-        collection: new CategoryCollection()
-    }));
+    
+    var categoryCollectionView = new CategoryCollectionView({ collection: new CategoryCollection() });
+    
+    phunt.views.register(categoryCollectionView);
     
     var nav = new NavView();
 
