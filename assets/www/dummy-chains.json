@@ -1,0 +1,35 @@
+[
+    {
+        "categoryName":"MOTOR",
+        "chainHeads":[
+            {
+                "locationId":1,
+                "chainId":1,
+                "roughDistance":"5 km",
+                "pictureUrl":"http://thekeyresult.com/wp-content/uploads/2011/02/4548.jpg"
+            }
+        ]
+    },
+    {
+        "categoryName":"BICYCLE",
+        "chainHeads":[
+            {
+                "locationId":1,
+                "chainId":1,
+                "roughDistance":"5 km",
+                "pictureUrl":"http://thekeyresult.com/wp-content/uploads/2011/02/4548.jpg"
+            }
+        ]
+    },
+    {
+        "categoryName":"FEET",
+        "chainHeads":[
+            {
+                "locationId":1,
+                "chainId":1,
+                "roughDistance":"5 km",
+                "pictureUrl":"http://thekeyresult.com/wp-content/uploads/2011/02/4548.jpg"
+            }
+        ]
+    }
+]

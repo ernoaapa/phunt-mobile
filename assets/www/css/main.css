@@ -23,6 +23,18 @@ body, html {
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
+}
+#ph-view-chains .ph-container {
+  position: absolute;
+}
+#ph-view-chains .ph-container .ph-category {
+  position: absolute;
+  border: 1px solid red;
+}
+#ph-view-chains .ph-container .ph-category .ph-chain {
+  position: absolute;
+  border: 1px solid blue;
 }
 
 #ph-view-location {
