@@ -167,7 +167,7 @@
 		},
 		
 		createGame: function() {
-			alert('c');
+			alert('create not implemented yet!');
 		},
 		
 		refreshGames: function() {
@@ -175,7 +175,7 @@
 		},
 		
 		editSettings: function() {
-			alert('e');
+			phunt.navigation.go('settings');
 		}    	
     });
 

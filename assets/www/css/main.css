@@ -24,13 +24,28 @@ body, html {
   display: block;
 }
 
-.ph-button {
+.ph-button, .ph-button-cancel {
   background: green;
   padding: 20px;
   text-align: center;
   font-size: 30px;
   margin: 20px 0;
   color: white;
+}
+
+.ph-button-cancel {
+  background: red;
+}
+
+.ph-input {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 100px;
+  color: white;
+  background: #323232;
+  font-size: 20px;
+  padding: 10px;
 }
 
 #ph-view-welcome {
@@ -125,16 +140,6 @@ body, html {
   font-style: italic;
   margin-top: 5px;
 }
-#ph-view-location .ph-postNewComment textarea {
-  display: block;
-  border: none;
-  width: 100%;
-  height: 100px;
-  color: white;
-  background: #323232;
-  font-size: 20px;
-  padding: 10px;
-}
 
 #ph-view-countdown {
   position: fixed;
@@ -152,4 +157,9 @@ body, html {
   padding: 40px;
   font-size: 120px;
   text-align: center;
+}
+
+#ph-view-settings {
+  width: 100%;
+  padding: 20px;
 }

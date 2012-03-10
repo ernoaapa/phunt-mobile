@@ -25,11 +25,26 @@ body, html {
     }
 }
 
-.ph-button {
+.ph-button, .ph-button-cancel {
     background: green;
     padding: 20px;
     text-align: center;
     font-size: 30px;
     margin: 20px 0;
     color: white;
+}
+
+.ph-button-cancel {
+    background: red;
+}
+
+.ph-input {
+    display: block;
+    border: none;
+    width: 100%;
+    height: 100px;
+    color: white;
+    background: $gray;
+    font-size: 20px;
+    padding: 10px;
 }

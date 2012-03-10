@@ -35,7 +35,7 @@
                 </ul>
             </div>
             <div class="ph-postNewComment">
-                <textarea></textarea>
+                <textarea class="ph-input"></textarea>
             </div>
             <div class="ph-postCommentButton ph-button">
                 Post new comment
@@ -46,6 +46,14 @@
             <div class="ph-remaining"></div>
             <div class="ph-button"></div>
         </div>
+        
+        <div id="ph-view-settings" class="ph-view">
+        	<h1>Settings</h1>
+        	Name<br /><br />
+        	<input id="ph-name-input" class="ph-input" name="name" /><br />
+        	<div id="ph-save-settings" class="ph-button">Save</div>
+        	<div id="ph-cancel-settings" class="ph-button-cancel">Cancel</div>
+		</div>
         
     </div>
 
@@ -66,6 +74,7 @@
     <script src="js/views/chains.js"></script>
     <script src="js/views/location.js"></script>
     <script src="js/views/countdown.js"></script>
+    <script src="js/views/settings.js"></script>
 
     <script>
         $(phunt.main.start);
