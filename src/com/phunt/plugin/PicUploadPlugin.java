@@ -40,10 +40,18 @@ public class PicUploadPlugin extends Plugin {
 			Uri fileUri = Uri.parse(jsonOb.getString("fileUri"));
 			params.uploadUrl = jsonOb.getString("uploadUrl");
 			params.uuid = jsonOb.getString("uuid");
-			params.chainId = jsonOb.getString("chainId");
 			params.lat = jsonOb.getString("lat");
 			params.lon = jsonOb.getString("lon");
-			params.category = jsonOb.getString("category");
+			
+			if (jsonOb.has("chainId")) {
+				params.chainId = jsonOb.getString("chainId");
+			}
+			
+			if (jsonOb.has("category")) {
+				params.category = jsonOb.getString("category");
+			}
+			
+			params.ensureHasEitherChainIdOrCategory();
 			
 			InputStream fileInputStream = this.ctx.getContentResolver().openInputStream(fileUri);
 			
@@ -128,8 +136,10 @@ public class PicUploadPlugin extends Plugin {
 		writeData(dos, "uuid", params.uuid);
 		
 		if (params.shouldCreate()) {
+			Log.i("PicUploadPlugin", "Category: "+params.category);
 			writeData(dos, "category", params.category);
 		} else {
+			Log.i("PicUploadPlugin", "ChainId: "+params.chainId);
 			writeData(dos, "chainId", params.chainId);
 		}
 		
@@ -261,6 +271,12 @@ public class PicUploadPlugin extends Plugin {
 		
 		public boolean shouldCreate() {
 			return category != null;
+		}
+		
+		public void ensureHasEitherChainIdOrCategory() {
+			if (chainId == null && category == null) {
+				throw new RuntimeException("Sucky params");
+			}
 		}
 	}
 	

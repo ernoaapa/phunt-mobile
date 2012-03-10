@@ -194,3 +194,18 @@ body, html {
   width: 100%;
   padding: 20px;
 }
+
+#ph-view-create {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 20px;
+  padding-top: 40%;
+}
+#ph-view-create p {
+  text-align: center;
+  font-size: 30px;
+}
