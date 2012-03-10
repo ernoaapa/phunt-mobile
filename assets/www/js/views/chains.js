@@ -15,7 +15,10 @@
 
         events: {
             'fastclick': function() {
-                this.parentCategoryView.focusChainHead(this.model);
+                if (this.parentCategoryView.isCurrentlyFocused)
+                    this.parentCategoryView.focusChainHead(this.model);
+                else
+                    this.parentCategoryView.parentCategoryCollectionView.focusCategory(this.parentCategoryView);
             }
         },
 
@@ -70,20 +73,12 @@
 
     });
 
-    var CategoryView = phunt.views.base.extend({
-
-        events: {
-            'fastclick': function() {
-                this.parentCategoryCollectionView.focusCategory(this.model);
-            }
-        },
+    var CategoryView = Backbone.View.extend({
 
         initialize: function(options) {
 
             this.index = options.index;
             this.parentCategoryCollectionView = options.parentCategoryCollectionView;
-
-            this.addFastButtons();
 
             this.$el.addClass('ph-category');
             this.$el.css({ // align this category to its proper place with its index
@@ -161,6 +156,8 @@
 
             this.collection.on('reset', this.addAll);
 
+            this.categoryViews = [];
+
         },
 
         events: {
@@ -183,14 +180,18 @@
             this.$el.html('');
 
             collection.each(function(model, index) {
-                $container.append(new CategoryView({
+                var view = new CategoryView({
                     model: model,
                     index: index,
                     parentCategoryCollectionView: that
-                }).el);
+                });
+                that.categoryViews.push(view);
+                $container.append(view.el);
             });
 
             this.$el.append($container);
+
+            this.focusCategory(this.categoryViews[0]);
 
         },
 
@@ -200,6 +201,10 @@
 
             $container.css({
                 top: -1 * (window.innerHeight * VER_DOMINANCE * categoryView.index) + 'px'
+            });
+
+            _.each(this.categoryViews, function(view, index) {
+                view.isCurrentlyFocused = index === categoryView.index;
             });
 
         }
