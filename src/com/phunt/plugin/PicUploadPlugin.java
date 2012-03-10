@@ -140,7 +140,7 @@ public class PicUploadPlugin extends Plugin {
 			writeData(dos, "category", params.category);
 		} else {
 			Log.i("PicUploadPlugin", "ChainId: "+params.chainId);
-			writeData(dos, "chainIdxxx", params.chainId);
+			writeData(dos, "chainId", params.chainId);
 		}
 		
 		writeData(dos, "lat", params.lat);
