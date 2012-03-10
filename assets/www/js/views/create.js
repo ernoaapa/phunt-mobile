@@ -23,13 +23,13 @@
                 this.addFastButtons();
             },
             'fastclick .ph-button:nth-child(2)': function(event) {
-                this.takePicture('MOTOR', $(event.target));
+                this.takePicture('FAST', $(event.target));
             },
             'fastclick .ph-button:nth-child(3)': function() {
-                this.takePicture('BICYCLE', $(event.target));
+                this.takePicture('MEDIUM', $(event.target));
             },
             'fastclick .ph-button:nth-child(4)': function() {
-                this.takePicture('FEET', $(event.target));
+                this.takePicture('SLOW', $(event.target));
             }
         },
 

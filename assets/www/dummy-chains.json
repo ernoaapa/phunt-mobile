@@ -1,6 +1,6 @@
 [
     {
-        "categoryName":"MOTOR",
+        "categoryName":"FAST",
         "chainHeads":[
             {
                 "locationId":1,
@@ -26,7 +26,7 @@
         ]
     },
     {
-        "categoryName":"BICYCLE",
+        "categoryName":"MEDIUM",
         "chainHeads":[
             {
                 "locationId":1,
@@ -45,7 +45,7 @@
         ]
     },
     {
-        "categoryName":"FEET",
+        "categoryName":"SLOW",
         "chainHeads":[
             {
                 "locationId":1,

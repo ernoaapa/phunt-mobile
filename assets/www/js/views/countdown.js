@@ -1,6 +1,9 @@
 (function() {
 
-    var MINUTES_TIME = 5;
+    var MINUTES_FAST = 5;
+    var MINUTES_MEDIUM = 30;
+    var MINUTES_SLOW = 99;
+    
     var API_POST_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/update';
 
     var CountdownView = phunt.views.base.extend({
@@ -15,7 +18,18 @@
                     phunt.navigation.go('location', this.previousChainHead.url);
             },
             enter: function(event, previousChainHead) {
-                this.entryDeadline = new Date(new Date().getTime() + Math.round(1000 * 60 * MINUTES_TIME));
+
+            	var category = previousChainHead.get('category');
+            	console.log(category)
+            	
+            	if (category === 'FAST') {
+            		this.entryDeadline = this.deadline(MINUTES_FAST);
+            	} else if (category === 'MEDIUM') {
+            		this.entryDeadline = this.deadline(MINUTES_MEDIUM);
+            	} else {
+            		this.entryDeadline = this.deadline(MINUTES_SLOW);
+            	}                
+                
                 this.deadlineExpired = false;
                 this.imageBeingSubmitted = false;
                 this.previousChainHead = previousChainHead;
@@ -27,6 +41,10 @@
             },
             'fastclick .ph-button': 'takePicture'
         },
+        
+        deadline: function(minutes) {
+        	return new Date(new Date().getTime() + Math.round(1000 * 60 * minutes));        	
+        },        
 
         startClock: function() {
 
