@@ -11,7 +11,7 @@
         events: {
         	'fastclick #ph-save-settings': 'save',
         	back: function() {
-        		if (!this.waitingForLocation)
+        		if (!this.settingsBeingSaved)
         			phunt.navigation.go('chains');
             },
             
@@ -36,15 +36,15 @@
         
         save: function() {
 
-        	var that = this;
+            var that = this;
 
-            if (this.waitingForLocation)
+            if (this.settingsBeingSaved)
                 return;
 
-            this.waitingForLocation = true;        	
-        	
-        	this.$('#ph-save-settings').text('Saving...');
-        	
+            this.settingsBeingSaved = true;
+
+            this.$('#ph-save-settings').addClass('ph-working').text('Saving...');
+
             $.ajax({
                 url: API_ENDPOINT,
                 type: 'POST',
@@ -58,11 +58,15 @@
             });
             
             function saveSuccess()  {
-            	that.$('#ph-save-settings').text('Save');
-            	that.waitingForLocation = false;
+                that.$('#ph-save-settings').text('Success!');
+                _.delay(function() {
+                    that.$('#ph-save-settings').removeClass('ph-working').text('Save');
+                    that.settingsBeingSaved = false;
+                }, 1500);
             }
             
-            function saveError() {            	
+            function saveError() {
+                that.$('#ph-save-settings').removeClass('ph-working');
             }
         }
     });
