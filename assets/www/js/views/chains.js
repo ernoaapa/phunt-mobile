@@ -8,6 +8,8 @@
     var CHAIN_HEAD_PLACEHOLDERS = 5;
     var CHAIN_HEAD_MIDDLE = 2;
     var PADDING_PX = 20;
+    var FIRST = 0;
+    var LAST = CHAIN_HEAD_PLACEHOLDERS - 1;
     var API_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/heads'; // 'dummy-chains.json'
 
     var ChainHead = Backbone.Model.extend();
@@ -21,7 +23,6 @@
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
                     phunt.navigation.go('location', this.model.get('resourceUrl'));
                 else if (this.parentCategoryView.isCurrentlyFocused)
-//                    this.parentCategoryView.focusChainHead(this.model);
                     this.parentCategoryView.focusChainHeadAnimated(this.model);
                 else
                     this.parentCategoryView.parentCategoryCollectionView.focusCategory(this.parentCategoryView);
@@ -33,8 +34,6 @@
             this.index = options.index;
             this.parentCategoryView = options.parentCategoryView;
             this.$el.css({
-                top: 0,
-                bottom: 0,
                 width: (WIN_WIDTH * HOR_DOMINANCE) + 'px',
                 left: options.parentCategoryView.getLeftForIndex(this.index) + 'px'
             });
@@ -54,6 +53,30 @@
             if (this.model) {
                 this.$el.find('.ph-roughDistance').text(this.model.get('roughDistance'));
             }
+
+        },
+
+        attachToModel: function(chainHead) {
+
+            if (!chainHead)
+                return; // it's OK, we didn't want a new model anyway
+
+            console.log('ChainHeadView#' + this.index + ' attaching to ChainHead#' + chainHead.id);
+
+            this.model = chainHead;
+            this.render(); // TODO: TEMP
+
+        },
+
+        detachFromModel: function() {
+
+            if (!this.model)
+                return; // already detached or never attached
+
+            console.log('ChainHeadView#' + this.index + ' detaching from ChainHead#' + this.model.id);
+
+            this.model = null;
+            this.render(); // TODO: TEMP
 
         }
 
@@ -101,7 +124,6 @@
             this.chainHeadViews = [];
 
             this.initializeChainHeads();
-            this.focusChainHead(this.chainHeads.at(0));
 
         },
 
@@ -121,7 +143,7 @@
             _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
 
                 var chainHeadView = new ChainHeadView({
-                    model: that.chainHeads.at(index),
+                    model: index > FIRST && index < LAST ? that.chainHeads.at(index - CHAIN_HEAD_MIDDLE) : null,
                     index: index,
                     parentCategoryView: that
                 });
@@ -129,6 +151,8 @@
                 that.chainHeadViews.push(chainHeadView);
 
                 $container.append(chainHeadView.$el);
+
+                chainHeadView.render();
 
             });
 
@@ -139,23 +163,6 @@
         getLeftForIndex: function(index) {
 
             return Math.round((WIN_WIDTH * (1 - HOR_DOMINANCE)) / 2 + WIN_WIDTH * HOR_DOMINANCE * (index - CHAIN_HEAD_MIDDLE) + (index - CHAIN_HEAD_MIDDLE) * PADDING_PX);
-
-        },
-
-        focusChainHead: function(chainHead) {
-
-            var that = this;
-            var indexOf = this.chainHeads.indexOf(chainHead);
-
-            if (indexOf === -1)
-                return; // can't focus nonexistant chainHead instance
-
-            _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
-                var view = that.chainHeadViews[index];
-                view.model = that.chainHeads.at(indexOf + index - CHAIN_HEAD_MIDDLE);
-                view.isCurrentlyFocused = index === CHAIN_HEAD_MIDDLE;
-                view.render();
-            });
 
         },
 
@@ -189,14 +196,22 @@
                 _.each(that.chainHeadViews, function(view) {
 
                     if (slideLeft)
-                        view.index = view.index === 0 ? CHAIN_HEAD_PLACEHOLDERS - 1 : view.index - 1; // make the first view LAST
+                        view.index = view.index === FIRST ? LAST : view.index - 1; // make the first view LAST
                     else
-                        view.index = view.index === CHAIN_HEAD_PLACEHOLDERS - 1 ? 0 : view.index + 1; // make the last view FIRST
+                        view.index = view.index === LAST ? FIRST : view.index + 1; // make the last view FIRST
 
                     view.$el.css({ left: that.getLeftForIndex(view.index) + 'px' });
                     view.isCurrentlyFocused = view.index === CHAIN_HEAD_MIDDLE;
 
                 });
+
+                _.find(that.chainHeadViews, function(view) {
+                    return slideLeft ? view.index === FIRST : view.index === LAST;
+                }).detachFromModel();
+
+                _.find(that.chainHeadViews, function(view) {
+                    return !slideLeft ? view.index === FIRST + 1 : view.index === LAST - 1;
+                }).attachToModel(that.chainHeads.at(indexOf + (slideLeft ? 1 : -1)));
 
                 $container.off('webkitTransitionEnd');
 
@@ -323,6 +338,10 @@
             _.each(this.categoryViews, function(view, index) {
                 view.isCurrentlyFocused = index === categoryView.index;
             });
+
+            console.log('Current CategoryView owns ChainHeads: ', _.map(categoryView.model.get('chainHeads').models, function(chainHead) {
+                return chainHead.id;
+            }));
 
         }
 
