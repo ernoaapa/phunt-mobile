@@ -59,7 +59,7 @@ $navButtonWidth: 143px;
 		
 	.ph-nav-button {
 		background-color: $gray;
-  		@include transition(left 0.5s ease-out);
+  		@include transition(left 0.33s ease-out);
 	}
 	
 	#button-create, #button-refresh, #button-settings {
