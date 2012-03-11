@@ -8,19 +8,9 @@
 
         viewID: 'create',
 
-        initialize: function() {
-
-            this.originalHTML = this.$el.html();
-
-        },
-
         events: {
             back: function() {
                 phunt.navigation.go('chains');
-            },
-            enter: function() {
-                this.$el.html(this.originalHTML);
-                this.addFastButtons();
             },
             'fastclick .ph-button:nth-child(2)': function(event) {
                 this.takePicture('FAST', $(event.target));
@@ -41,6 +31,7 @@
             var that = this;
             var fileToUpload;
             var alreadyCompleting;
+            var buttonOrigText = $button.text();
 
             navigator.camera.getPicture(cameraSuccess, cameraError, {
                 destinationType: Camera.DestinationType.FILE_URI,
@@ -49,9 +40,7 @@
 
             function cameraSuccess(imageFileLocation) {
 
-                that.$('.ph-button').each(function() {
-                    $(this).addClass('ph-working');
-                });
+                that.$('.ph-button').addClass('ph-working');
 
                 $button.removeClass('ph-working');
 
@@ -90,7 +79,6 @@
                 alert('Could not locate you :(((');
 
                 that.imageBeingSubmitted = false;
-                that.startClock();
 
             }
 
@@ -110,7 +98,12 @@
 
                     $button.text('Done!');
 
-                    _.delay(phunt.navigation.go, 1000, 'location', result.result);
+                    _.delay(function() {
+                        phunt.navigation.go('location', result.result);
+                        $button.text(buttonOrigText);
+                        that.$('.ph-button').removeClass('ph-working');
+                        that.imageBeingSubmitted = false;
+                    }, 1000);
 
                 }
 
@@ -121,7 +114,6 @@
                 alert("Upload failed: " + error)
                 that.imageBeingSubmitted = false;
                 $button.text('Try again');
-                that.startClock();
 
             }
 
