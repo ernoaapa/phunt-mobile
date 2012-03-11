@@ -35,12 +35,17 @@ body, html {
     color: white;
 
     &.mbp-touching {
-        /*background: red;*/
+        background: lighten(green, 5%);
     }
-}
-
-.ph-button-negative {
-	background: $red;
+    &.ph-working {
+        background: rgb(0,75,0);
+    }
+    &.ph-disabled {
+        background: rgb(0,75,0);
+    }
+    &.ph-negative {
+        background: $red;
+    }
 }
 
 .ph-input {

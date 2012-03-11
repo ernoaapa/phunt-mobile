@@ -99,15 +99,17 @@
                 return;
 
             this.waitingForLocation = true;
-            this.$('.ph-foundItButton').text('Locating...');
+
+            var $button = this.$('.ph-foundItButton');
+
+            $button.text('Locating...');
+            $button.addClass('ph-working');
 
             phunt.location.get(locationSuccess, locationError);
 
             function locationSuccess(position) {
 
-                that.$('.ph-foundItButton').text('Verifying...');
-
-//                _.delay(verifySuccess, 1000); return;
+                $button.text('Verifying...');
 
                 $.ajax({
                     url: API_VERIFY_ENDPOINT,
@@ -131,13 +133,15 @@
                 alert('Could not locate you; ' + error.message);
 
                 that.waitingForLocation = false;
-                that.$('.ph-foundItButton').text('Try again!');
+                $button.text('Try again!');
+                $button.removeClass('ph-working');
 
             }
 
             function verifySuccess() {
 
-                that.$('.ph-foundItButton').text('Correct!');
+                $button.text('Correct!');
+                $button.removeClass('ph-working');
 
                 _.delay(phunt.navigation.go, 1000, 'countdown', that.model);
 
@@ -145,14 +149,14 @@
 
             function verifyError() {
 
-            	var button = that.$('.ph-foundItButton');
-            	button.text("You're NOT there!");
-            	button.addClass('ph-button-negative');
+                $button.text("You're NOT there!");
+                $button.removeClass('ph-working');
+                $button.addClass('ph-negative');
 
             	_.delay(function() {
-            		button.removeClass('ph-button-negative');
+                    $button.removeClass('ph-negative');
                     that.waitingForLocation = false;
-                    button.text('Try again!');
+                    $button.text('Try again!');
             	}, 2000);
             }
 
@@ -171,6 +175,7 @@
             this.commentBeingSubmitted = true;
 
             $button.text('Posting...');
+            $button.addClass('ph-working');
             $textarea.attr('disabled', true);
 
             $.ajax({
@@ -187,15 +192,18 @@
                     done();
                 },
                 error: function() {
-                    alert('Could not post your comment; please try again!');
-                    done();
+                    $button.text('Unable to post :(');
+                    $button.addClass('ph-negative');
+                    _.delay(done, 2000);
                 }
             });
 
             function done() {
 
                 $textarea.attr('disabled', false);
-                that.commentBeingSubmitted  = false;
+                that.commentBeingSubmitted = false;
+                $button.removeClass('ph-working');
+                $button.removeClass('ph-negative');
                 $button.text(that.commentButtonOriginal);
 
             }
