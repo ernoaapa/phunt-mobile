@@ -20,12 +20,14 @@
 
         events: {
             'fastclick': function() {
+
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
                     phunt.navigation.go('location', this.model.get('resourceUrl'));
                 else if (this.parentCategoryView.isCurrentlyFocused)
                     this.parentCategoryView.focusChainHeadAnimated(this.model);
                 else
                     this.parentCategoryView.parentCategoryCollectionView.focusCategory(this.parentCategoryView);
+
             }
         },
 
@@ -46,8 +48,11 @@
 
         prepareForModel: function(chainHead) {
 
-            if (!chainHead)
+            if (!chainHead) {
+                this.$el.removeClass('ph-populated');
+                this.$el.find('.ph-roughDistance').text('');
                 return;
+            }
 
             console.log('ChainHeadView#' + this.index + ' preparing for ChainHead#' + chainHead.id);
 
@@ -80,8 +85,8 @@
 
             this.model = null;
 
-            this.$el.css({ backgroundImage: '' });
-            this.$el.find('.ph-roughDistance').text('loading');
+            this.$el.css({ backgroundImage: 'url("img/empty.png")' }); // we actually have to set a new image here to clear the background on Android
+            this.$el.find('.ph-roughDistance').text('');
 
         }
 
@@ -298,7 +303,71 @@
             
             leave: function() {
             	nav.$el.hide();
+            },
+            touchstart: function(event) {
+                var e = event.originalEvent.touches[0];
+                this.firstTouchAt = { x: e.screenX, y: e.screenY };
+            },
+            touchmove: function(event) {
+                var e = event.originalEvent.touches[0];
+                this.lastTouchAt = { x: e.screenX, y: e.screenY };
+            },
+            touchend: function(event) {
+
+                if (!this.lastTouchAt)
+                    return;
+
+                var horDelta = this.lastTouchAt.x - this.firstTouchAt.x;
+                var verDelta = this.lastTouchAt.y - this.firstTouchAt.y;
+                var horGesture = Math.abs(horDelta) > Math.abs(verDelta);
+                var direction = horGesture ? (horDelta > 0 ? 'right' : 'left') : (verDelta > 0 ? 'down' : 'up');
+
+                this.navigateBySwipe(direction);
+
             }
+        },
+
+        navigateBySwipe: function(direction) {
+
+            console.log('navigateBySwipe: ' + direction);
+
+            var currentCat = _.find(this.categoryViews, function(view) {
+                return view.isCurrentlyFocused;
+            });
+            var currentCatIndex = _.indexOf(this.categoryViews, currentCat);
+
+            if (direction === 'up') {
+
+                this.focusCategory(this.categoryViews[currentCatIndex + 1]);
+
+            } else if (direction === 'down') {
+
+                this.focusCategory(this.categoryViews[currentCatIndex - 1]);
+
+            } else if (direction === 'left') {
+
+                var catView = this.categoryViews[currentCatIndex];
+
+                var currentChainHeadView = _.find(catView.chainHeadViews, function(view) {
+                    return view.isCurrentlyFocused;
+                });
+                var currentChainHeadIndex = _.indexOf(catView.chainHeads.models, currentChainHeadView.model);
+
+                catView.focusChainHeadAnimated(catView.chainHeads.models[currentChainHeadIndex + 1]);
+
+            } else if (direction === 'right') {
+
+                var catView = this.categoryViews[currentCatIndex];
+
+                var currentChainHeadView = _.find(catView.chainHeadViews, function(view) {
+                    return view.isCurrentlyFocused;
+                });
+                var currentChainHeadIndex = _.indexOf(catView.chainHeads.models, currentChainHeadView.model);
+
+                catView.focusChainHeadAnimated(catView.chainHeads.models[currentChainHeadIndex - 1]);
+
+            }
+
         },
 
         refreshData: function() {
@@ -339,6 +408,9 @@
         },
 
         focusCategory: function(categoryView) {
+
+            if (!categoryView)
+                return;
 
             var $container = this.$('> .ph-container');
 
