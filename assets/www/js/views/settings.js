@@ -25,12 +25,10 @@
         
         fetchName: function() {
         	var that = this;
-        	console.log('uuid: ' + phunt.main.getUUID())
         	$.ajax({
                 url: API_ENDPOINT + "?uuid=" + phunt.main.getUUID(),
                 type: 'GET',
                 success: function(data) {
-                	console.log('name: ' + data.name)
                 	that.$('#ph-name-input').val(data.name);
                 }
             });
