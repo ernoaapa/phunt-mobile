@@ -98,7 +98,7 @@
             var $li = $('<li><div class="ph-message"></div><div class="ph-user"></div></li>');
 
             $li.find('.ph-message').text(message);
-            $li.find('.ph-user').text(userName);
+            $li.find('.ph-user').text('- ' + userName);
 
             this.$('.ph-comments ul').append($li);
 

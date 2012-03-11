@@ -8,16 +8,28 @@
         background-repeat: no-repeat;
         height: 560px;
     }
+    textarea {
+
+        text-align: center;
+        padding-top: 36px;
+
+        &:focus {
+            padding-top: 10px;
+            text-align: left;
+        }
+    }
     .ph-comments {
+
         margin: $padding 0px;
+
         ul {
             margin: 0;
-            padding: 0;
+            padding: 0 0 -10px 0;
         }
         li {
 
-            margin: 0 0 ($padding / 2) 0;
-            padding: 0 0 ($padding / 2) 0;
+            margin: 0 0 $padding 0;
+            padding: 0 0 $padding 0;
             list-style: none;
             border-style: solid;
             border-color: green;
@@ -29,8 +41,8 @@
             }
 
             .ph-user {
-                font-style: italic;
-                margin-top: 5px;
+                margin-top: 10px;
+                color: darken(white, 35%);
             }
         }
     }  
