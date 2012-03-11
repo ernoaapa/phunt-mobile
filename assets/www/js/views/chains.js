@@ -5,7 +5,8 @@
     var WIN_HEIGHT = 762; // Math.round(window.innerHeight * 1.5);
     var HOR_DOMINANCE = 0.7;
     var VER_DOMINANCE = 0.6;
-    var CHAIN_HEAD_PLACEHOLDERS = 3;
+    var CHAIN_HEAD_PLACEHOLDERS = 5;
+    var CHAIN_HEAD_MIDDLE = 2;
     var PADDING_PX = 20;
     var API_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/heads'; // 'dummy-chains.json'
 
@@ -34,7 +35,7 @@
                 top: 0,
                 bottom: 0,
                 width: (WIN_WIDTH * HOR_DOMINANCE) + 'px',
-                left: ((WIN_WIDTH * (1 - HOR_DOMINANCE)) / 2 + WIN_WIDTH * HOR_DOMINANCE * (this.index - 1) + (this.index - 1) * PADDING_PX) + 'px'
+                left: ((WIN_WIDTH * (1 - HOR_DOMINANCE)) / 2 + WIN_WIDTH * HOR_DOMINANCE * (this.index - CHAIN_HEAD_MIDDLE) + (this.index - CHAIN_HEAD_MIDDLE) * PADDING_PX) + 'px'
             });
             
             this.$el.append($('<div class="ph-roughDistance"></div>'));
@@ -144,8 +145,8 @@
 
             _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
                 var view = that.chainHeadViews[index];
-                view.model = that.chainHeads.at(indexOf + index - 1); // Note: -1 is related to CHAIN_HEAD_PLACEHOLDERS
-                view.isCurrentlyFocused = index === 1;
+                view.model = that.chainHeads.at(indexOf + index - CHAIN_HEAD_MIDDLE);
+                view.isCurrentlyFocused = index === CHAIN_HEAD_MIDDLE;
                 view.render();
             });
 
