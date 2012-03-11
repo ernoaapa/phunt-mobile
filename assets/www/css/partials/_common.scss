@@ -13,6 +13,8 @@ input, textarea {
 body, html {
     background: black;
     color: white;
+    margin: 0;
+    padding: 0;
 }
 
 #ph-views {
@@ -31,7 +33,7 @@ body, html {
     padding: 20px;
     text-align: center;
     font-size: 30px;
-    margin: 20px 0;
+    margin: $padding 0;
     color: white;
 
     &.mbp-touching {

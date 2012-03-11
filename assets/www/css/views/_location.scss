@@ -1,7 +1,7 @@
 #ph-view-location {
 
     width: 100%;
-    padding: 20px;
+    padding: $padding;
 
     .ph-image {
         background-position: center center;
@@ -18,10 +18,10 @@
         }
         li {
 
-            margin: 0 0 10px 0;
-            padding: 0 0 10px 0;
+            margin: 0 0 ($padding / 2) 0;
+            padding: 0 0 ($padding / 2) 0;
             list-style: none;
-            border-style: dashed;
+            border-style: solid;
             border-color: green;
             border-width: 0 0 1px 0;
             font-size: 20px;
