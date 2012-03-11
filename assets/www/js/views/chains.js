@@ -39,7 +39,7 @@
                 left: options.parentCategoryView.getLeftForIndex(this.index) + 'px'
             });
             
-            this.$el.append($('<div class="ph-roughDistance"></div>'));
+            this.$el.append($('<div class="ph-roughDistance ph-title"></div>'));
                         
             this.addFastButtons();
 
@@ -285,7 +285,7 @@
             this.collection.url = API_ENDPOINT + '?uuid=' + phunt.main.getUUID() + '&lat=' + this.location.coords.latitude + '&lon=' + this.location.coords.longitude;
             this.collection.fetch();
             
-            this.$el.html('<div class="ph-loading">Loading...</div>');
+            this.$el.html('<div class="ph-loading ph-title">Loading<span>...</span></div>');
 
         },
 

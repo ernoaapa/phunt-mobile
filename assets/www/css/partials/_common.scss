@@ -65,3 +65,28 @@ body, html {
 .ph-text-disabled {
 	color: darken(white, $darkenPercent);
 }
+
+.ph-title {
+	font-size: $titleFontSize;
+	padding-bottom: $padding;
+}
+
+.ph-title-huge {
+	font-size: $hugeTitleFontSize;
+	padding-bottom: $padding;
+}
+
+.ph-title-gigant {
+	font-size: $gigantTitleFontSize;
+	padding-bottom: $padding;
+}
+
+.ph-sub-title {
+	font-size: $subTitleFontSize;
+	padding-bottom: $padding;
+}
+
+.ph-loading {
+    text-align: center;
+    margin-top: 70%;
+} 

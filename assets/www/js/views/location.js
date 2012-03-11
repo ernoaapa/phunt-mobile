@@ -40,7 +40,8 @@
 
         bindWithLocation: function(location) {
         	
-        	this.$el.append('<div class="ph-loading">Loading...</div>');
+        	this.$el.append('<div class="ph-loading ph-title">Loading<span>...</span></div>');
+        	
         	this.$el.children().not('.ph-loading').hide();       	
 
             this.waitingForLocation = false;

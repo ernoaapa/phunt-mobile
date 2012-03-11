@@ -9,10 +9,8 @@
     padding: $padding;
     padding-top: 40%;
 
-    p {
+    .ph-title {
         text-align: center;
-        font-size: 30px;
-        padding: 0;
-        margin: $padding 0;
+        padding-bottom: 0px;
     }
 }
