@@ -87,7 +87,9 @@
         	if (this.model.get('ownerPhoneId') == phunt.main.getUUID()) {
         		this.$('.ph-foundItButton').addClass('ph-disabled');
         		this.$('.ph-foundItButton').text('You know where');
-        	}        	
+        	}  else {
+        		this.$('.ph-foundItButton').removeClass('ph-disabled');
+        	}
         },        
 
         addCommentToList: function(message, userName) {
