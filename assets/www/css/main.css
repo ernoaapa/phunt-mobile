@@ -239,9 +239,7 @@ body, html {
   padding: 20px;
   padding-top: 40%;
 }
-#ph-view-create p {
+#ph-view-create .ph-title {
   text-align: center;
-  font-size: 30px;
-  padding: 0;
-  margin: 20px 0;
+  padding-bottom: 0px;
 }
