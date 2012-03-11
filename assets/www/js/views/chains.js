@@ -331,42 +331,26 @@
 
             console.log('navigateBySwipe: ' + direction);
 
-            var currentCat = _.find(this.categoryViews, function(view) {
+            function byBeingFocused(view) {
                 return view.isCurrentlyFocused;
-            });
+            }
+
+            var currentCat = _.find(this.categoryViews, byBeingFocused);
             var currentCatIndex = _.indexOf(this.categoryViews, currentCat);
 
-            if (direction === 'up') {
+            if (direction === 'up')
+                return this.focusCategory(this.categoryViews[currentCatIndex + 1]);
+            else if (direction === 'down')
+                return this.focusCategory(this.categoryViews[currentCatIndex - 1]);
 
-                this.focusCategory(this.categoryViews[currentCatIndex + 1]);
+            var catView = this.categoryViews[currentCatIndex];
+            var currentChainHeadView = _.find(catView.chainHeadViews, byBeingFocused);
+            var currentChainHeadIndex = _.indexOf(catView.chainHeads.models, currentChainHeadView.model);
 
-            } else if (direction === 'down') {
-
-                this.focusCategory(this.categoryViews[currentCatIndex - 1]);
-
-            } else if (direction === 'left') {
-
-                var catView = this.categoryViews[currentCatIndex];
-
-                var currentChainHeadView = _.find(catView.chainHeadViews, function(view) {
-                    return view.isCurrentlyFocused;
-                });
-                var currentChainHeadIndex = _.indexOf(catView.chainHeads.models, currentChainHeadView.model);
-
+            if (direction === 'left')
                 catView.focusChainHeadAnimated(catView.chainHeads.models[currentChainHeadIndex + 1]);
-
-            } else if (direction === 'right') {
-
-                var catView = this.categoryViews[currentCatIndex];
-
-                var currentChainHeadView = _.find(catView.chainHeadViews, function(view) {
-                    return view.isCurrentlyFocused;
-                });
-                var currentChainHeadIndex = _.indexOf(catView.chainHeads.models, currentChainHeadView.model);
-
+            else if (direction === 'right')
                 catView.focusChainHeadAnimated(catView.chainHeads.models[currentChainHeadIndex - 1]);
-
-            }
 
         },
 
