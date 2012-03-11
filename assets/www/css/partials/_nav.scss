@@ -17,6 +17,15 @@ $navButtonWidth: 90px;
 		bottom: 0px;
 		left: 0px;
 		height: 90px;
+		
+		div {
+			border-bottom: 20px solid transparent;
+    		border-left: 30px solid white;
+    		border-right: 0;
+    		border-top: 20px solid transparent;
+    		margin-left: 0;
+		}
+
 	}
 	
   	.ph-button span {
@@ -41,7 +50,7 @@ $navButtonWidth: 90px;
 }
 
 #ph-nav.open {
-	
+  
 	#button-create {
 		left: 76px;
 	}
@@ -53,4 +62,7 @@ $navButtonWidth: 90px;
 	#button-settings {
 		left: 228px;
 	}	
+
 }
+
+
