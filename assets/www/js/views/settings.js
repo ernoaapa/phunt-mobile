@@ -2,12 +2,6 @@
 
     var API_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/settings';
 
-    var Location = Backbone.Model.extend({
-
-        // TODO
-
-    });
-
     var SettingsView = phunt.views.base.extend({
 
         el: $('#ph-view-settings')[0],
@@ -19,19 +13,24 @@
         	back: function() {
         		if (!this.waitingForLocation)
         			phunt.navigation.go('chains');
-            }        		
+            },
+            
+            enter: function() {
+            	this.fetchName();
+            }
         },
 
         initialize: function() {
-        	this.fetchName();
         },
         
         fetchName: function() {
         	var that = this;
+        	console.log('uuid: ' + phunt.main.getUUID())
         	$.ajax({
                 url: API_ENDPOINT + "?uuid=" + phunt.main.getUUID(),
                 type: 'GET',
                 success: function(data) {
+                	console.log('name: ' + data.name)
                 	that.$('#ph-name-input').val(data.name);
                 }
             });
