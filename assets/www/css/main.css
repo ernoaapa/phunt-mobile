@@ -301,9 +301,12 @@ body, html {
   bottom: 0;
   overflow: hidden;
   padding: 20px;
-  padding-top: 40%;
+  padding-top: 10%;
 }
 #ph-view-create .ph-title {
   text-align: center;
   padding-bottom: 0px;
+}
+#ph-view-create .ph-select-timelimit {
+  padding-top: 150px;
 }
