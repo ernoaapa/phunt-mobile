@@ -24,16 +24,12 @@
 
         ul {
             margin: 0;
-            padding: 0 0 -10px 0;
+            padding: 0;
         }
         li {
 
             margin: 0 0 $padding 0;
-            padding: 0 0 $padding 0;
             list-style: none;
-            border-style: solid;
-            border-color: green;
-            border-width: 0 0 1px 0;
             font-size: 20px;
 
             &:last-child {
