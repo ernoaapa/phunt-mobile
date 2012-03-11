@@ -38,7 +38,7 @@
                 left: ((WIN_WIDTH * (1 - HOR_DOMINANCE)) / 2 + WIN_WIDTH * HOR_DOMINANCE * (this.index - CHAIN_HEAD_MIDDLE) + (this.index - CHAIN_HEAD_MIDDLE) * PADDING_PX) + 'px'
             });
             
-            this.$el.append($('<div class="ph-roughDistance"></div>'));
+            this.$el.append($('<div class="ph-roughDistance ph-title"></div>'));
                         
             this.addFastButtons();
 
@@ -229,7 +229,7 @@
             this.collection.url = API_ENDPOINT + '?uuid=' + phunt.main.getUUID() + '&lat=' + this.location.coords.latitude + '&lon=' + this.location.coords.longitude;
             this.collection.fetch();
             
-            this.$el.html('<div class="ph-loading">Loading...</div>');
+            this.$el.html('<div class="ph-loading ph-title">Loading<span>...</span></div>');
 
         },
 

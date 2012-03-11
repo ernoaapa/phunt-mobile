@@ -63,6 +63,26 @@ body, html {
   color: #999999;
 }
 
+.ph-title {
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+
+.ph-title-huge {
+  font-size: 80px;
+  padding-bottom: 20px;
+}
+
+.ph-sub-title {
+  font-size: 25px;
+  padding-bottom: 20px;
+}
+
+.ph-loading {
+  text-align: center;
+  margin-top: 70%;
+}
+
 #ph-nav {
   z-index: 5;
   position: fixed;
@@ -154,12 +174,6 @@ body, html {
   left: 0px;
   right: 0px;
   text-align: center;
-  font-size: 40px;
-}
-#ph-view-chains .ph-loading {
-  text-align: center;
-  margin-top: 70%;
-  font-size: 40px;
 }
 
 #ph-view-location {
@@ -190,11 +204,6 @@ body, html {
 #ph-view-location .ph-comments li .ph-user {
   font-style: italic;
   margin-top: 5px;
-}
-#ph-view-location .ph-loading {
-  text-align: center;
-  margin-top: 70%;
-  font-size: 40px;
 }
 
 #ph-view-countdown {
