@@ -88,6 +88,42 @@ body, html {
   margin-top: 70%;
 }
 
+.ph-icon {
+  display: block;
+  left: 0 px;
+  height: 90px;
+  width: 90px;
+  background: transparent url("../img/newicons.png") 0 0;
+}
+
+.ph-icon-left {
+  left: 90px;
+  height: 90px;
+  width: 90px;
+  background: transparent url("../img/newicons.png") -90px 0;
+}
+
+.ph-icon-create {
+  left: 180px;
+  height: 90px;
+  width: 90px;
+  background: transparent url("../img/newicons.png") -180px 0;
+}
+
+.ph-icon-refresh {
+  left: 270px;
+  height: 90px;
+  width: 90px;
+  background: transparent url("../img/newicons.png") -270px 0;
+}
+
+.ph-icon-settings {
+  left: 360px;
+  height: 90px;
+  width: 90px;
+  background: transparent url("../img/newicons.png") -360px 0;
+}
+
 #ph-nav {
   z-index: 5;
   position: fixed;
@@ -95,33 +131,19 @@ body, html {
   left: 0px;
   display: none;
 }
-#ph-nav #button-nav {
+#ph-nav .ph-button {
   width: 90px;
-  padding: 27px;
+  height: 90px;
   position: absolute;
   bottom: 0px;
+  padding: 0;
+}
+#ph-nav #button-nav {
   left: 0px;
-  height: 90px;
-}
-#ph-nav #button-nav div {
-  border-bottom: 20px solid transparent;
-  border-left: 30px solid white;
-  border-right: 0;
-  border-top: 20px solid transparent;
-  margin-left: 0;
-}
-#ph-nav .ph-button span {
-  font-size: 11px;
-  position: absolute;
-  left: 40px;
-  bottom: 20px;
+  background-color: green;
 }
 #ph-nav .ph-nav-button {
-  width: 90px;
-  padding: 27px;
-  background: #323232;
-  position: absolute;
-  bottom: 0px;
+  background-color: #323232;
   -moz-transition: left 0.5s ease-out;
   -webkit-transition: left 0.5s ease-out;
   -o-transition: left 0.5s ease-out;
@@ -129,6 +151,15 @@ body, html {
 }
 #ph-nav #button-create, #ph-nav #button-refresh, #ph-nav #button-settings {
   left: 0px;
+}
+#ph-nav #button-create {
+  background-position: -60px 0px;
+}
+#ph-nav #button-refresh {
+  background-position: -130px 0px;
+}
+#ph-nav #button-settings {
+  background-position: -200px 0px;
 }
 
 #ph-nav.open #button-create {

@@ -1,6 +1,42 @@
 @import "compass/css3/transition";
 
-$navButtonWidth: 90px;
+$navButtonEdgeLength: 90px;
+
+.ph-icon {
+	display: block;
+	left: 0 px;
+	height: $navButtonEdgeLength; 
+	width: $navButtonEdgeLength;
+	background: transparent url('../img/newicons.png') 0 0;
+}
+
+.ph-icon-left {
+	left: 90px;
+	height: $navButtonEdgeLength; 
+	width: $navButtonEdgeLength;
+	background: transparent url('../img/newicons.png') -90px 0;
+}
+
+.ph-icon-create {
+	left: 180px;
+	height: $navButtonEdgeLength; 
+	width: $navButtonEdgeLength;
+	background: transparent url('../img/newicons.png') -180px 0;
+}
+
+.ph-icon-refresh {
+	left: 270px;
+	height: $navButtonEdgeLength; 
+	width: $navButtonEdgeLength;
+	background: transparent url('../img/newicons.png') -270px 0;
+}
+
+.ph-icon-settings {
+	left: 360px;
+	height: $navButtonEdgeLength; 
+	width: $navButtonEdgeLength;
+	background: transparent url('../img/newicons.png') -360px 0;
+}
 
 #ph-nav {
 	
@@ -10,43 +46,40 @@ $navButtonWidth: 90px;
 	left: 0px;
 	display: none;
 	
-	#button-nav {
-		width: $navButtonWidth;
-		padding: 27px;
+	.ph-button {
+		width: $navButtonEdgeLength;
+		height: $navButtonEdgeLength;
 		position: absolute;
 		bottom: 0px;
-		left: 0px;
-		height: 90px;
-		
-		div {
-			border-bottom: 20px solid transparent;
-    		border-left: 30px solid white;
-    		border-right: 0;
-    		border-top: 20px solid transparent;
-    		margin-left: 0;
-		}
-
+		padding: 0;
+		//background: transparent url('../img/icons.png') no-repeat;
 	}
 	
-  	.ph-button span {
-  		font-size: 11px;
-  		position: absolute;
-  		left: 40px;
-  		bottom: 20px;
-  	}	
+	#button-nav {
+		left: 0px;
+		background-color: green;
+	}
 		
 	.ph-nav-button {
-		width: $navButtonWidth;
-		padding: 27px;
-		background: $gray;
-		position: absolute;
-		bottom: 0px;
+		background-color: $gray;
   		@include transition(left 0.5s ease-out);
 	}
 	
 	#button-create, #button-refresh, #button-settings {
 		left: 0px;
 	}
+	
+	#button-create {
+		background-position: -60px 0px;
+	}
+		
+	#button-refresh {
+		background-position: -130px 0px;
+	}
+		
+	#button-settings {
+		background-position: -200px 0px;
+	}	
 }
 
 #ph-nav.open {
@@ -61,8 +94,7 @@ $navButtonWidth: 90px;
 		
 	#button-settings {
 		left: 228px;
-	}	
-
+	}
 }
 
 
