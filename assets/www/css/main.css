@@ -142,6 +142,12 @@ body, html {
 #ph-view-chains > .ph-container .ph-category > .ph-container {
   position: absolute;
 }
+#ph-view-chains > .ph-container .ph-category > .ph-container.ph-sliding {
+  -moz-transition: left 0.5s ease-out;
+  -webkit-transition: left 0.5s ease-out;
+  -o-transition: left 0.5s ease-out;
+  transition: left 0.5s ease-out;
+}
 #ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead {
   position: absolute;
   background-position: center center;

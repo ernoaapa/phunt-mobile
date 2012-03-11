@@ -22,6 +22,9 @@
 
                 position: absolute;
 
+                &.ph-sliding {
+                    @include transition(left 0.5s ease-out);
+                }
                 .ph-chainHead {
 
                     position: absolute;

@@ -21,7 +21,8 @@
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
                     phunt.navigation.go('location', this.model.get('resourceUrl'));
                 else if (this.parentCategoryView.isCurrentlyFocused)
-                    this.parentCategoryView.focusChainHead(this.model);
+//                    this.parentCategoryView.focusChainHead(this.model);
+                    this.parentCategoryView.focusChainHeadAnimated(this.model);
                 else
                     this.parentCategoryView.parentCategoryCollectionView.focusCategory(this.parentCategoryView);
             }
@@ -35,7 +36,7 @@
                 top: 0,
                 bottom: 0,
                 width: (WIN_WIDTH * HOR_DOMINANCE) + 'px',
-                left: ((WIN_WIDTH * (1 - HOR_DOMINANCE)) / 2 + WIN_WIDTH * HOR_DOMINANCE * (this.index - CHAIN_HEAD_MIDDLE) + (this.index - CHAIN_HEAD_MIDDLE) * PADDING_PX) + 'px'
+                left: options.parentCategoryView.getLeftForIndex(this.index) + 'px'
             });
             
             this.$el.append($('<div class="ph-roughDistance"></div>'));
@@ -51,7 +52,7 @@
             });
             
             if (this.model) {
-            	this.$el.find('.ph-roughDistance').text(this.model.get('roughDistance')); 
+                this.$el.find('.ph-roughDistance').text(this.model.get('roughDistance'));
             }
 
         }
@@ -98,6 +99,7 @@
 
             this.chainHeads = this.model.get('chainHeads');
             this.chainHeadViews = [];
+            this.left = 0;
 
             this.initializeChainHeads();
             this.focusChainHead(this.chainHeads.at(0));
@@ -135,6 +137,12 @@
 
         },
 
+        getLeftForIndex: function(index) {
+
+            return Math.round((WIN_WIDTH * (1 - HOR_DOMINANCE)) / 2 + WIN_WIDTH * HOR_DOMINANCE * (index - CHAIN_HEAD_MIDDLE) + (index - CHAIN_HEAD_MIDDLE) * PADDING_PX);
+
+        },
+
         focusChainHead: function(chainHead) {
 
             var that = this;
@@ -148,6 +156,54 @@
                 view.model = that.chainHeads.at(indexOf + index - CHAIN_HEAD_MIDDLE);
                 view.isCurrentlyFocused = index === CHAIN_HEAD_MIDDLE;
                 view.render();
+            });
+
+        },
+
+        focusChainHeadAnimated: function(chainHead) {
+
+            var that = this;
+            var indexOf = this.chainHeads.indexOf(chainHead);
+
+            if (indexOf === -1)
+                return; // can't focus nonexistant chainHead instance
+
+            if (this.chainHeadBeingFocused)
+                return;
+
+            var viewIndex = _.find(this.chainHeadViews, function(view) {
+                return view.model === chainHead;
+            }).index;
+
+            this.chainHeadBeingFocused = true;
+
+            var slideLeft = viewIndex > CHAIN_HEAD_MIDDLE;
+            var $container = this.$('.ph-container');
+            var amount = (WIN_WIDTH * HOR_DOMINANCE + PADDING_PX) * (slideLeft ? -1 : 1);
+
+            this.left += amount;
+
+            $container.addClass('ph-sliding').css({ left: this.left + 'px' }).on('webkitTransitionEnd', function() {
+
+                that.left -= amount;
+                $container.removeClass('ph-sliding').css({ left: that.left + 'px' });
+
+                _.each(that.chainHeadViews, function(view) {
+
+                    if (slideLeft)
+                        view.index = view.index === 0 ? CHAIN_HEAD_PLACEHOLDERS - 1 : view.index - 1; // make the first view LAST
+                    else
+                        view.index = view.index === CHAIN_HEAD_PLACEHOLDERS - 1 ? 0 : view.index + 1; // make the last view FIRST
+
+                    view.$el.css({ left: that.getLeftForIndex(view.index) + 'px' });
+                    view.isCurrentlyFocused = view.index === CHAIN_HEAD_MIDDLE;
+
+                });
+
+                $container.off('webkitTransitionEnd');
+
+                that.chainHeadBeingFocused = false;
+
             });
 
         }
