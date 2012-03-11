@@ -39,7 +39,8 @@ body, html {
   background: #004b00;
 }
 .ph-button.ph-disabled {
-  background: #004b00;
+  background: #323232;
+  color: #999999;
 }
 .ph-button.ph-negative {
   background: #dd0044;
@@ -56,8 +57,7 @@ body, html {
   padding: 10px;
 }
 
-.ph-disabled {
-  background: #323232;
+.ph-text-disabled {
   color: #999999;
 }
 
@@ -201,10 +201,10 @@ body, html {
   overflow: hidden;
   padding: 20px;
   padding-top: 40%;
+  color: white;
 }
 #ph-view-countdown .ph-remaining {
   background: #323232;
-  color: white;
   padding: 40px;
   font-size: 120px;
   text-align: center;

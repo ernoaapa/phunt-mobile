@@ -41,7 +41,8 @@ body, html {
         background: rgb(0,75,0);
     }
     &.ph-disabled {
-        background: rgb(0,75,0);
+		background: $gray;
+		color: darken(white, $darkenPercent);
     }
     &.ph-negative {
         background: $red;
@@ -59,7 +60,6 @@ body, html {
     padding: 10px;
 }
 
-.ph-disabled {
-	background: $gray;
-	color: darken(white, 40%);	
+.ph-text-disabled {
+	color: darken(white, $darkenPercent);
 }

@@ -48,7 +48,7 @@
         startClock: function() {
 
             var that = this;
-            var $remaining = this.$('.ph-remaining');
+            var $remaining = this.$('.ph-remaining').removeClass('ph-text-disabled');
 
             update();
 
@@ -76,7 +76,7 @@
         },
 
         stopClock: function() {
-
+        	this.$('.ph-remaining').addClass('ph-text-disabled');
             window.clearInterval(this.clockInterval);
 
         },
