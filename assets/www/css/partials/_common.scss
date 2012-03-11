@@ -73,9 +73,11 @@ body, html {
 }
 
 .ph-title-huge {
+	color: green;
 	font-size: $hugeTitleFontSize;
 	padding-bottom: $padding;
 }
+
 
 .ph-title-gigant {
 	font-size: $gigantTitleFontSize;
