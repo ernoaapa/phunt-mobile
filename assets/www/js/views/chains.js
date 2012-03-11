@@ -48,16 +48,19 @@
 
         prepareForModel: function(chainHead) {
 
-            if (!chainHead) {
+            console.log('ChainHeadView#' + this.index + ' preparing for ' + (chainHead ? 'ChainHead#' + chainHead.id : 'NULL'));
+
+            if (chainHead) {
+
+                this.$el.addClass('ph-populated');
+                this.$el.find('.ph-roughDistance').text('loading');
+
+            } else {
+
                 this.$el.removeClass('ph-populated');
                 this.$el.find('.ph-roughDistance').text('');
-                return;
+
             }
-
-            console.log('ChainHeadView#' + this.index + ' preparing for ChainHead#' + chainHead.id);
-
-            this.$el.addClass('ph-populated');
-            this.$el.find('.ph-roughDistance').text('loading');
 
         },
 
@@ -162,8 +165,12 @@
 
                 $container.append(chainHeadView.$el);
 
-                chainHeadView.attachToModel(index > FIRST && index < LAST ? correspondingModel : null);
-                chainHeadView.prepareForModel(index === FIRST || index === LAST ? correspondingModel : null);
+                if (index > FIRST && index < LAST)
+                    chainHeadView.attachToModel(correspondingModel);
+
+                if (index === FIRST || index === LAST)
+                    chainHeadView.prepareForModel(correspondingModel);
+
                 chainHeadView.isCurrentlyFocused = index === CHAIN_HEAD_MIDDLE;
 
             });
