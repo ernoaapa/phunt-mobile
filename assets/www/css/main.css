@@ -188,6 +188,10 @@ body, html {
   padding-left: 8%;
   font-size: 40px;
 }
+#ph-view-welcome .ph-app-title {
+  padding-top: 20%;
+  padding-bottom: 150px;
+}
 
 #ph-view-chains {
   position: fixed;
