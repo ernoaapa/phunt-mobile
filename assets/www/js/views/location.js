@@ -28,7 +28,7 @@
             leave: function() {
                 this.unbindWithLocation();
             },
-            'fastclick .ph-foundItButton': 'verifyLocation',
+            'fastclick .ph-foundItButton:not(".ph-disabled")': 'verifyLocation',
             'fastclick .ph-postCommentButton': 'postComment'
         },
 
@@ -41,7 +41,7 @@
         bindWithLocation: function(location) {
         	
         	this.$el.append('<div class="ph-loading">Loading...</div>');
-        	this.$el.children().not('.ph-loading').hide();
+        	this.$el.children().not('.ph-loading').hide();       	
 
             this.waitingForLocation = false;
 
@@ -51,7 +51,7 @@
             this.model.fetch();
 
         },
-
+        
         unbindWithLocation: function() {
 
             this.model.off();
@@ -76,9 +76,19 @@
                 that.addCommentToList(comment.message, comment.user.name);
             });
             
+            
             this.$el.find('.ph-loading').hide();
-            this.$el.children().not('.ph-loading').show();            
+            this.$el.children().not('.ph-loading').show();
+            
+            this.hideFoundItButtonForOwners();
         },
+        
+        hideFoundItButtonForOwners: function() {
+        	if (this.model.get('ownerPhoneId') == phunt.main.getUUID()) {
+        		this.$('.ph-foundItButton').addClass('ph-disabled');
+        		this.$('.ph-foundItButton').text('You know where');
+        	}        	
+        },        
 
         addCommentToList: function(message, userName) {
 

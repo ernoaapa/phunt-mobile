@@ -56,6 +56,11 @@ body, html {
   padding: 10px;
 }
 
+.ph-disabled {
+  background: #323232;
+  color: #999999;
+}
+
 #ph-view-welcome {
   position: fixed;
   top: 0;
