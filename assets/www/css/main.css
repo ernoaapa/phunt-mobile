@@ -217,6 +217,8 @@ body, html {
   bottom: 0;
   background-position: center center;
   background-repeat: no-repeat;
+}
+#ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead.ph-populated {
   background-color: #323232;
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead .ph-roughDistance {

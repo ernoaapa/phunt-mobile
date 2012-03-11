@@ -44,15 +44,15 @@
 
         },
 
-        render: function() {
-        	
-            this.$el.css({
-                'backgroundImage': this.model ? 'url("' + this.model.get('gridPictureUrl') + '")' : ''
-            });
-            
-            if (this.model) {
-                this.$el.find('.ph-roughDistance').text(this.model.get('roughDistance'));
-            }
+        prepareForModel: function(chainHead) {
+
+            if (!chainHead)
+                return;
+
+            console.log('ChainHeadView#' + this.index + ' preparing for ChainHead#' + chainHead.id);
+
+            this.$el.addClass('ph-populated');
+            this.$el.find('.ph-roughDistance').text('loading');
 
         },
 
@@ -64,7 +64,10 @@
             console.log('ChainHeadView#' + this.index + ' attaching to ChainHead#' + chainHead.id);
 
             this.model = chainHead;
-            this.render(); // TODO: TEMP
+
+            this.$el.addClass('ph-populated');
+            this.$el.css({ backgroundImage: 'url("' + this.model.get('gridPictureUrl') + '")' });
+            this.$el.find('.ph-roughDistance').text(this.model.get('roughDistance'));
 
         },
 
@@ -76,7 +79,9 @@
             console.log('ChainHeadView#' + this.index + ' detaching from ChainHead#' + this.model.id);
 
             this.model = null;
-            this.render(); // TODO: TEMP
+
+            this.$el.css({ backgroundImage: '' });
+            this.$el.find('.ph-roughDistance').text('loading');
 
         }
 
@@ -142,6 +147,7 @@
 
             _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
 
+                var correspondingModel = that.chainHeads.at(index - CHAIN_HEAD_MIDDLE);
                 var chainHeadView = new ChainHeadView({
                     index: index,
                     parentCategoryView: that
@@ -151,7 +157,8 @@
 
                 $container.append(chainHeadView.$el);
 
-                chainHeadView.attachToModel(index > FIRST && index < LAST ? that.chainHeads.at(index - CHAIN_HEAD_MIDDLE) : null);
+                chainHeadView.attachToModel(index > FIRST && index < LAST ? correspondingModel : null);
+                chainHeadView.prepareForModel(index === FIRST || index === LAST ? correspondingModel : null);
                 chainHeadView.isCurrentlyFocused = index === CHAIN_HEAD_MIDDLE;
 
             });
@@ -208,6 +215,10 @@
                 _.find(that.chainHeadViews, function(view) {
                     return slideLeft ? view.index === FIRST : view.index === LAST;
                 }).detachFromModel();
+
+                _.find(that.chainHeadViews, function(view) {
+                    return !slideLeft ? view.index === FIRST : view.index === LAST;
+                }).prepareForModel(that.chainHeads.at(indexOf + (slideLeft ? 2 : -2)));
 
                 _.find(that.chainHeadViews, function(view) {
                     return !slideLeft ? view.index === FIRST + 1 : view.index === LAST - 1;
