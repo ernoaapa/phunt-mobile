@@ -191,10 +191,10 @@ body, html {
   overflow: hidden;
 }
 #ph-view-chains > .ph-container {
-  -moz-transition: top 0.5s ease-out;
-  -webkit-transition: top 0.5s ease-out;
-  -o-transition: top 0.5s ease-out;
-  transition: top 0.5s ease-out;
+  -moz-transition: top 0.33s ease-out;
+  -webkit-transition: top 0.33s ease-out;
+  -o-transition: top 0.33s ease-out;
+  transition: top 0.33s ease-out;
   position: absolute;
 }
 #ph-view-chains > .ph-container .ph-category {

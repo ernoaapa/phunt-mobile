@@ -11,7 +11,7 @@
 
     > .ph-container {
 
-        @include transition(top 0.5s ease-out);
+        @include transition(top 0.33s ease-out);
         position: absolute;
 
         .ph-category {
