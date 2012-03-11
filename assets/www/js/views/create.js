@@ -49,6 +49,12 @@
 
             function cameraSuccess(imageFileLocation) {
 
+                that.$('.ph-button').each(function() {
+                    $(this).addClass('ph-working');
+                });
+
+                $button.removeClass('ph-working');
+
                 that.imageBeingSubmitted = true;
                 fileToUpload = imageFileLocation;
 

@@ -33,10 +33,15 @@ body, html {
   color: white;
 }
 .ph-button.mbp-touching {
-  /*background: red;*/
+  background: #009a00;
 }
-
-.ph-button-negative {
+.ph-button.ph-working {
+  background: #004b00;
+}
+.ph-button.ph-disabled {
+  background: #004b00;
+}
+.ph-button.ph-negative {
   background: #dd0044;
 }
 
