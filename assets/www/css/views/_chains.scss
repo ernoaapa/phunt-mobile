@@ -23,7 +23,7 @@
                 position: absolute;
 
                 &.ph-sliding {
-                    @include transition(left 0.5s ease-out);
+                    @include transition(left 0.33s ease-out);
                 }
                 .ph-chainHead {
 

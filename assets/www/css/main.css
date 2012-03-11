@@ -17,6 +17,7 @@ body, html {
   color: white;
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #ph-views .ph-view {
@@ -90,38 +91,33 @@ body, html {
 
 .ph-icon {
   display: block;
-  left: 0 px;
   height: 90px;
   width: 90px;
-  background: transparent url("../img/newicons.png") 0 0;
+  background-image: url("../img/newicons.png");
+  background-repeat: no-repeat;
+  background-position-y: 0px;
 }
 
-.ph-icon-left {
-  left: 90px;
-  height: 90px;
-  width: 90px;
-  background: transparent url("../img/newicons.png") -90px 0;
+.ph-icon-right {
+  margin-left: -20px;
+  left: 70px;
+  background-position-y: 20px;
+  background-position-x: 0;
 }
 
 .ph-icon-create {
   left: 180px;
-  height: 90px;
-  width: 90px;
-  background: transparent url("../img/newicons.png") -180px 0;
+  background-position-x: -180px;
 }
 
 .ph-icon-refresh {
   left: 270px;
-  height: 90px;
-  width: 90px;
-  background: transparent url("../img/newicons.png") -270px 0;
+  background-position-x: -270px;
 }
 
 .ph-icon-settings {
   left: 360px;
-  height: 90px;
-  width: 90px;
-  background: transparent url("../img/newicons.png") -360px 0;
+  background-position-x: -360px;
 }
 
 #ph-nav {
@@ -132,25 +128,27 @@ body, html {
   display: none;
 }
 #ph-nav .ph-button {
-  width: 90px;
-  height: 90px;
+  width: 143px;
+  height: 143px;
   position: absolute;
   bottom: 0px;
   padding: 0;
 }
 #ph-nav #button-nav {
+  width: 52px;
   left: 0px;
   background-color: green;
 }
 #ph-nav .ph-nav-button {
   background-color: #323232;
-  -moz-transition: left 0.5s ease-out;
-  -webkit-transition: left 0.5s ease-out;
-  -o-transition: left 0.5s ease-out;
-  transition: left 0.5s ease-out;
+  -moz-transition: left 0.33s ease-out;
+  -webkit-transition: left 0.33s ease-out;
+  -o-transition: left 0.33s ease-out;
+  transition: left 0.33s ease-out;
 }
 #ph-nav #button-create, #ph-nav #button-refresh, #ph-nav #button-settings {
-  left: 0px;
+  padding: 20px;
+  left: -143px;
 }
 #ph-nav #button-create {
   background-position: -60px 0px;
@@ -163,13 +161,13 @@ body, html {
 }
 
 #ph-nav.open #button-create {
-  left: 76px;
+  left: 52px;
 }
 #ph-nav.open #button-refresh {
-  left: 152px;
+  left: 195px;
 }
 #ph-nav.open #button-settings {
-  left: 228px;
+  left: 338px;
 }
 
 #ph-view-welcome {
@@ -206,10 +204,10 @@ body, html {
   position: absolute;
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container.ph-sliding {
-  -moz-transition: left 0.5s ease-out;
-  -webkit-transition: left 0.5s ease-out;
-  -o-transition: left 0.5s ease-out;
-  transition: left 0.5s ease-out;
+  -moz-transition: left 0.33s ease-out;
+  -webkit-transition: left 0.33s ease-out;
+  -o-transition: left 0.33s ease-out;
+  transition: left 0.33s ease-out;
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead {
   position: absolute;
@@ -236,7 +234,7 @@ body, html {
 #ph-view-location .ph-image {
   background-position: center center;
   background-repeat: no-repeat;
-  height: 457px;
+  height: 560px;
 }
 #ph-view-location .ph-comments {
   margin: 20px 0px;
