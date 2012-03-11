@@ -252,6 +252,7 @@
     	
     	initialize: function() {
     		this.addFastButtons();
+            _.bindAll(this, 'toggleNav');
     	},
 
     	events : {
@@ -267,14 +268,17 @@
 		
 		createGame: function() {
             phunt.navigation.go('create');
+            _.defer(this.toggleNav);
 		},
 		
 		refreshGames: function() {
 			categoryCollectionView.refreshData();
+            _.defer(this.toggleNav);
 		},
 		
 		editSettings: function() {
 			phunt.navigation.go('settings');
+            _.defer(this.toggleNav);
 		}    	
     });
 
