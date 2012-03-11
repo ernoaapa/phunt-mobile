@@ -92,26 +92,31 @@ body, html {
   display: block;
   height: 90px;
   width: 90px;
+  background-image: url("../img/newicons.png");
+  background-repeat: no-repeat;
+  background-position-y: 0px;
 }
 
 .ph-icon-right {
-  left: 90px;
-  background: transparent url("../img/newicons.png") 0 0;
+  margin-left: -20px;
+  left: 70px;
+  background-position-y: 20px;
+  background-position-x: 0;
 }
 
 .ph-icon-create {
   left: 180px;
-  background: transparent url("../img/newicons.png") -180px 0;
+  background-position-x: -180px;
 }
 
 .ph-icon-refresh {
   left: 270px;
-  background: transparent url("../img/newicons.png") -270px 0;
+  background-position-x: -270px;
 }
 
 .ph-icon-settings {
   left: 360px;
-  background: transparent url("../img/newicons.png") -360px 0;
+  background-position-x: -360px;
 }
 
 #ph-nav {
@@ -122,13 +127,14 @@ body, html {
   display: none;
 }
 #ph-nav .ph-button {
-  width: 90px;
-  height: 90px;
+  width: 143px;
+  height: 143px;
   position: absolute;
   bottom: 0px;
   padding: 0;
 }
 #ph-nav #button-nav {
+  width: 52px;
   left: 0px;
   background-color: green;
 }
@@ -140,7 +146,8 @@ body, html {
   transition: left 0.5s ease-out;
 }
 #ph-nav #button-create, #ph-nav #button-refresh, #ph-nav #button-settings {
-  left: 0px;
+  padding: 20px;
+  left: -143px;
 }
 #ph-nav #button-create {
   background-position: -60px 0px;
@@ -153,13 +160,13 @@ body, html {
 }
 
 #ph-nav.open #button-create {
-  left: 76px;
+  left: 52px;
 }
 #ph-nav.open #button-refresh {
-  left: 152px;
+  left: 195px;
 }
 #ph-nav.open #button-settings {
-  left: 228px;
+  left: 338px;
 }
 
 #ph-view-welcome {
