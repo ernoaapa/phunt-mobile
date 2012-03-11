@@ -158,7 +158,7 @@
 
                     $button.text('Done!');
 
-                    _.delay(phunt.navigation.go, 1000, 'location', result.result);
+                    _.delay(phunt.navigation.go, 1500, 'location', result.result);
 
                 }
 

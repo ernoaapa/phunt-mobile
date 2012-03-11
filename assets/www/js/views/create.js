@@ -103,7 +103,7 @@
                         $button.text(buttonOrigText);
                         that.$('.ph-button').removeClass('ph-working');
                         that.imageBeingSubmitted = false;
-                    }, 1000);
+                    }, 1500);
 
                 }
 

@@ -156,7 +156,7 @@
                 $button.text('Correct!');
                 $button.removeClass('ph-working');
 
-                _.delay(phunt.navigation.go, 1000, 'countdown', that.model);
+                _.delay(phunt.navigation.go, 1500, 'countdown', that.model);
 
             }
 
