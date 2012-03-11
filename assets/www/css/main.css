@@ -139,12 +139,18 @@ body, html {
   left: 0px;
   background-color: green;
 }
+#ph-nav #button-nav.mbp-touching {
+  background-color: #00b300;
+}
 #ph-nav .ph-nav-button {
   background-color: #323232;
   -moz-transition: left 0.33s ease-out;
   -webkit-transition: left 0.33s ease-out;
   -o-transition: left 0.33s ease-out;
   transition: left 0.33s ease-out;
+}
+#ph-nav .ph-nav-button.mbp-touching {
+  background-color: #4c4c4c;
 }
 #ph-nav #button-create, #ph-nav #button-refresh, #ph-nav #button-settings {
   padding: 20px;

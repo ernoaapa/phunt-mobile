@@ -52,14 +52,24 @@ $navButtonWidth: 143px;
 	}
 	
 	#button-nav {
+
 		width: 52px;
 		left: 0px;
 		background-color: green;
+
+        &.mbp-touching {
+            background-color: lighten(green, 10%);
+        }
 	}
 		
 	.ph-nav-button {
+
 		background-color: $gray;
   		@include transition(left 0.33s ease-out);
+
+        &.mbp-touching {
+            background-color: lighten($gray, 10%);
+        }
 	}
 	
 	#button-create, #button-refresh, #button-settings {
