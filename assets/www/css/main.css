@@ -17,8 +17,7 @@ body, html {
   color: white;
   margin: 0;
   padding: 0;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  letter-spacing: -1;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #ph-views .ph-view {
@@ -226,7 +225,7 @@ body, html {
 #ph-view-location .ph-image {
   background-position: center center;
   background-repeat: no-repeat;
-  height: 457px;
+  height: 560px;
 }
 #ph-view-location .ph-comments {
   margin: 20px 0px;
