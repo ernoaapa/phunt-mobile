@@ -142,6 +142,7 @@ body, html {
   position: absolute;
   background-position: center center;
   background-repeat: no-repeat;
+  background-color: #323232;
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead .ph-roughDistance {
   position: absolute;
