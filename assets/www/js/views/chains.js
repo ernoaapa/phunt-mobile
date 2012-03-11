@@ -99,7 +99,6 @@
 
             this.chainHeads = this.model.get('chainHeads');
             this.chainHeadViews = [];
-            this.left = 0;
 
             this.initializeChainHeads();
             this.focusChainHead(this.chainHeads.at(0));
@@ -179,14 +178,13 @@
 
             var slideLeft = viewIndex > CHAIN_HEAD_MIDDLE;
             var $container = this.$('.ph-container');
-            var amount = (WIN_WIDTH * HOR_DOMINANCE + PADDING_PX) * (slideLeft ? -1 : 1);
 
-            this.left += amount;
+            $container
+                .addClass('ph-sliding')
+                .css({ left: ((WIN_WIDTH * HOR_DOMINANCE + PADDING_PX) * (slideLeft ? -1 : 1)) + 'px' })
+                .on('webkitTransitionEnd', function() {
 
-            $container.addClass('ph-sliding').css({ left: this.left + 'px' }).on('webkitTransitionEnd', function() {
-
-                that.left -= amount;
-                $container.removeClass('ph-sliding').css({ left: that.left + 'px' });
+                $container.removeClass('ph-sliding').css({ left: '0px' });
 
                 _.each(that.chainHeadViews, function(view) {
 
