@@ -1,18 +1,15 @@
 #ph-view-location {
 
     width: 100%;
-    padding: $padding;
+    padding: $padding $padding 0 $padding;
 
     .ph-image {
         background-position: center center;
         background-repeat: no-repeat;
         height: 560px;
     }
-    .ph-foundItButton {
-        // TODO: Any different styling here..?
-    }
     .ph-comments {
-    	margin: $padding 0px; 
+        margin: $padding 0px;
         ul {
             margin: 0;
             padding: 0;
