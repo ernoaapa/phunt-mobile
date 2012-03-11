@@ -90,37 +90,27 @@ body, html {
 
 .ph-icon {
   display: block;
-  left: 0 px;
   height: 90px;
   width: 90px;
-  background: transparent url("../img/newicons.png") 0 0;
 }
 
-.ph-icon-left {
+.ph-icon-right {
   left: 90px;
-  height: 90px;
-  width: 90px;
-  background: transparent url("../img/newicons.png") -90px 0;
+  background: transparent url("../img/newicons.png") 0 0;
 }
 
 .ph-icon-create {
   left: 180px;
-  height: 90px;
-  width: 90px;
   background: transparent url("../img/newicons.png") -180px 0;
 }
 
 .ph-icon-refresh {
   left: 270px;
-  height: 90px;
-  width: 90px;
   background: transparent url("../img/newicons.png") -270px 0;
 }
 
 .ph-icon-settings {
   left: 360px;
-  height: 90px;
-  width: 90px;
   background: transparent url("../img/newicons.png") -360px 0;
 }
 
