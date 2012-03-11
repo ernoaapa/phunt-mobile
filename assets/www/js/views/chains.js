@@ -303,8 +303,8 @@
 
                 if (!this.collection.length) // if not yet fetched...
                     this.refreshData();
-                
-                nav.$el.show();
+                else
+                    nav.$el.show();
 
             },
             
@@ -379,8 +379,9 @@
             var $container = $('<div class="ph-container"></div>');
 
             this.categoryViews = [];
-           
+
             this.$el.html('');
+            nav.$el.show();
 
             collection.each(function(model, index) {
                 var view = new CategoryView({
