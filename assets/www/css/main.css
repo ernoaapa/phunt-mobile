@@ -254,8 +254,8 @@ body, html {
   margin: 20px 0px;
 }
 #ph-view-location .ph-comments ul {
-  margin: 0;
-  padding: 0 0 -10px 0;
+  margin: 0 0 -10px 0;
+  padding: 0;
 }
 #ph-view-location .ph-comments li {
   margin: 0 0 20px 0;
