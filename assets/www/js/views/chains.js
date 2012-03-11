@@ -143,7 +143,6 @@
             _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
 
                 var chainHeadView = new ChainHeadView({
-                    model: index > FIRST && index < LAST ? that.chainHeads.at(index - CHAIN_HEAD_MIDDLE) : null,
                     index: index,
                     parentCategoryView: that
                 });
@@ -152,7 +151,8 @@
 
                 $container.append(chainHeadView.$el);
 
-                chainHeadView.render();
+                chainHeadView.attachToModel(index > FIRST && index < LAST ? that.chainHeads.at(index - CHAIN_HEAD_MIDDLE) : null);
+                chainHeadView.isCurrentlyFocused = index === CHAIN_HEAD_MIDDLE;
 
             });
 
