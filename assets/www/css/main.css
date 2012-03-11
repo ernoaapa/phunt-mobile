@@ -244,9 +244,9 @@ body, html {
 }
 #ph-view-location textarea {
   text-align: center;
-  padding-top: 36px;
+  padding-top: 39px;
 }
-#ph-view-location textarea:focus {
+#ph-view-location textarea:focus, #ph-view-location textarea[disabled] {
   padding-top: 10px;
   text-align: left;
 }

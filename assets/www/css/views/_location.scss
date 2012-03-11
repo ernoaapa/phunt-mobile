@@ -11,9 +11,9 @@
     textarea {
 
         text-align: center;
-        padding-top: 36px;
+        padding-top: 39px;
 
-        &:focus {
+        &:focus, &[disabled] {
             padding-top: 10px;
             text-align: left;
         }
