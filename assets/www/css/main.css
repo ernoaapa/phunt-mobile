@@ -135,10 +135,10 @@ body, html {
 }
 #ph-nav .ph-nav-button {
   background-color: #323232;
-  -moz-transition: left 0.5s ease-out;
-  -webkit-transition: left 0.5s ease-out;
-  -o-transition: left 0.5s ease-out;
-  transition: left 0.5s ease-out;
+  -moz-transition: left 0.33s ease-out;
+  -webkit-transition: left 0.33s ease-out;
+  -o-transition: left 0.33s ease-out;
+  transition: left 0.33s ease-out;
 }
 #ph-nav #button-create, #ph-nav #button-refresh, #ph-nav #button-settings {
   left: 0px;
@@ -154,13 +154,13 @@ body, html {
 }
 
 #ph-nav.open #button-create {
-  left: 76px;
+  left: 90px;
 }
 #ph-nav.open #button-refresh {
-  left: 152px;
+  left: 180px;
 }
 #ph-nav.open #button-settings {
-  left: 228px;
+  left: 270px;
 }
 
 #ph-view-welcome {
@@ -197,10 +197,10 @@ body, html {
   position: absolute;
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container.ph-sliding {
-  -moz-transition: left 0.5s ease-out;
-  -webkit-transition: left 0.5s ease-out;
-  -o-transition: left 0.5s ease-out;
-  transition: left 0.5s ease-out;
+  -moz-transition: left 0.33s ease-out;
+  -webkit-transition: left 0.33s ease-out;
+  -o-transition: left 0.33s ease-out;
+  transition: left 0.33s ease-out;
 }
 #ph-view-chains > .ph-container .ph-category > .ph-container .ph-chainHead {
   position: absolute;

@@ -51,7 +51,7 @@ $navButtonEdgeLength: 90px;
 		
 	.ph-nav-button {
 		background-color: $gray;
-  		@include transition(left 0.5s ease-out);
+  		@include transition(left 0.33s ease-out);
 	}
 	
 	#button-create, #button-refresh, #button-settings {
@@ -74,15 +74,15 @@ $navButtonEdgeLength: 90px;
 #ph-nav.open {
   
 	#button-create {
-		left: 76px;
+		left: 90px;
 	}
 		
 	#button-refresh {
-		left: 152px;
+		left: 180px;
 	}
 		
 	#button-settings {
-		left: 228px;
+		left: 270px;
 	}
 }
 
