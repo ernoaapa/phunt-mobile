@@ -73,6 +73,11 @@ body, html {
   padding-bottom: 20px;
 }
 
+.ph-title-gigant {
+  font-size: 120px;
+  padding-bottom: 20px;
+}
+
 .ph-sub-title {
   font-size: 25px;
   padding-bottom: 20px;
@@ -185,6 +190,9 @@ body, html {
   background-repeat: no-repeat;
   height: 457px;
 }
+#ph-view-location .ph-comments {
+  margin: 20px 0px;
+}
 #ph-view-location .ph-comments ul {
   margin: 0;
   padding: 0;
@@ -220,7 +228,6 @@ body, html {
 #ph-view-countdown .ph-remaining {
   background: #323232;
   padding: 40px;
-  font-size: 120px;
   text-align: center;
 }
 
