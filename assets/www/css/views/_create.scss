@@ -7,10 +7,14 @@
     bottom: 0;
     overflow: hidden;
     padding: $padding;
-    padding-top: 40%;
+    padding-top: 10%;
 
     .ph-title {
         text-align: center;
         padding-bottom: 0px;
+    }
+    
+    .ph-select-timelimit {
+    	padding-top: 150px;
     }
 }

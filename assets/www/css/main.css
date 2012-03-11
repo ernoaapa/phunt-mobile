@@ -70,6 +70,7 @@ body, html {
 }
 
 .ph-title-huge {
+  color: green;
   font-size: 80px;
   padding-bottom: 20px;
 }
@@ -187,6 +188,10 @@ body, html {
   padding-left: 8%;
   font-size: 40px;
 }
+#ph-view-welcome .ph-app-title {
+  padding-top: 20%;
+  padding-bottom: 150px;
+}
 
 #ph-view-chains {
   position: fixed;
@@ -300,9 +305,12 @@ body, html {
   bottom: 0;
   overflow: hidden;
   padding: 20px;
-  padding-top: 40%;
+  padding-top: 10%;
 }
 #ph-view-create .ph-title {
   text-align: center;
   padding-bottom: 0px;
+}
+#ph-view-create .ph-select-timelimit {
+  padding-top: 150px;
 }
