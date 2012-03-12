@@ -4,7 +4,8 @@ phunt = window.phunt || {};
 
     "use strict";
 
-    var USE_MOCK_LOCATION = true;
+    var USE_MOCK_LOCATION = false;
+    var LOCATION_TIMEOUT = 60 * 1000;
     var _ = window._;
 
     exports.get = function(success, error) {
@@ -22,7 +23,7 @@ phunt = window.phunt || {};
 
             navigator.geolocation.getCurrentPosition(success, error, {
                 enableHighAccuracy: true,
-                timeout: 30000
+                timeout: LOCATION_TIMEOUT
             });
 
         } else {
