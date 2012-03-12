@@ -4,7 +4,7 @@ phunt = window.phunt || {};
 
     "use strict";
 
-    var USE_MOCK_LOCATION = false;
+    var USE_MOCK_LOCATION = true;
     var LOCATION_TIMEOUT = 60 * 1000;
     var _ = window._;
 

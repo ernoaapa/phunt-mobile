@@ -60,18 +60,14 @@
             }
 
             function locationSuccess(position) {
-
-                var options = {
-                    fileUri: fileToUpload,
-                    uploadUrl: API_POST_ENDPOINT,
+                var params = {
                     uuid: phunt.main.getUUID(),
                     category: categoryName,
                     lat: position.coords.latitude,
-                    lon: position.coords.longitude
+                    lon: position.coords.longitude                	
                 };
-
-                phunt.picUploader.upload(options, uploadSuccess, uploadError);
-
+                
+                window.plugins.fileUploader.uploadByUri(API_POST_ENDPOINT, fileToUpload, params, "image", "location.jpg", "image/jpg", uploadSuccess, uploadError);
             }
 
             function locationError() {
@@ -83,16 +79,24 @@
             }
 
             function uploadSuccess(result) {
+            	
+                if (result.status == "PROGRESS") {
 
-                if (!alreadyCompleting && result.status == "PROGRESS") {
+                	var percent = Math.round(result.progress * 100 / result.total);
+                	
+                	if (alreadyCompleting) {
+                		return;
+                	}
+                	
+                	alreadyCompleting = percent > 93;
 
-                    $button.text('Uploading (' + Math.round(result.progress * 100 / result.total) + '%)...');
-
-                } else if (result.status == "COMPLETING") {
-
-                    alreadyCompleting = true;
-
-                    $button.text('Finishing up...');
+                	if (!alreadyCompleting) {
+                        $button.text('Uploading (' + percent + '%)...');
+                	
+                	} else {
+                		$button.text('Finishing up...');
+                	}
+                	
 
                 } else if (result.status == "COMPLETE") {
 
@@ -123,4 +127,5 @@
 
     phunt.views.register(new CreateView());
 
+    
 })();
