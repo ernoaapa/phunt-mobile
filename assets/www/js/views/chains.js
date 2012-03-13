@@ -317,13 +317,20 @@
             },
             touchstart: function(event) {
                 var e = event.originalEvent.touches[0];
+                console.log("FirstTouchAt: "+e.screenX+", "+e.screenY);
                 this.firstTouchAt = { x: e.screenX, y: e.screenY };
+                event.preventDefault();
             },
             touchmove: function(event) {
                 var e = event.originalEvent.touches[0];
+                console.log("TouchMove: "+e.screenX+", "+e.screenY);
+
                 this.lastTouchAt = { x: e.screenX, y: e.screenY };
+                event.preventDefault();
             },
             touchend: function(event) {
+
+                console.log("TouchEnd.");
 
                 if (!this.lastTouchAt)
                     return;
