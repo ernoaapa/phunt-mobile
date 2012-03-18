@@ -8,6 +8,13 @@ phunt = window.phunt || {};
     var LOCATION_TIMEOUT = 60 * 1000;
     var _ = window._;
 
+    function storeLastLocation(callback) {
+    	return function(params) {
+    		exports.lastLocation = params.coords;
+    		callback(params); 
+    	}
+    }
+    
     exports.get = function(success, error) {
 
 //        alert('Latitude: '          + position.coords.latitude          + '\n' +
@@ -21,14 +28,14 @@ phunt = window.phunt || {};
 
         if (!USE_MOCK_LOCATION) { // the Real Deal (tm)
 
-            navigator.geolocation.getCurrentPosition(success, error, {
+            navigator.geolocation.getCurrentPosition(storeLastLocation(success), error, {
                 enableHighAccuracy: true,
                 timeout: LOCATION_TIMEOUT
             });
 
         } else {
 
-            _.delay(success, 3000, {
+            _.delay(storeLastLocation(success), 3000, {
                 coords: {
                     latitude: '60.18067853',
                     longitude: '24.83274779',

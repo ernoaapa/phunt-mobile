@@ -81,97 +81,45 @@
 
         },
 
-        takePicture: function() { // TODO: Shared functionality with create.js
-
-            if (this.imageBeingSubmitted)
-                return;
-
-            if (this.deadlineExpired)
-                return this.$el.trigger('back');
-
-            var that = this;
-            var fileToUpload;
-            var $button = this.$('.ph-button');
-            var alreadyCompleting;
-
-            this.stopClock();
-
-            navigator.camera.getPicture(cameraSuccess, cameraError, {
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.CAMERA
-            });
-
-            function cameraSuccess(imageFileLocation) {
-
-                that.imageBeingSubmitted = true;
-                fileToUpload = imageFileLocation;
-
-                $button.text('Uploading...');
-
-                phunt.location.get(locationSuccess, locationError);
-
-            }
-
-            function cameraError() {
-
-                that.startClock(); // This can also just mean the user just pressed the Cancel-button
-
-            }
-
-            function locationSuccess(position) {
-
-                var options = {
-                    fileUri: fileToUpload,
-                    uploadUrl: API_POST_ENDPOINT,
-                    uuid: phunt.main.getUUID(),
-                    chainId: that.previousChainHead.get('chainId'),
-                    lat: position.coords.latitude,
-                    lon: position.coords.longitude
-                };
-
-                phunt.picUploader.upload(options, uploadSuccess, uploadError);
-
-            }
-
-            function locationError() {
-
-                alert('Could not locate you :(((');
-
-                that.imageBeingSubmitted = false;
-                that.startClock();
-
-            }
-
-            function uploadSuccess(result) {
-
-                if (!alreadyCompleting && result.status == "PROGRESS") {
-
-                    $button.text('Uploading (' + Math.round(result.progress * 100 / result.total) + '%)...');
-
-                } else if (result.status == "COMPLETING") {
-
-                    alreadyCompleting = true;
-
-                    $button.text('Finishing up...');
-
-                } else if (result.status == "COMPLETE") {
-
-                    $button.text('Done!');
-
-                    _.delay(phunt.navigation.go, 1500, 'location', result.result);
-
-                }
-
-            }
-
-            function uploadError(error) {
-
-                alert("Upload failed: " + error)
-                that.imageBeingSubmitted = false;
-                $button.text('Try again');
-                that.startClock();
-
-            }
+        takePicture: function() { 
+        	var that = this;
+        	
+        	that.stopClock();
+        	var $button = this.$('.ph-button');
+            
+        	phunt.camupload.takePicture({
+        			chainId: that.previousChainHead.get('chainId')
+        		}, 
+        		{
+	        		cameraSuccess: function() {
+	        			that.imageBeingSubmitted = true;
+	        			$button.text('Uploading...');
+	        		},
+	        		cameraError: function() {
+	        			that.startClock();
+	        		},
+	        		locationError: function() {
+	        			that.startClock();
+	        		},
+	        		uploadProgress: function(perc) {
+	                    $button.text('Uploading (' + perc + '%)...');
+	        		},
+	        		uploadCompleting: function() {
+	                    $button.text('Finishing up...');
+	        		},
+	        		uploadComplete: function(locationUri) {
+	        		    $button.text('Done!');
+	                    _.delay(phunt.navigation.go, 1500, 'location', locationUri);
+	        		},
+	        		uploadError: function(error) {
+	        			alert("Upload failed: " + error)
+	                    that.imageBeingSubmitted = false;
+	                    $button.text('Try again');
+	                    that.startClock()
+	        		}
+        		}
+        	);
+        	
 
         }
 
