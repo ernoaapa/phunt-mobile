@@ -1,12 +1,12 @@
-phunt = window.phunt || {};
-
-(function(exports) {
+define(function() {
 
     "use strict";
 
     var USE_MOCK_LOCATION = true;
     var LOCATION_TIMEOUT = 60 * 1000;
     var _ = window._;
+
+    var exports = {};
 
     function storeLastLocation(callback) {
     	return function(params) {
@@ -49,4 +49,5 @@ phunt = window.phunt || {};
 
     };
 
-})(phunt.location = {});
+    return exports;
+});

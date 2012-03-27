@@ -1,6 +1,8 @@
-(function() {
+define(["modules/views", "modules/location", "modules/navigation"], function(views, location, navigation) {
 
-    var WelcomeView = phunt.views.base.extend({
+    var navigator = window.navigator;
+
+    var WelcomeView = views.base.extend({
 
         el: $('#ph-view-welcome')[0],
 
@@ -8,20 +10,20 @@
 
         events: {
             back: function() {
-                window.navigator.app.exitApp();
+                navigator.app.exitApp();
             },
             enter: function() {
-                phunt.location.get(function(location) {
-                    phunt.navigation.go('chains', location);
+                location.get(function(location) {
+                    navigation.go('chains', location);
                 }, function() {
-                    alert("Couldn't locate you!  Try again later, plz.");
-                    window.navigator.app.exitApp();
+                    alert("Couldn't locate you! Try again later, please.");
+                    navigator.app.exitApp();
                 });
             }
         }
 
     });
 
-    phunt.views.register(new WelcomeView());
+    return WelcomeView;
+});
 
-})();

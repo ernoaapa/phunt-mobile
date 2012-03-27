@@ -216,7 +216,7 @@ MIT-style license
 license available from:
 
    https://github.com/pivotal/jasmine/blob/master/MIT.LICENSE
-   
+
 -----------------------------
 
 Copyright (c) 2008-2011 Pivotal Labs
@@ -296,6 +296,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
+var oldRequire = require;
+var oldDefine = define;
+
 var require,
     define;
 
@@ -394,7 +397,7 @@ var Channel = function(type, opts) {
     utils = require('cordova/utils');
 
 /**
- * Subscribes the given function to the channel. Any time that 
+ * Subscribes the given function to the channel. Any time that
  * Channel.fire is called so too will the function.
  * Optionally specify an execution context for the function
  * and a guid that can be used to stop subscribing to the channel.
@@ -439,7 +442,7 @@ Channel.prototype.subscribeOnce = function(f, c) {
     return g;
 };
 
-/** 
+/**
  * Unsubscribes the function with the given guid from the channel.
  */
 Channel.prototype.unsubscribe = function(g) {
@@ -453,7 +456,7 @@ Channel.prototype.unsubscribe = function(g) {
     if (this.events.onUnsubscribe) this.events.onUnsubscribe.call(this);
 };
 
-/** 
+/**
  * Calls all functions subscribed to this channel.
  */
 Channel.prototype.fire = function(e) {
@@ -682,7 +685,7 @@ var cordova = {
             }
         }
     },
-    
+
     addPlugin: function(name, obj) {
         if (!window.plugins[name]) {
             window.plugins[name] = obj;
@@ -691,7 +694,7 @@ var cordova = {
             console.log("Error: Plugin "+name+" already exists.");
         }
     },
-    
+
     addConstructor: function(func) {
         channel.onCordovaReady.subscribeOnce(function() {
             try {
@@ -703,7 +706,7 @@ var cordova = {
     }
 };
 
-/** 
+/**
  * Legacy variable for plugin support
  */
 if (!window.PhoneGap) {
@@ -1065,7 +1068,7 @@ module.exports = {
           var db = null;
           try {
               db = originalOpenDatabase(name, version, desc, size);
-          } 
+          }
           catch (ex) {
               db = null;
           }
@@ -1076,7 +1079,7 @@ module.exports = {
           else {
               return db;
           }
-        
+
       };
     }
 
@@ -1137,12 +1140,12 @@ var _self = {
      * Does a deep clone of the object.
      */
     clone: function(obj) {
-        if(!obj) { 
+        if(!obj) {
             return obj;
         }
-        
+
         var retVal, i;
-        
+
         if(obj instanceof Array){
             retVal = [];
             for(i = 0; i < obj.length; ++i){
@@ -1150,15 +1153,15 @@ var _self = {
             }
             return retVal;
         }
-        
+
         if (obj instanceof Function) {
             return obj;
         }
-        
+
         if(!(obj instanceof Object)){
             return obj;
         }
-        
+
         if(obj instanceof Date){
             return obj;
         }
@@ -1201,7 +1204,7 @@ var _self = {
      */
     extend: (function() {
         // proxy used to establish prototype chain
-        var F = function() {}; 
+        var F = function() {};
         // extend Child from Parent
         return function(Child, Parent) {
             F.prototype = Parent.prototype;
@@ -1392,7 +1395,7 @@ var cordova = require('cordova'),
     exec = require('cordova/exec');
 
 function handlers() {
-  return battery.channels.batterystatus.numHandlers + 
+  return battery.channels.batterystatus.numHandlers +
          battery.channels.batterylow.numHandlers +
          battery.channels.batterycritical.numHandlers;
 }
@@ -1435,7 +1438,7 @@ Battery.prototype.onUnsubscribe = function() {
 
 /**
  * Callback for battery status
- * 
+ *
  * @param {Object} info			keys: level, isPlugged
  */
 Battery.prototype._status = function(info) {
@@ -1457,7 +1460,7 @@ Battery.prototype._status = function(info) {
 			}
 		}
 		me._level = level;
-		me._isPlugged = info.isPlugged;	
+		me._isPlugged = info.isPlugged;
 	}
 };
 
@@ -1594,7 +1597,7 @@ var exec = require('cordova/exec'),
 /**
  * Launches a capture of different types.
  *
- * @param (DOMString} type 
+ * @param (DOMString} type
  * @param {Function} successCB
  * @param {Function} errorCB
  * @param {CaptureVideoOptions} options
@@ -1688,7 +1691,7 @@ var CaptureError = function(c) {
    this.code = c || null;
 };
 
-// Camera or microphone failed to capture image or sound. 
+// Camera or microphone failed to capture image or sound.
 CaptureError.CAPTURE_INTERNAL_ERR = 0;
 // Camera application or audio capture application is currently serving other capture request.
 CaptureError.CAPTURE_APPLICATION_BUSY = 1;
@@ -1746,7 +1749,7 @@ var exec = require('cordova/exec'),
          * Asynchronously acquires the current heading.
          * @param {Function} successCallback The function to call when the heading
          * data is available
-         * @param {Function} errorCallback The function to call when there is an error 
+         * @param {Function} errorCallback The function to call when there is an error
          * getting the heading data.
          * @param {CompassOptions} options The options for getting the heading data (not used).
          */
@@ -1771,7 +1774,7 @@ var exec = require('cordova/exec'),
                 var ce = new CompassError(code);
                 errorCallback(ce);
             }
-            
+
             // Get heading
             exec(win, fail, "Compass", "getHeading", []);
         },
@@ -1780,7 +1783,7 @@ var exec = require('cordova/exec'),
          * Asynchronously acquires the heading repeatedly at a given interval.
          * @param {Function} successCallback The function to call each time the heading
          * data is available
-         * @param {Function} errorCallback The function to call when there is an error 
+         * @param {Function} errorCallback The function to call when there is an error
          * getting the heading data.
          * @param {HeadingOptions} options The options for getting the heading data
          * such as timeout and the frequency of the watch.
@@ -1875,12 +1878,12 @@ define('cordova/plugin/ConfigurationData', function(require, exports, module) {
  * Encapsulates a set of parameters that the capture device supports.
  */
 function ConfigurationData() {
-    // The ASCII-encoded string in lower case representing the media type. 
-    this.type = null; 
-    // The height attribute represents height of the image or video in pixels. 
-    // In the case of a sound clip this attribute has value 0. 
+    // The ASCII-encoded string in lower case representing the media type.
+    this.type = null;
+    // The height attribute represents height of the image or video in pixels.
+    // In the case of a sound clip this attribute has value 0.
     this.height = 0;
-    // The width attribute represents width of the image or video in pixels. 
+    // The width attribute represents width of the image or video in pixels.
     // In the case of a sound clip this attribute has value 0
     this.width = 0;
 }
@@ -3065,7 +3068,7 @@ FileTransfer.prototype.download = function(source, target, successCallback, erro
         entry.isFile = result.isFile;
         entry.name = result.name;
         entry.fullPath = result.fullPath;
-        successCallback(entry);   
+        successCallback(entry);
     };
     exec(win, errorCallback, 'FileTransfer', 'download', [source, target]);
 };
@@ -3386,7 +3389,7 @@ module.exports = FileWriter;
 define('cordova/plugin/Flags', function(require, exports, module) {
 /**
  * Supplies arguments to methods that lookup or create files and directories.
- * 
+ *
  * @param create
  *            {boolean} file or directory if it doesn't exist
  * @param exclusive
@@ -3442,7 +3445,7 @@ var geolocation = {
    */
     getCurrentPosition:function(successCallback, errorCallback, options) {
         options = parseParameters(options);
-        exec(successCallback, errorCallback, "Geolocation", "getLocation", [options.enableHighAccuracy, options.timeout, options.maximumAge]); 
+        exec(successCallback, errorCallback, "Geolocation", "getLocation", [options.enableHighAccuracy, options.timeout, options.maximumAge]);
     },
     /**
      * Asynchronously watches the geolocation for changes to geolocation.  When a change occurs,
@@ -3729,7 +3732,7 @@ utils.extend(MediaFile, File);
 
 /**
  * Request capture format data for a specific file and type
- * 
+ *
  * @param {Function} successCB
  * @param {Function} errorCB
  */
@@ -3738,7 +3741,7 @@ MediaFile.prototype.getFormatData = function(successCallback, errorCallback) {
 		errorCallback(new CaptureError(CaptureError.CAPTURE_INVALID_ARGUMENT));
 	} else {
     exec(successCallback, errorCallback, "Capture", "getFormatData", [this.fullPath, this.type]);
-	}	
+	}
 };
 
 /**
@@ -3792,7 +3795,7 @@ module.exports = MediaFileData;
 define('cordova/plugin/Metadata', function(require, exports, module) {
 /**
  * Information about the state of the file or directory
- * 
+ *
  * {Date} modificationTime (readonly)
  */
 var Metadata = function(time) {
@@ -4168,7 +4171,7 @@ module.exports = {
    */
   exitApp:function() {
     return exec(null, null, "App", "exitApp", []);
-  } 
+  }
 };
 
 });
@@ -4776,7 +4779,7 @@ window.cordova = require('cordova');
     var channel = require("cordova/channel"),
         /**
          * cordova Channels that must fire before "deviceready" is fired.
-         */ 
+         */
         deviceReadyChannelsArray = [channel.onCordovaReady, channel.onCordovaInfoReady, channel.onCordovaConnectionReady],
         deviceReadyChannelsMap = {},
         _self = {
@@ -4787,7 +4790,7 @@ window.cordova = require('cordova');
 
                 /**
                  * Listen for DOMContentLoaded and notify our channel subscribers.
-                 */ 
+                 */
                 document.addEventListener('DOMContentLoaded', function() {
                     channel.onDOMContentLoaded.fire();
                 }, false);
@@ -4839,3 +4842,5 @@ window.cordova = require('cordova');
 
 }(window));
 
+define = oldDefine;
+require = oldRequire;

@@ -1,13 +1,12 @@
-phunt = window.phunt || {};
-
-(function(exports) {
+define(function() {
 
     "use strict";
 
-    var _ = window._;
-    var Backbone = window.Backbone;
-    var MBP = window.MBP;
-    var registry = {};
+    var _ = window._,
+        Backbone = window.Backbone,
+        MBP = window.MBP,
+        registry = {},
+        exports = {};
 
     exports.register = function(viewInstance) {
 
@@ -56,4 +55,5 @@ phunt = window.phunt || {};
 
     });
 
-})(phunt.views = {});
+    return exports;
+});

@@ -1,6 +1,5 @@
-phunt.views = phunt.views || {};
 
-(function(views, config) {
+define(["modules/views", "modules/config"], function(views, config) {
 
     var WIN_WIDTH = config.win.width;
     var HOR_DOMINANCE = config.win.horDominance;
@@ -99,6 +98,6 @@ phunt.views = phunt.views || {};
 
     });
 
-    views.ChainHeadView = ChainHeadView;
+    return ChainHeadView;
 
-})(phunt.views, phunt.config);
+});

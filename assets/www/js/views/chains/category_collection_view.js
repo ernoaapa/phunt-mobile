@@ -1,8 +1,8 @@
-(function(views, config) {
+define(["modules/views", "modules/config", "modules/util", "./category_view"], function(views, config, util, CategoryView) {
 
-    var WIN_HEIGHT = config.win.height;
-    var VER_DOMINANCE = config.win.verDominance;
-    var API_ENDPOINT = config.api.CHAINHEADS_ENDPOINT;
+    var WIN_HEIGHT = config.win.height,
+        VER_DOMINANCE = config.win.verDominance,
+        API_ENDPOINT = config.api.CHAINHEADS_ENDPOINT;
 
     var CategoryCollectionView = views.base.extend({
 
@@ -108,7 +108,7 @@
             if (!this.location || !this.location.coords)
                 return alert('Error: No location given to Chains view!');
 
-            this.collection.url = API_ENDPOINT + '?uuid=' + phunt.main.getUUID() + '&lat=' + this.location.coords.latitude + '&lon=' + this.location.coords.longitude;
+            this.collection.url = API_ENDPOINT + '?uuid=' + util.getUUID() + '&lat=' + this.location.coords.latitude + '&lon=' + this.location.coords.longitude;
             this.collection.fetch();
 
             this.$el.html('<div class="ph-loading ph-title">Loading<span>...</span></div>');
@@ -126,7 +126,7 @@
             this.trigger('showNav');
 
             collection.each(function(model, index) {
-                var view = new views.CategoryView({
+                var view = new CategoryView({
                     model: model,
                     index: index,
                     parentCategoryCollectionView: that
@@ -168,6 +168,6 @@
 
     });
 
-    views.CategoryCollectionView = CategoryCollectionView;
+    return CategoryCollectionView;
 
-})(phunt.views, phunt.config);
+});

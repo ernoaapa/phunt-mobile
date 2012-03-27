@@ -1,6 +1,5 @@
 
-
-(function(views, models, camupload, navigation) {
+define(["modules/util", "modules/views", "modules/camupload", "modules/navigation", "./models"], function(util, views, camupload, navigation, models) {
 
     var NavView = views.base.extend({
 
@@ -68,7 +67,7 @@
              	uploadComplete : function(locationUri) {
                     loadingHeadModel.set("roughDistance", "Fetching data..");
 
-             		var queryParams = '?uuid=' + phunt.main.getUUID() + '&lat=' + that.categoryCollectionView.location.coords.latitude + '&lon=' + that.categoryCollectionView.location.coords.longitude;
+             		var queryParams = '?uuid=' + util.getUUID() + '&lat=' + that.categoryCollectionView.location.coords.latitude + '&lon=' + that.categoryCollectionView.location.coords.longitude;
 
              		$.getJSON(locationUri+queryParams, function(data) {
                         data.roughDistance = "Your location";
@@ -92,6 +91,6 @@
  		}
      });
 
-    views.NavView = NavView;
 
-})(phunt.views, phunt.models, phunt.camupload, phunt.navigation);
+    return NavView;
+});

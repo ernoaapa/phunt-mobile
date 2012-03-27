@@ -1,12 +1,11 @@
-(function() {
+define(["modules/navigation", "modules/config", "modules/views", "modules/camupload"], function(navigation, config, views, camupload) {
 
-    var MINUTES_FAST = 5;
-    var MINUTES_MEDIUM = 30;
-    var MINUTES_SLOW = 99;
-    
-    var API_POST_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/chains/update';
+    var MINUTES_FAST = 5,
+        MINUTES_MEDIUM = 30,
+        MINUTES_SLOW = 99,
+        API_POST_ENDPOINT = config.api.POST_CHAINUPDATE_ENDPOINT;
 
-    var CountdownView = phunt.views.base.extend({
+    var CountdownView = views.base.extend({
 
         el: $('#ph-view-countdown')[0],
 
@@ -15,7 +14,7 @@
         events: {
             back: function() {
                 if (!this.imageBeingSubmitted)
-                    phunt.navigation.go('location', this.previousChainHead.url);
+                    navigation.go('location', this.previousChainHead.url);
             },
             enter: function(event, previousChainHead) {
 
@@ -87,7 +86,7 @@
         	that.stopClock();
         	var $button = this.$('.ph-button');
             
-        	phunt.camupload.takePicture({
+        	camupload.takePicture({
         			chainId: that.previousChainHead.get('chainId')
         		}, 
         		{
@@ -109,7 +108,7 @@
 	        		},
 	        		uploadComplete: function(locationUri) {
 	        		    $button.text('Done!');
-	                    _.delay(phunt.navigation.go, 1500, 'location', locationUri);
+	                    _.delay(navigation.go, 1500, 'location', locationUri);
 	        		},
 	        		uploadError: function(error) {
 	        			alert("Upload failed: " + error)
@@ -124,7 +123,6 @@
         }
 
     });
-
-    phunt.views.register(new CountdownView());
-
-})();
+    
+    return CountdownView;
+});

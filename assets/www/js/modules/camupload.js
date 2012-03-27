@@ -1,15 +1,14 @@
-phunt = window.phunt || {};
 
-(function(exports, api, location, navigator) {
-
+define(["./config", "./location", "./util"], function(config, location, util) {
     "use strict";
 
-    var _ = window._;
+    var _ = window._,
+        plugins = window.plugins,
+        navigator = window.navigator,
+        Camera = window.Camera,
+        api = config.api,
+        that = this;
 
-    var that = this;
-    
-    exports.takePicture = takePicture;
-    
     function takePicture(uploadParams, callbacks) {
     	
         if (this.imageBeingSubmitted)
@@ -35,6 +34,7 @@ phunt = window.phunt || {};
         var alreadyCompleting;	
 
         if (typeof(Camera) === 'undefined') {
+            console.log("Camera was undefined. Doing mock upload.");
             doMockCameraUpload(callbacks);
             return;
         }
@@ -58,14 +58,14 @@ phunt = window.phunt || {};
 
         function locationSuccess(position) {
             var params = {
-                uuid: phunt.main.getUUID(),
+                uuid: util.getUUID(),
                 category: uploadParams.category,
                 chainId: uploadParams.chainId,
                 lat: position.coords.latitude,
                 lon: position.coords.longitude                	
             };
             
-            window.plugins.fileUploader.uploadByUri(api.POST_CHAINCREATE_ENDPOINT, fileToUpload, params, "image", "location.jpg", "image/jpg", uploadSuccess, uploadError);
+            plugins.fileUploader.uploadByUri(api.POST_CHAINCREATE_ENDPOINT, fileToUpload, params, "image", "location.jpg", "image/jpg", uploadSuccess, uploadError);
         }
 
         function locationError() {
@@ -131,5 +131,7 @@ phunt = window.phunt || {};
         }
     }
 
-    
-})(phunt.camupload = {}, phunt.config.api, phunt.location, navigator);
+    return {
+        "takePicture" : takePicture
+    }
+});

@@ -1,10 +1,9 @@
-phunt = window.phunt || {};
-
-(function(exports) {
+define(["modules/views"], function(views) {
 
     "use strict";
 
-    var currentView;
+    var currentView,
+        exports = {};
 
     exports.back = function() {
 
@@ -30,7 +29,7 @@ phunt = window.phunt || {};
 
         }
 
-        currentView = phunt.views.get(viewID);
+        currentView = views.get(viewID);
 
         if (!currentView.hasBeenPrepared) {
 
@@ -46,4 +45,5 @@ phunt = window.phunt || {};
 
     };
 
-})(phunt.navigation = {});
+    return exports;
+});

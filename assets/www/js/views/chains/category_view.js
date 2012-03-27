@@ -1,18 +1,17 @@
-phunt.views = phunt.views || {};
+define(["modules/views", "modules/config", "./chain_head_view"], function(views, config, ChainHeadView) {
 
-(function(views, config) {
+    var _ = window._,
+        Backbone = window.Backbone,
+        WIN_WIDTH = config.win.width,
+        WIN_HEIGHT =  config.win.height,
+        HOR_DOMINANCE = config.win.horDominance,
+        VER_DOMINANCE = config.win.verDominance,
+        PADDING_PX = config.win.paddingPx,
 
-    var Backbone = window.Backbone;
-    var WIN_WIDTH = config.win.width;
-    var WIN_HEIGHT =  config.win.height;
-    var HOR_DOMINANCE = config.win.horDominance;
-    var VER_DOMINANCE = config.win.verDominance;
-    var PADDING_PX = config.win.paddingPx;
-
-    var CHAIN_HEAD_PLACEHOLDERS = 5;
-    var CHAIN_HEAD_MIDDLE = 2;
-    var FIRST = 0;
-    var LAST = CHAIN_HEAD_PLACEHOLDERS - 1;
+        CHAIN_HEAD_PLACEHOLDERS = 5,
+        CHAIN_HEAD_MIDDLE = 2,
+        FIRST = 0,
+        LAST = CHAIN_HEAD_PLACEHOLDERS - 1;
 
    
     var CategoryView = Backbone.View.extend({
@@ -54,8 +53,6 @@ phunt.views = phunt.views || {};
                 return;
             }
 
-            console.log("loopy");
-
             _.each(this.chainHeadViews, function(view) {
                if (view.index == LAST-1) {
                    view.attachToModel(chainHead);
@@ -80,7 +77,7 @@ phunt.views = phunt.views || {};
             _.each(_.range(CHAIN_HEAD_PLACEHOLDERS), function(index) {
 
                 var correspondingModel = that.chainHeads.at(index - CHAIN_HEAD_MIDDLE);
-                var chainHeadView = new views.ChainHeadView({
+                var chainHeadView = new ChainHeadView({
                     index: index,
                     parentCategoryView: that
                 });
@@ -220,6 +217,6 @@ phunt.views = phunt.views || {};
 
     });
 
-    views.CategoryView = CategoryView;
+    return CategoryView;
 
-})(phunt.views, phunt.config);
+});

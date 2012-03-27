@@ -1,7 +1,7 @@
-(function() {
+define(["modules/config", "modules/navigation", "modules/views"], function(config, navigation, views) {
 
-    var API_VERIFY_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/locations/verify';
-    var API_COMMENT_ENDPOINT = 'http://phuntter.herokuapp.com/api/v1/comments/create';
+    var API_VERIFY_ENDPOINT = config.api.VERIFY_LOCATION_ENDPOINT,
+        API_COMMENT_ENDPOINT = config.api.COMMENT_LOCATION_ENDPOINT;
 
     var Location = Backbone.Model.extend({
 
@@ -9,7 +9,7 @@
 
     });
 
-    var LocationView = phunt.views.base.extend({
+    var LocationView = views.base.extend({
 
         el: $('#ph-view-location')[0],
 
@@ -18,7 +18,7 @@
         events: {
             back: function() {
                 if (!this.waitingForLocation)
-                    phunt.navigation.go('chains');
+                    navigation.go('chains');
             },
             enter: function(event, locationURL) {
                 var location = new Location();
@@ -225,6 +225,5 @@
 
     });
 
-    phunt.views.register(new LocationView());
-
-})();
+    return LocationView;
+});
