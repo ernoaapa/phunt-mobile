@@ -1,5 +1,5 @@
 
-define(["modules/views", "modules/config"], function(views, config) {
+define(["modules/views", "modules/config", "modules/navigation"], function(views, config, navigation) {
 
     var WIN_WIDTH = config.win.width;
     var HOR_DOMINANCE = config.win.horDominance;
@@ -12,7 +12,7 @@ define(["modules/views", "modules/config"], function(views, config) {
             'fastclick': function() {
 
                 if (this.parentCategoryView.isCurrentlyFocused && this.isCurrentlyFocused)
-                    phunt.navigation.go('location', this.model.get('resourceUrl'));
+                    navigation.go('location', this.model.get('resourceUrl'));
                 else if (this.parentCategoryView.isCurrentlyFocused)
                     this.parentCategoryView.focusChainHeadAnimated(this.model);
                 else
@@ -38,8 +38,6 @@ define(["modules/views", "modules/config"], function(views, config) {
 
         prepareForModel: function(chainHead) {
 
-            console.log('ChainHeadView#' + this.index + ' preparing for ' + (chainHead ? 'ChainHead#' + chainHead.id : 'NULL'));
-
             if (chainHead) {
 
                 this.$el.addClass('ph-populated');
@@ -61,8 +59,6 @@ define(["modules/views", "modules/config"], function(views, config) {
 
             var that = this;
 
-            console.log('ChainHeadView#' + this.index + ' attaching to ChainHead#' + chainHead.id);
-
             this.model = chainHead;
 
             this.$el.addClass('ph-populated');
@@ -73,7 +69,6 @@ define(["modules/views", "modules/config"], function(views, config) {
             this.model.off('change');
 
             this.model.on('change', function() {
-                console.log("ChainHeadModel changed: " + that.model.get('roughDistance'));
                 that.$el.css({ backgroundImage: 'url("' + that.model.get('gridPictureUrl') + '")' });
                 that.$el.find('.ph-roughDistance').text(that.model.get('roughDistance'));
             });
@@ -84,8 +79,6 @@ define(["modules/views", "modules/config"], function(views, config) {
 
             if (!this.model)
                 return; // already detached or never attached
-
-            console.log('ChainHeadView#' + this.index + ' detaching from ChainHead#' + this.model.id);
 
             this.model.off('change');
             this.model = null;

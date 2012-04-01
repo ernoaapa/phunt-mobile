@@ -1,4 +1,4 @@
-define(["modules/config", "modules/navigation", "modules/views"], function(config, navigation, views) {
+define(["modules/config", "modules/navigation", "modules/views", "modules/util", "modules/location"], function(config, navigation, views, util, location) {
 
     var API_VERIFY_ENDPOINT = config.api.VERIFY_LOCATION_ENDPOINT,
         API_COMMENT_ENDPOINT = config.api.COMMENT_LOCATION_ENDPOINT;
@@ -22,7 +22,7 @@ define(["modules/config", "modules/navigation", "modules/views"], function(confi
             },
             enter: function(event, locationURL) {
                 var location = new Location();
-                location.url = locationURL + '?uuid=' + phunt.main.getUUID();
+                location.url = locationURL + '?uuid=' + util.getUUID();
                 this.bindWithLocation(location);
             },
             leave: function() {
@@ -85,7 +85,7 @@ define(["modules/config", "modules/navigation", "modules/views"], function(confi
         },
         
         hideFoundItButtonForOwners: function() {
-        	if (this.model.get('ownerPhoneId') == phunt.main.getUUID()) {
+        	if (this.model.get('ownerPhoneId') == util.getUUID()) {
         		this.$('.ph-foundItButton').addClass('ph-disabled');
         		this.$('.ph-foundItButton').text('You know where');
         	}  else {
@@ -118,7 +118,7 @@ define(["modules/config", "modules/navigation", "modules/views"], function(confi
             $button.text('Locating...');
             $button.addClass('ph-working');
 
-            phunt.location.get(locationSuccess, locationError);
+            location.get(locationSuccess, locationError);
 
             function locationSuccess(position) {
 
@@ -129,7 +129,7 @@ define(["modules/config", "modules/navigation", "modules/views"], function(confi
                     type: 'GET',
                     dataType: 'text',
                     data: {
-                        uuid: phunt.main.getUUID(),
+                        uuid: util.getUUID(),
                         lat: position.coords.latitude,
                         lon: position.coords.longitude,
                         locationId: that.model.id
@@ -156,7 +156,7 @@ define(["modules/config", "modules/navigation", "modules/views"], function(confi
                 $button.text('Correct!');
                 $button.removeClass('ph-working');
 
-                _.delay(phunt.navigation.go, 1500, 'countdown', that.model);
+                _.delay(navigation.go, 1500, 'countdown', that.model);
 
             }
 
@@ -195,7 +195,7 @@ define(["modules/config", "modules/navigation", "modules/views"], function(confi
                 type: 'POST',
                 url: API_COMMENT_ENDPOINT,
                 data: {
-                    uuid: phunt.main.getUUID(),
+                    uuid: util.getUUID(),
                     locationId: that.model.id,
                     comment: $textarea.val()
                 },

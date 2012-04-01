@@ -296,8 +296,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
-var oldRequire = require;
-var oldDefine = define;
+
 
 var require,
     define;
@@ -1231,6 +1230,7 @@ function each(objects, func, context) {
 
 function include(parent, objects, clobber) {
     each(objects, function (obj, key) {
+
         try {
           var result = obj.path ? require(obj.path) : {};
 
@@ -1238,9 +1238,12 @@ function include(parent, objects, clobber) {
               // Clobber if it doesn't exist or if an override is specified.
               if (typeof parent[key] === 'undefined' || typeof obj.path !== 'undefined') {
                   parent[key] = result;
+
+
               }
               result = parent[key];
           } else {
+
             // Don't clobber if something already exists there
             if (typeof parent[key] == 'undefined') {
               parent[key] = result;
@@ -1248,6 +1251,7 @@ function include(parent, objects, clobber) {
               // Set result to what already exists, so we can build children into it if they exist.
               result = parent[key];
             }
+
           }
 
           if (obj.children) {
@@ -4787,6 +4791,7 @@ window.cordova = require('cordova');
                 //---------------
                 // Event handling
                 //---------------
+                console.log("Cordova booting");
 
                 /**
                  * Listen for DOMContentLoaded and notify our channel subscribers.
@@ -4841,6 +4846,3 @@ window.cordova = require('cordova');
     }
 
 }(window));
-
-define = oldDefine;
-require = oldRequire;

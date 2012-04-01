@@ -87,7 +87,39 @@
     <script src="js/lib/cordova-1.5.0.js"></script>
     <script src="js/plugins/fileuploader.js"></script>
 
-    <script data-main="js/main" src="js/lib/require-1.0.7.js"></script>
+    <script>
+        var cordovaRequire = require;
+        var cordovaDefine = define;
 
+        // This will be called once from cordova's native side.
+        // After that one call we'll undefine it and load up requireJs
+        require = function() {
+            console.log("require called with "+arguments[0]);
+            require = undefined;
+            loadRequireJs();
+            return cordovaRequire(arguments[0]);
+        };
+
+        define = undefined;
+
+        function loadRequireJs() {
+            var head = document.getElementsByTagName('head').item(0);
+            var script = document.createElement('script');
+            script.setAttribute('data-main', 'js/main');
+            script.setAttribute('src', 'js/lib/require-1.0.7.js');
+            script.onload = function() {
+                console.log('requirejs loaded');
+            }
+
+            _.defer(function() {
+               head.appendChild(script);
+            });
+        }
+
+
+    </script>
+    <!--
+    <script data-main="js/main" src="js/lib/require-1.0.7.js"></script>
+    -->
 </body>
 </html>

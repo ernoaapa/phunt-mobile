@@ -20,6 +20,7 @@ define(["modules/views", "modules/config", "modules/util", "./category_view"], f
 
         events: {
             back: function() {
+                alert('Back button pressed');
                 window.navigator.app.exitApp();
             },
             enter: function(event, location) {
@@ -77,8 +78,6 @@ define(["modules/views", "modules/config", "modules/util", "./category_view"], f
         },
 
         navigateBySwipe: function(direction) {
-
-        	console.log('navigateBySwipe: ' + direction);
 
             function byBeingFocused(view) {
                 return view.isCurrentlyFocused;

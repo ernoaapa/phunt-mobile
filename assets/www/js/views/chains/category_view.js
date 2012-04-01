@@ -129,11 +129,9 @@ define(["modules/views", "modules/config", "./chain_head_view"], function(views,
             this.on("focusComplete", function() {
             	if (nextIndex != destinationIndex) {
                     nextIndex += increment;
-                    console.log("Traveling to "+ nextIndex);
 
                     that.focusChainHeadAnimated(this.chainHeads.at(nextIndex));
                 } else {
-                    console.log("Traveling complete.");
                     that.off("focusComplete");
                     _.defer(function() {
                        that.trigger("travelComplete");
@@ -141,7 +139,6 @@ define(["modules/views", "modules/config", "./chain_head_view"], function(views,
                 }
             });
 
-            console.log("Traveling to " + nextIndex);
             this.focusChainHeadAnimated(this.chainHeads.at(nextIndex));
         },
 
@@ -149,8 +146,6 @@ define(["modules/views", "modules/config", "./chain_head_view"], function(views,
 
             var that = this;
             var indexOfModel = this.chainHeads.indexOf(chainHead);
-
-            console.log("focusChainHeadAnimated("+indexOfModel+")");
 
             if (indexOfModel === -1)
                 return; // can't focus nonexistant chainHead instance
@@ -169,15 +164,11 @@ define(["modules/views", "modules/config", "./chain_head_view"], function(views,
             var slideLeft = viewIndex > CHAIN_HEAD_MIDDLE;
             var $container = this.$('.ph-container');
 
-
-            console.log("Starting slide animation");
-
             $container
                 .addClass('ph-sliding')
                 .css({ left: ((WIN_WIDTH * HOR_DOMINANCE + PADDING_PX) * (slideLeft ? -1 : 1)) + 'px' })
                 .on('webkitTransitionEnd', function() {
 
-                console.log("Sliding done");
                 $container.removeClass('ph-sliding').css({ left: '0px' });
 
                 _.each(that.chainHeadViews, function(view) {

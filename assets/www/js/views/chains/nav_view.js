@@ -23,7 +23,6 @@ define(["modules/util", "modules/views", "modules/camupload", "modules/navigatio
  		},
 
         show: function() {
-            console.log(this.el);
             this.$el.show();
         },
 
@@ -80,6 +79,7 @@ define(["modules/util", "modules/views", "modules/camupload", "modules/navigatio
  		},
 
  		refreshChains: function() {
+ 			var nav = window.navigator;
  			this.categoryCollectionView.refreshData();
              _.defer(this.toggleNav);
  		},

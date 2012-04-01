@@ -3,14 +3,14 @@ define(["./config", "./location", "./util"], function(config, location, util) {
     "use strict";
 
     var _ = window._,
-        plugins = window.plugins,
-        navigator = window.navigator,
-        Camera = window.Camera,
         api = config.api,
         that = this;
 
     function takePicture(uploadParams, callbacks) {
-    	
+    	var plugins = window.plugins,
+            navigator = window.navigator,
+            Camera = window.Camera;
+    	   
         if (this.imageBeingSubmitted)
             return;
         
@@ -33,8 +33,8 @@ define(["./config", "./location", "./util"], function(config, location, util) {
         var fileToUpload;
         var alreadyCompleting;	
 
-        if (typeof(Camera) === 'undefined') {
-            console.log("Camera was undefined. Doing mock upload.");
+        if (typeof navigator.camera === 'undefined') {
+            alert("No cam support. Imagine you just took a picture.");
             doMockCameraUpload(callbacks);
             return;
         }
